@@ -1,0 +1,63 @@
+DevNote - MVP
+Główny problem
+
+Developerzy rozmawiający z biznesem często zbierają wymagania w sposób nieustrukturyzowany: w notatkach, mailach, komunikatorach albo „z głowy”. Powoduje to, że trudno jednoznacznie ustalić problem biznesowy, stratę czasu, zakres MVP, ryzyka, klasę rozwiązania oraz kolejne kroki.
+
+DevNote ma pomóc developerowi prowadzić rozmowę z biznesem tak, aby nie zaczynać od pytania „jaką aplikację zbudować?”, tylko od zrozumienia problemu, procesu, danych, ryzyk i najprostszego bezpiecznego rozwiązania.
+
+Najmniejszy zestaw funkcjonalności
+Tworzenie notatki ze spotkania z opiekunem biznesowym.
+Prowadzenie rozmowy według uporządkowanego scenariusza:
+problem biznesowy,
+obecny proces,
+strata czasu,
+dane wejściowe,
+oczekiwany wynik,
+ryzyka,
+użytkownicy,
+skala rozwiązania.
+Lista pytań pomocniczych dla Dev AI podczas rozmowy z biznesem.
+Klasyfikacja tematu jako A, B albo C na podstawie odpowiedzi:
+A - małe rozwiązanie lokalne,
+B - rozwiązanie działowe,
+C - rozwiązanie duże, wrażliwe lub wymagające review.
+Pomoc w określeniu, czy potrzebna jest aplikacja, czy wystarczy prostsze rozwiązanie, np. zmiana procesu, Excel, Power Query albo lokalny skrypt.
+Generowanie podsumowania rozmowy:
+problem,
+użytkownicy,
+obecny proces,
+strata czasu,
+dane wejściowe,
+wynik,
+rekomendowana ścieżka,
+MVP,
+poza zakresem,
+kryteria akceptacji,
+następny krok.
+Generowanie wstępnego opisu zadania do Jira.
+Generowanie krótkiego opisu dokumentacji do Confluence.
+Możliwość zapisania i późniejszej edycji notatek z rozmów.
+Co NIE wchodzi w zakres MVP
+Automatyczne tworzenie gotowego kodu aplikacji.
+Pełna integracja z Jira, GitLab, Confluence lub Coolify.
+Automatyczne wdrażanie rozwiązań.
+Zaawansowany workflow akceptacji IT/security.
+Zarządzanie całym cyklem życia projektu.
+Obsługa wielu organizacji i rozbudowanych uprawnień.
+Aplikacja mobilna.
+Automatyczne podejmowanie decyzji technicznych bez udziału Dev AI.
+Pełna analiza bezpieczeństwa lub zgodności prawnej.
+Kryteria sukcesu
+Developer po rozmowie z biznesem ma kompletne podsumowanie problemu, MVP, zakresu poza MVP i kolejnych kroków.
+Minimum 80% notatek zawiera klasyfikację tematu A/B/C.
+Minimum 75% tematów ma zdefiniowane kryteria akceptacji przed rozpoczęciem realizacji.
+Minimum 70% tematów kończy się rekomendacją najprostszej ścieżki rozwiązania, a nie automatycznym założeniem, że trzeba budować aplikację.
+Czas przygotowania podsumowania rozmowy i opisu do Jira jest krótszy o co najmniej 50%.
+Biznes rozumie, co zostanie zrobione, czego nie będzie w MVP i co ma sprawdzić podczas akceptacji.
+Jednozdaniowy opis produktu
+
+DevNote to notatnik dla Dev AI, który pomaga prowadzić rozmowy z nietechnicznym biznesem, diagnozować realny problem, okreś
+lać MVP, klasyfikować temat A/B/C i zamieniać ustalenia ze spotkania w konkretne artefakty do dalszej realizacji.
+
+dokładny opis tego jak roziwązywac problemy biznesowe jest wplik: 
+Workbook DEV AI va.docx - znajdujący się w łównym folderze projektu.
