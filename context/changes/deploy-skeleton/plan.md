@@ -218,25 +218,25 @@ No existing infrastructure to migrate from. First-time setup requires:
 
 #### Automated
 
-- [x] 1.1 Docker image builds successfully
-- [x] 1.2 Container starts and responds to /weatherforecast
+- [x] 1.1 Docker image builds successfully — 9ca3991
+- [x] 1.2 Container starts and responds to /weatherforecast — 9ca3991
 
 #### Manual
 
-- [x] 1.3 Image size is reasonable (< 200 MB)
+- [x] 1.3 Image size is reasonable (< 200 MB) — 9ca3991
 
 ### Phase 2: Health endpoint + PORT binding
 
 #### Automated
 
-- [ ] 2.1 dotnet build succeeds
-- [ ] 2.2 Docker build succeeds
-- [ ] 2.3 Container responds to /healthz with 200
+- [x] 2.1 dotnet build succeeds
+- [x] 2.2 Docker build succeeds
+- [x] 2.3 Container responds to /healthz with 200
 
 #### Manual
 
-- [ ] 2.4 dotnet run locally still works on http://localhost:5275
-- [ ] 2.5 /healthz responds locally
+- [x] 2.4 dotnet run locally still works on http://localhost:5275
+- [x] 2.5 /healthz responds locally
 
 ### Phase 3: GitHub Actions workflow
 
