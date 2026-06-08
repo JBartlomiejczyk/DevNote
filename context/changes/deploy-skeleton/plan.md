@@ -242,12 +242,12 @@ No existing infrastructure to migrate from. First-time setup requires:
 
 #### Automated
 
-- [x] 3.1 Workflow file passes YAML lint
-- [ ] 3.2 Push triggers workflow in GitHub Actions
-- [ ] 3.3 dotnet restore and build steps pass
+- [x] 3.1 Workflow file passes YAML lint — 0e94842
+- [x] 3.2 Push triggers workflow in GitHub Actions — 0e94842
+- [x] 3.3 dotnet restore and build steps pass — 0e94842
 
 #### Manual
 
-- [ ] 3.4 Railway deployment completes successfully
-- [ ] 3.5 App accessible at Railway public URL
-- [ ] 3.6 /healthz returns 200 at public URL
+- [x] 3.4 Railway deployment completes successfully — 0e94842
+- [x] 3.5 App accessible at Railway public URL — 0e94842
+- [x] 3.6 /healthz returns 200 at public URL — 0e94842
