@@ -229,20 +229,20 @@ No existing infrastructure to migrate from. First-time setup requires:
 
 #### Automated
 
-- [x] 2.1 dotnet build succeeds
-- [x] 2.2 Docker build succeeds
-- [x] 2.3 Container responds to /healthz with 200
+- [x] 2.1 dotnet build succeeds — 6bb6f10
+- [x] 2.2 Docker build succeeds — 6bb6f10
+- [x] 2.3 Container responds to /healthz with 200 — 6bb6f10
 
 #### Manual
 
-- [x] 2.4 dotnet run locally still works on http://localhost:5275
-- [x] 2.5 /healthz responds locally
+- [x] 2.4 dotnet run locally still works on http://localhost:5275 — 6bb6f10
+- [x] 2.5 /healthz responds locally — 6bb6f10
 
 ### Phase 3: GitHub Actions workflow
 
 #### Automated
 
-- [ ] 3.1 Workflow file passes YAML lint
+- [x] 3.1 Workflow file passes YAML lint
 - [ ] 3.2 Push triggers workflow in GitHub Actions
 - [ ] 3.3 dotnet restore and build steps pass
 
