@@ -299,5 +299,5 @@ dotnet run
 | Phase | Status | SHA | Notes |
 |-------|--------|-----|-------|
 | 1 | done | 1c6dda7 | |
-| 2 | not-started | | |
+| 2 | done | 0894a28 | |
 | 3 | not-started | | |
