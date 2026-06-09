@@ -298,6 +298,6 @@ dotnet run
 
 | Phase | Status | SHA | Notes |
 |-------|--------|-----|-------|
-| 1 | done | | |
+| 1 | done | 1c6dda7 | |
 | 2 | not-started | | |
 | 3 | not-started | | |

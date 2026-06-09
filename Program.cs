@@ -4,6 +4,9 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped<DevNote.Services.WizardStateService>();
+builder.Services.Configure<DevNote.Services.AzureOpenAIOptions>(
+    builder.Configuration.GetSection(DevNote.Services.AzureOpenAIOptions.SectionName));
+builder.Services.AddScoped<DevNote.Services.ClassificationService>();
 
 var port = Environment.GetEnvironmentVariable("PORT");
 if (!string.IsNullOrEmpty(port) && string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ASPNETCORE_URLS")))

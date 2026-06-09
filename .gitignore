@@ -11,6 +11,9 @@ obj/
 ## dotnet user-secrets
 secrets.json
 
+## Development settings with secrets
+appsettings.Development.json
+
 ## IDE
 .vs/
 .idea/

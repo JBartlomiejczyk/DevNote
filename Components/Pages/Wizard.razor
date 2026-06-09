@@ -1,5 +1,6 @@
 @page "/"
 @inject WizardStateService State
+@inject ClassificationService ClassificationService
 
 <h2>Notatka z rozmowy</h2>
 <p class="wizard-intro">Wypełnij poniższe sekcje, aby ustrukturyzować rozmowę z interesariuszem biznesowym.</p>
@@ -47,11 +48,57 @@
 </div>
 
 <div class="wizard-actions">
-    <button class="btn-classify" disabled="@(!State.Data.HasAnyContent())">
-        Klasyfikuj
+    <button class="btn-classify"
+            disabled="@(!State.Data.HasAnyContent() || isLoading)"
+            @onclick="OnClassify">
+        @if (isLoading)
+        {
+            <span>Klasyfikuję...</span>
+        }
+        else
+        {
+            <span>Klasyfikuj</span>
+        }
     </button>
 </div>
 
+@if (errorMessage is not null)
+{
+    <div class="error-banner">
+        <p>@errorMessage</p>
+        <button class="btn-retry" @onclick="OnClassify">Spróbuj ponownie</button>
+    </div>
+}
+
+@if (result is not null)
+{
+    <Result ClassificationResult="result" />
+}
+
 @code {
     private bool[] expandedSections = [true, true, true, true, true, true, true, true];
+    private bool isLoading;
+    private string? errorMessage;
+    private ClassificationResult? result;
+
+    private async Task OnClassify()
+    {
+        isLoading = true;
+        errorMessage = null;
+        result = null;
+        StateHasChanged();
+
+        try
+        {
+            result = await ClassificationService.ClassifyAsync(State.Data);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
 }

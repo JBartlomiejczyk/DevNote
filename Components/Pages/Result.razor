@@ -1,0 +1,72 @@
+@namespace DevNote.Components.Pages
+
+<div class="result-panel">
+    <div class="result-header">
+        <span class="classification-badge badge-@ClassificationResult.Classification.ToString().ToLower()">
+            @ClassificationResult.Classification
+        </span>
+        <span class="classification-label">@GetClassLabel()</span>
+    </div>
+
+    <p class="result-justification">@ClassificationResult.Justification</p>
+
+    <div class="result-summary">
+        <div class="result-field">
+            <h4>Problem</h4>
+            <p>@ClassificationResult.Problem</p>
+        </div>
+        <div class="result-field">
+            <h4>Użytkownicy</h4>
+            <p>@ClassificationResult.Users</p>
+        </div>
+        <div class="result-field">
+            <h4>Obecny proces</h4>
+            <p>@ClassificationResult.CurrentProcess</p>
+        </div>
+        <div class="result-field">
+            <h4>Strata czasu</h4>
+            <p>@ClassificationResult.TimeWaste</p>
+        </div>
+        <div class="result-field">
+            <h4>Dane wejściowe</h4>
+            <p>@ClassificationResult.InputData</p>
+        </div>
+        <div class="result-field">
+            <h4>Oczekiwany wynik</h4>
+            <p>@ClassificationResult.ExpectedOutput</p>
+        </div>
+        <div class="result-field">
+            <h4>Rekomendowana ścieżka</h4>
+            <p>@ClassificationResult.RecommendedPath</p>
+        </div>
+        <div class="result-field">
+            <h4>Zakres MVP</h4>
+            <p>@ClassificationResult.MvpScope</p>
+        </div>
+        <div class="result-field">
+            <h4>Poza zakresem</h4>
+            <p>@ClassificationResult.OutOfScope</p>
+        </div>
+        <div class="result-field">
+            <h4>Kryteria akceptacji</h4>
+            <p>@ClassificationResult.AcceptanceCriteria</p>
+        </div>
+        <div class="result-field">
+            <h4>Następny krok</h4>
+            <p>@ClassificationResult.NextStep</p>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public DevNote.Models.ClassificationResult ClassificationResult { get; set; } = default!;
+
+    private string GetClassLabel() => ClassificationResult.Classification switch
+    {
+        Classification.A => "Małe lokalne rozwiązanie",
+        Classification.B => "Rozwiązanie departamentalne",
+        Classification.C => "Duże rozwiązanie",
+        _ => ""
+    };
+}
