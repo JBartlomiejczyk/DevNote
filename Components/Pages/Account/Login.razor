@@ -1,0 +1,67 @@
+@page "/login"
+@attribute [AllowAnonymous]
+@using Microsoft.AspNetCore.Identity
+@using DevNote.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager Navigation
+
+<h2>Logowanie</h2>
+
+<div class="auth-form-container">
+    <form method="post" @formname="login" @onsubmit="HandleLogin">
+        <AntiforgeryToken />
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="auth-error">@errorMessage</div>
+        }
+
+        <div class="auth-field">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="Input.Email" @bind="Input.Email" required />
+        </div>
+
+        <div class="auth-field">
+            <label for="password">Hasło</label>
+            <input id="password" type="password" name="Input.Password" @bind="Input.Password" required />
+        </div>
+
+        <button type="submit" class="btn-auth">Zaloguj się</button>
+    </form>
+
+    <div class="auth-links">
+        <a href="/register">Utwórz konto</a>
+        <a href="/forgot-password">Zapomniałem hasła</a>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private LoginInput Input { get; set; } = new();
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
+    private string? errorMessage;
+
+    private async Task HandleLogin()
+    {
+        var result = await SignInManager.PasswordSignInAsync(
+            Input.Email, Input.Password, isPersistent: true, lockoutOnFailure: false);
+
+        if (result.Succeeded)
+        {
+            Navigation.NavigateTo(ReturnUrl ?? "/", forceLoad: true);
+        }
+        else
+        {
+            errorMessage = "Nieprawidłowy email lub hasło.";
+        }
+    }
+
+    private sealed class LoginInput
+    {
+        public string Email { get; set; } = "";
+        public string Password { get; set; } = "";
+    }
+}

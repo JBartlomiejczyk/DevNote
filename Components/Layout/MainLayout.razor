@@ -1,7 +1,24 @@
 @inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthStateProvider
 
 <header class="app-header">
-    <h1>DevNote</h1>
+    <div class="app-header-content">
+        <h1>DevNote</h1>
+        <AuthorizeView>
+            <Authorized>
+                <div class="auth-status">
+                    <span>@context.User.Identity?.Name</span>
+                    <a href="/logout" class="auth-link">Wyloguj</a>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="auth-status">
+                    <a href="/login" class="auth-link">Zaloguj</a>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+    </div>
 </header>
 
 <main class="app-main">

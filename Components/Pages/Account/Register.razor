@@ -1,0 +1,98 @@
+@page "/register"
+@attribute [AllowAnonymous]
+@using Microsoft.AspNetCore.Identity
+@using DevNote.Models
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager Navigation
+
+<h2>Rejestracja</h2>
+
+<div class="auth-form-container">
+    <form method="post" @formname="register" @onsubmit="HandleRegister">
+        <AntiforgeryToken />
+
+        @if (errors.Count > 0)
+        {
+            <div class="auth-error">
+                @foreach (var error in errors)
+                {
+                    <p>@error</p>
+                }
+            </div>
+        }
+
+        <div class="auth-field">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="Input.Email" @bind="Input.Email" required />
+        </div>
+
+        <div class="auth-field">
+            <label for="password">Hasło</label>
+            <input id="password" type="password" name="Input.Password" @bind="Input.Password" required />
+        </div>
+
+        <div class="auth-field">
+            <label for="confirmPassword">Potwierdź hasło</label>
+            <input id="confirmPassword" type="password" name="Input.ConfirmPassword" @bind="Input.ConfirmPassword" required />
+        </div>
+
+        <button type="submit" class="btn-auth">Zarejestruj się</button>
+    </form>
+
+    <div class="auth-links">
+        <a href="/login">Masz już konto? Zaloguj się</a>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private RegisterInput Input { get; set; } = new();
+
+    private List<string> errors = new();
+
+    private async Task HandleRegister()
+    {
+        errors.Clear();
+
+        if (Input.Password != Input.ConfirmPassword)
+        {
+            errors.Add("Hasła nie są zgodne.");
+            return;
+        }
+
+        var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+        var result = await UserManager.CreateAsync(user, Input.Password);
+
+        if (result.Succeeded)
+        {
+            await SignInManager.SignInAsync(user, isPersistent: true);
+            Navigation.NavigateTo("/", forceLoad: true);
+        }
+        else
+        {
+            foreach (var error in result.Errors)
+            {
+                errors.Add(MapIdentityError(error));
+            }
+        }
+    }
+
+    private static string MapIdentityError(IdentityError error) => error.Code switch
+    {
+        "DuplicateEmail" or "DuplicateUserName" => "Konto z tym adresem email już istnieje.",
+        "PasswordTooShort" => "Hasło musi mieć co najmniej 8 znaków.",
+        "PasswordRequiresNonAlphanumeric" => "Hasło musi zawierać znak specjalny.",
+        "PasswordRequiresDigit" => "Hasło musi zawierać cyfrę.",
+        "PasswordRequiresUpper" => "Hasło musi zawierać wielką literę.",
+        "PasswordRequiresLower" => "Hasło musi zawierać małą literę.",
+        _ => error.Description
+    };
+
+    private sealed class RegisterInput
+    {
+        public string Email { get; set; } = "";
+        public string Password { get; set; } = "";
+        public string ConfirmPassword { get; set; } = "";
+    }
+}
