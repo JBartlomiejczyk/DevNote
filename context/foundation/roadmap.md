@@ -29,11 +29,11 @@ Developers who talk to non-technical stakeholders lack a structured way to diagn
 
 | ID | Change ID | Outcome (user can …) | Prerequisites | PRD refs | Status |
 |---|---|---|---|---|---|
-| F-01 | deploy-skeleton | (foundation) Dockerfile + CI/CD landed; app deploys to Railway on push | — | — | ready |
-| S-01 | wizard-classification-summary | fill 8-section wizard and receive A/B/C classification + structured summary | — | US-02, US-04, US-05, FR-003, FR-005, FR-006, FR-007 | ready |
-| S-02 | auth-and-note-persistence | register, log in, and save conversation notes persistently | S-01 | US-01, FR-001, FR-002 | proposed |
+| F-01 | deploy-skeleton | (foundation) Dockerfile + CI/CD landed; app deploys to Railway on push | — | — | done |
+| S-01 | wizard-classification-summary | fill 8-section wizard and receive A/B/C classification + structured summary | — | US-02, US-04, US-05, FR-003, FR-005, FR-006, FR-007 | done |
+| S-02 | auth-and-note-persistence | register, log in, and save conversation notes persistently | S-01 | US-01, FR-001, FR-002 | ready |
 | S-03 | note-management | view past notes, re-enter wizard to edit, re-classify | S-02 | US-06, FR-008, FR-009 | proposed |
-| S-04 | contextual-helper-questions | see contextual AI-generated helper questions during each wizard section | S-01 | US-03, FR-004 | proposed |
+| S-04 | contextual-helper-questions | see contextual AI-generated helper questions during each wizard section | S-01 | US-03, FR-004 | ready |
 
 ## Streams
 
@@ -70,7 +70,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Sequenced early because market-feedback goal requires real-world usage; without deploy, validation stays local-only. Low technical risk — Railway + Dockerfile is a known pattern per `infrastructure.md`.
-- **Status:** ready
+- **Status:** done
 
 ## Slices
 
@@ -85,7 +85,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Unknowns:**
   - What subset of the workbook methodology is needed for the classification prompt? — Owner: user. Block: no (can launch with a minimal ruleset and refine).
 - **Risk:** This is the north star and carries the most product uncertainty. The riskiest assumption — that structured wizard input + LLM classification produces output useful enough to save developers time — is tested here and nowhere else. Sequenced first because market-feedback demands validating this assumption earliest.
-- **Status:** ready
+- **Status:** done
 
 ### S-02: Auth + persistent notes
 
@@ -97,7 +97,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Standard auth + CRUD pattern (low technical risk), but introduces three new layers at once (Identity, EF Core, PostgreSQL). Sequenced after S-01 because persistence enables multi-session market-feedback measurement (comparing outcomes across real meetings).
-- **Status:** proposed
+- **Status:** ready
 
 ### S-03: Note management
 
@@ -122,17 +122,17 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Unknowns:**
   - What rate-limiting or caching strategy is needed for per-section LLM calls (up to 8 per note)? — Owner: user. Block: no (functional without, but cost risk).
 - **Risk:** Validates the second riskiest assumption — that AI-guided exploration during fill produces materially better input than an unguided form. Sequenced parallel with persistence because it's an independent enhancement to the wizard.
-- **Status:** proposed
+- **Status:** ready
 
 ## Backlog Handoff
 
 | Roadmap ID | Change ID | Suggested issue title | Ready for `/10x-plan` | Notes |
 |---|---|---|---|---|
-| F-01 | deploy-skeleton | Set up Dockerfile + CI/CD for Railway auto-deploy | yes | Run `/10x-plan deploy-skeleton` |
-| S-01 | wizard-classification-summary | 8-section wizard with A/B/C classification and structured summary | yes | Run `/10x-plan wizard-classification-summary` |
-| S-02 | auth-and-note-persistence | User registration, login, and persistent note saving | no | Depends on S-01 |
+| F-01 | deploy-skeleton | Set up Dockerfile + CI/CD for Railway auto-deploy | — | Done (implemented) |
+| S-01 | wizard-classification-summary | 8-section wizard with A/B/C classification and structured summary | — | Done (implemented) |
+| S-02 | auth-and-note-persistence | User registration, login, and persistent note saving | yes | Run `/10x-plan auth-and-note-persistence` |
 | S-03 | note-management | Past notes list, re-enter wizard, re-classify | no | Depends on S-02 |
-| S-04 | contextual-helper-questions | LLM-generated contextual helper questions per wizard section | no | Depends on S-01 |
+| S-04 | contextual-helper-questions | LLM-generated contextual helper questions per wizard section | yes | Run `/10x-plan contextual-helper-questions` |
 
 ## Open Roadmap Questions
 
@@ -159,4 +159,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Full security/legal compliance analysis** — Why parked: PRD §Non-Goals; system flags but doesn't analyze.
 
 ## Done
+
+- **F-01** deploy-skeleton — Dockerfile + GitHub Actions CI/CD, Railway auto-deploy (SHA: 0e94842)
+- **S-01** wizard-classification-summary — 8-section Blazor wizard + Azure OpenAI A/B/C classification + 11-field summary (SHAs: 1c6dda7, 0894a28, ef407ad)
 
