@@ -9,7 +9,9 @@
             <Authorized>
                 <div class="auth-status">
                     <span>@context.User.Identity?.Name</span>
-                    <a href="/logout" class="auth-link">Wyloguj</a>
+                    <form method="post" action="/api/auth/logout" class="logout-form">
+                        <button type="submit" class="auth-link logout-btn">Wyloguj</button>
+                    </form>
                 </div>
             </Authorized>
             <NotAuthorized>

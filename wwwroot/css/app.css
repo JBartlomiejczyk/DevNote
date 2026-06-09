@@ -289,6 +289,18 @@ h2 {
     text-decoration: underline;
 }
 
+.logout-form {
+    display: inline;
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: inherit;
+    padding: 0;
+}
+
 /* Auth form pages */
 .auth-form-container {
     max-width: 400px;

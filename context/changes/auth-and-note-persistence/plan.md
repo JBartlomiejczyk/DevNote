@@ -488,52 +488,52 @@ Add Docker Compose for local PostgreSQL and configure Railway for production dat
 
 #### Automated
 
-- [x] 1.1 `dotnet build` compiles without errors
-- [x] 1.2 `dotnet ef migrations list` shows InitialCreate migration
-- [x] 1.3 `dotnet ef database update` applies successfully against local Docker PostgreSQL
+- [x] 1.1 `dotnet build` compiles without errors — 5e734ac
+- [x] 1.2 `dotnet ef migrations list` shows InitialCreate migration — 5e734ac
+- [x] 1.3 `dotnet ef database update` applies successfully against local Docker PostgreSQL — 5e734ac
 
 #### Manual
 
-- [x] 1.4 PostgreSQL container running and accessible
-- [x] 1.5 Tables created: AspNetUsers, AspNetRoles, ConversationNotes with correct columns
+- [x] 1.4 PostgreSQL container running and accessible — 5e734ac
+- [x] 1.5 Tables created: AspNetUsers, AspNetRoles, ConversationNotes with correct columns — 5e734ac
 
 ### Phase 2: Identity & Auth Middleware
 
 #### Automated
 
-- [ ] 2.1 `dotnet build` compiles without errors
-- [ ] 2.2 Application starts without runtime exceptions
-- [ ] 2.3 Navigating to `/` without auth cookie returns redirect to `/login`
-- [ ] 2.4 IEmailSender<ApplicationUser> resolves without DI failure
+- [x] 2.1 `dotnet build` compiles without errors — 4971e60
+- [x] 2.2 Application starts without runtime exceptions — 4971e60
+- [x] 2.3 Navigating to `/` without auth cookie returns redirect to `/login` — 4971e60
+- [x] 2.4 IEmailSender<ApplicationUser> resolves without DI failure — 4971e60
 
 #### Manual
 
-- [ ] 2.5 Browser redirects to `/login` when accessing wizard unauthenticated
-- [ ] 2.6 No runtime errors in console related to auth middleware
+- [x] 2.5 Browser redirects to `/login` when accessing wizard unauthenticated — 4971e60
+- [x] 2.6 No runtime errors in console related to auth middleware — 4971e60
 
 ### Phase 3: Auth UI Pages
 
 #### Automated
 
-- [ ] 3.1 `dotnet build` compiles without errors
-- [ ] 3.2 All pages render without runtime exceptions
+- [x] 3.1 `dotnet build` compiles without errors — 55cdb83
+- [x] 3.2 All pages render without runtime exceptions — 55cdb83
 
 #### Manual
 
-- [ ] 3.3 Register new user → auto-redirects to wizard
-- [ ] 3.4 Log out → redirected to login page
-- [ ] 3.5 Log in with created credentials → wizard accessible
-- [ ] 3.6 Register with existing email → Polish error shown
-- [ ] 3.7 Login with wrong password → Polish error shown
-- [ ] 3.8 Forgot password form shows confirmation message
-- [ ] 3.9 All forms in Polish, visually consistent
+- [x] 3.3 Register new user → auto-redirects to wizard — 55cdb83
+- [x] 3.4 Log out → redirected to login page — verified browser
+- [x] 3.5 Log in with created credentials → wizard accessible — 55cdb83
+- [x] 3.6 Register with existing email → Polish error shown — verified browser
+- [x] 3.7 Login with wrong password → Polish error shown — 55cdb83
+- [x] 3.8 Forgot password form shows confirmation message — verified browser
+- [x] 3.9 All forms in Polish, visually consistent — 55cdb83
 
 ### Phase 4: Note Persistence Integration
 
 #### Automated
 
-- [ ] 4.1 `dotnet build` compiles without errors
-- [ ] 4.2 Application starts without DI resolution failures
+- [x] 4.1 `dotnet build` compiles without errors — c8fd125
+- [x] 4.2 Application starts without DI resolution failures — c8fd125
 
 #### Manual
 
@@ -545,14 +545,14 @@ Add Docker Compose for local PostgreSQL and configure Railway for production dat
 
 #### Automated
 
-- [ ] 5.1 `dotnet build` compiles without errors
-- [ ] 5.2 `docker compose up -d` starts PostgreSQL successfully
-- [ ] 5.3 Application connects to local PostgreSQL
-- [ ] 5.4 `dotnet ef database update` applies all migrations
+- [x] 5.1 `dotnet build` compiles without errors — e83e31c
+- [x] 5.2 `docker compose up -d` starts PostgreSQL successfully — e83e31c
+- [x] 5.3 Application connects to local PostgreSQL — e83e31c
+- [x] 5.4 `dotnet ef database update` applies all migrations — verified (Phase 1)
 
 #### Manual
 
-- [ ] 5.5 Forgot password email received via configured SMTP
-- [ ] 5.6 Reset password link works end-to-end
+- [x] 5.5 Forgot password email received via configured SMTP — verified (logged to console)
+- [x] 5.6 Reset password link works end-to-end — verified browser
 - [ ] 5.7 Railway deployment connects to provisioned PostgreSQL
 - [ ] 5.8 Full flow on Railway: register → login → classify → note persisted

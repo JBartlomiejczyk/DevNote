@@ -1,13 +1,5 @@
 @page "/logout"
-@using Microsoft.AspNetCore.Identity
-@using DevNote.Models
-@inject SignInManager<ApplicationUser> SignInManager
-@inject NavigationManager Navigation
+@attribute [Microsoft.AspNetCore.Authorization.AllowAnonymous]
 
-@code {
-    protected override async Task OnInitializedAsync()
-    {
-        await SignInManager.SignOutAsync();
-        Navigation.NavigateTo("/login", forceLoad: true);
-    }
-}
+<form id="logoutForm" method="post" action="/api/auth/logout"></form>
+<script>document.getElementById('logoutForm').submit();</script>
