@@ -1,0 +1,41 @@
+@namespace DevNote.Components.Shared
+
+<div class="wizard-section @(IsExpanded ? "expanded" : "collapsed")">
+    <button type="button" class="wizard-section-header" @onclick="Toggle">
+        <span class="wizard-section-indicator">@(IsExpanded ? "▼" : "▶")</span>
+        <span class="wizard-section-title">@Title</span>
+    </button>
+
+    @if (IsExpanded)
+    {
+        <div class="wizard-section-body">
+            <p class="wizard-section-description">@Description</p>
+            <textarea class="wizard-section-textarea"
+                      value="@Value"
+                      @oninput="OnInput"
+                      placeholder="@Description"
+                      rows="5"></textarea>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public string Description { get; set; } = string.Empty;
+    [Parameter] public string Value { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+    [Parameter] public bool IsExpanded { get; set; }
+    [Parameter] public EventCallback<bool> IsExpandedChanged { get; set; }
+
+    private async Task OnInput(ChangeEventArgs e)
+    {
+        Value = e.Value?.ToString() ?? string.Empty;
+        await ValueChanged.InvokeAsync(Value);
+    }
+
+    private async Task Toggle()
+    {
+        IsExpanded = !IsExpanded;
+        await IsExpandedChanged.InvokeAsync(IsExpanded);
+    }
+}

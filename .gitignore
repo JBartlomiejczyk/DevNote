@@ -1,0 +1,21 @@
+## Ignore Visual Studio / .NET build output
+bin/
+obj/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## dotnet user-secrets
+secrets.json
+
+## IDE
+.vs/
+.idea/
+*.swp
+
+## OS files
+Thumbs.db
+.DS_Store

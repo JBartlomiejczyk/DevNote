@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\dev-note.props" />
-</Project>

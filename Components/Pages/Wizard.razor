@@ -1,0 +1,57 @@
+@page "/"
+@inject WizardStateService State
+
+<h2>Notatka z rozmowy</h2>
+<p class="wizard-intro">Wypełnij poniższe sekcje, aby ustrukturyzować rozmowę z interesariuszem biznesowym.</p>
+
+<div class="wizard-accordion">
+    <WizardSection Title="Problem"
+                   Description="Opisz problem biznesowy, który chcesz rozwiązać"
+                   @bind-Value="State.Data.Problem"
+                   @bind-IsExpanded="expandedSections[0]" />
+
+    <WizardSection Title="Obecny proces"
+                   Description="Jak wygląda obecny proces? Kto jest zaangażowany?"
+                   @bind-Value="State.Data.Process"
+                   @bind-IsExpanded="expandedSections[1]" />
+
+    <WizardSection Title="Strata czasu"
+                   Description="Gdzie tracony jest czas? Jakie są wąskie gardła?"
+                   @bind-Value="State.Data.TimeWaste"
+                   @bind-IsExpanded="expandedSections[2]" />
+
+    <WizardSection Title="Dane wejściowe"
+                   Description="Jakie dane są potrzebne? Skąd pochodzą?"
+                   @bind-Value="State.Data.InputData"
+                   @bind-IsExpanded="expandedSections[3]" />
+
+    <WizardSection Title="Oczekiwany wynik"
+                   Description="Jaki jest pożądany efekt końcowy?"
+                   @bind-Value="State.Data.Output"
+                   @bind-IsExpanded="expandedSections[4]" />
+
+    <WizardSection Title="Ryzyka"
+                   Description="Jakie są ryzyka? Co może pójść nie tak?"
+                   @bind-Value="State.Data.Risks"
+                   @bind-IsExpanded="expandedSections[5]" />
+
+    <WizardSection Title="Użytkownicy"
+                   Description="Kto będzie korzystał z rozwiązania? Ilu użytkowników?"
+                   @bind-Value="State.Data.Users"
+                   @bind-IsExpanded="expandedSections[6]" />
+
+    <WizardSection Title="Skala"
+                   Description="Jaka jest skala problemu? Jak często występuje?"
+                   @bind-Value="State.Data.Scale"
+                   @bind-IsExpanded="expandedSections[7]" />
+</div>
+
+<div class="wizard-actions">
+    <button class="btn-classify" disabled="@(!State.Data.HasAnyContent())">
+        Klasyfikuj
+    </button>
+</div>
+
+@code {
+    private bool[] expandedSections = [true, true, true, true, true, true, true, true];
+}
