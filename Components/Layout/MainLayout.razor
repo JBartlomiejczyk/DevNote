@@ -8,6 +8,7 @@
         <AuthorizeView>
             <Authorized>
                 <div class="auth-status">
+                    <a href="/notes" class="auth-link">Moje notatki</a>
                     <span>@context.User.Identity?.Name</span>
                     <form method="post" action="/api/auth/logout" class="logout-form">
                         <button type="submit" class="auth-link logout-btn">Wyloguj</button>

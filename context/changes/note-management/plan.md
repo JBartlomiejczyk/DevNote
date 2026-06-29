@@ -316,40 +316,44 @@ Wire up header navigation to `/notes`, add "Nowa notatka" link on the notes page
 
 #### Manual
 
-- [ ] 2.3 Navigate to `/notes` while logged in — see list of existing notes
-- [ ] 2.4 Verify title, date, status badge, classification badge render correctly
-- [ ] 2.5 Empty state shows when user has no notes
-- [ ] 2.6 Clicking a note navigates to `/edit/{id}`
+- [x] 2.3 Navigate to `/notes` while logged in — see list of existing notes
+- [x] 2.4 Verify title, date, status badge, classification badge render correctly
+- [x] 2.5 Empty state shows when user has no notes
+- [x] 2.6 Clicking a note navigates to `/edit/{id}`
 
 ### Phase 3: Wizard Edit Mode
 
 #### Automated
 
-- [x] 3.1 `dotnet build` compiles without errors
-- [x] 3.2 `/edit/{guid}` route resolves
+- [x] 3.1 `dotnet build` compiles without errors — 51a32c7
+- [x] 3.2 `/edit/{guid}` route resolves — 51a32c7
 
 #### Manual
 
-- [ ] 3.3 Wizard pre-fills with note data on edit page
-- [ ] 3.4 Note status reverts to Draft on edit load
-- [ ] 3.5 Re-classify updates existing note (no duplicates)
-- [ ] 3.6 Classification result and summary display inline after re-classify
-- [ ] 3.7 "Przejdź do notatek" link navigates to `/notes`
-- [ ] 3.8 Creating a new note via `/` shows result inline with link to /notes
-- [ ] 3.9 Editing a note that doesn't belong to user (or bad GUID) redirects to `/notes`
-- [ ] 3.10 Unauthenticated access to `/notes` or `/edit/{id}` redirects to login with return-url
+- [x] 3.3 Wizard pre-fills with note data on edit page
+- [x] 3.4 Note status reverts to Draft on edit load
+- [x] 3.5 Re-classify updates existing note (no duplicates)
+- [x] 3.6 Classification result and summary display inline after re-classify
+- [x] 3.7 "Przejdź do notatek" link navigates to `/notes`
+- [x] 3.8 Creating a new note via `/` shows result inline with link to /notes
+- [x] 3.9 Editing a note that doesn't belong to user (or bad GUID) redirects to `/notes`
+- [x] 3.10 Unauthenticated access to `/notes` or `/edit/{id}` redirects to login with return-url
 
 ### Phase 4: Navigation & Styling
 
 #### Automated
 
-- [ ] 4.1 `dotnet build` compiles without errors
-- [ ] 4.2 CSS has no syntax errors
+- [x] 4.1 `dotnet build` compiles without errors
+- [x] 4.2 CSS has no syntax errors
 
 #### Manual
 
-- [ ] 4.3 Header "Moje notatki" link visible and works
-- [ ] 4.4 Notes list styled with cards and colored badges
-- [ ] 4.5 "Nowa notatka" button navigates to wizard
-- [ ] 4.6 Hover effects on note cards work
-- [ ] 4.7 Mobile responsive (cards stack vertically)
+- [x] 4.3 Header "Moje notatki" link visible and works
+- [x] 4.4 Notes list styled with cards and colored badges
+- [x] 4.5 "Nowa notatka" button navigates to wizard
+- [x] 4.6 Hover effects on note cards work
+- [x] 4.7 Mobile responsive (cards stack vertically)
+
+
+
+
