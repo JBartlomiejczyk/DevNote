@@ -84,7 +84,7 @@ public class HelperQuestionsService
 
         var contextSnapshots = request.Data.GetPriorSectionSnapshots(request.SectionKey);
         var contextHashInput = request.Data.BuildPriorContextHashInput(request.SectionKey);
-        var contextHash = ComputeContextHash(contextHashInput, request.QuestionCount, request.Locale);
+        var contextHash = BuildContextHash(request.SectionKey, contextHashInput, request.QuestionCount, request.Locale);
 
         var userMessage = BuildUserMessage(request, contextSnapshots);
 
@@ -212,9 +212,13 @@ public class HelperQuestionsService
         return questions;
     }
 
-    private static string ComputeContextHash(string contextHashInput, int questionCount, string locale)
+    public static string BuildContextHash(
+        WizardSectionKey sectionKey,
+        string contextHashInput,
+        int questionCount,
+        string locale)
     {
-        var hashInput = $"{contextHashInput}|count:{questionCount}|locale:{locale}";
+        var hashInput = $"section:{sectionKey}|{contextHashInput}|count:{questionCount}|locale:{locale}";
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(hashInput));
         return Convert.ToHexString(bytes).ToLowerInvariant();
     }

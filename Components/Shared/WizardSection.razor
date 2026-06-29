@@ -15,6 +15,40 @@
                       @onchange="OnInput"
                       placeholder="@Description"
                       rows="5"></textarea>
+
+            <div class="wizard-helper-questions">
+                <div class="wizard-helper-header">
+                    <h4>Pytania pomocnicze</h4>
+                    <button type="button"
+                            class="btn-helper-refresh"
+                            @onclick="OnRefreshRequested"
+                            disabled="@IsHelperQuestionsLoading">
+                        Odśwież pytania
+                    </button>
+                </div>
+
+                @if (IsHelperQuestionsLoading)
+                {
+                    <p class="wizard-helper-loading">Generuję pytania pomocnicze...</p>
+                }
+                else if (!string.IsNullOrWhiteSpace(HelperQuestionsError))
+                {
+                    <p class="wizard-helper-error">@HelperQuestionsError</p>
+                }
+                else if (HelperQuestions.Count > 0)
+                {
+                    <ul class="wizard-helper-list">
+                        @foreach (var question in HelperQuestions)
+                        {
+                            <li>@question</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="wizard-helper-empty">Rozwiń sekcję, aby wygenerować pytania pomocnicze.</p>
+                }
+            </div>
         </div>
     }
 </div>
@@ -26,6 +60,13 @@
     [Parameter] public EventCallback<string> ValueChanged { get; set; }
     [Parameter] public bool IsExpanded { get; set; }
     [Parameter] public EventCallback<bool> IsExpandedChanged { get; set; }
+    [Parameter] public IReadOnlyList<string> HelperQuestions { get; set; } = Array.Empty<string>();
+    [Parameter] public bool IsHelperQuestionsLoading { get; set; }
+    [Parameter] public string? HelperQuestionsError { get; set; }
+    [Parameter] public EventCallback RefreshHelperQuestions { get; set; }
+    [Parameter] public EventCallback FirstExpanded { get; set; }
+
+    private bool _firstExpandTriggered;
 
     private async Task OnInput(ChangeEventArgs e)
     {
@@ -36,6 +77,17 @@
     private async Task Toggle()
     {
         IsExpanded = !IsExpanded;
+        if (IsExpanded && !_firstExpandTriggered)
+        {
+            _firstExpandTriggered = true;
+            await FirstExpanded.InvokeAsync();
+        }
+
         await IsExpandedChanged.InvokeAsync(IsExpanded);
+    }
+
+    private async Task OnRefreshRequested()
+    {
+        await RefreshHelperQuestions.InvokeAsync();
     }
 }

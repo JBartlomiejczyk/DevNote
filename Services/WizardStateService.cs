@@ -4,9 +4,15 @@ namespace DevNote.Services;
 
 public class WizardStateService
 {
+    private readonly Dictionary<string, HelperQuestionsResult> _helperQuestionsCache = new();
+
     public WizardData Data { get; private set; } = new();
 
-    public void Reset() => Data = new WizardData();
+    public void Reset()
+    {
+        Data = new WizardData();
+        ClearHelperQuestionsCache();
+    }
 
     public void LoadFromNote(ConversationNote note)
     {
@@ -21,5 +27,29 @@ public class WizardStateService
             Users = note.Users,
             Scale = note.Scale
         };
+
+        ClearHelperQuestionsCache();
+    }
+
+    public bool TryGetCachedHelperQuestions(string cacheKey, out HelperQuestionsResult? result)
+    {
+        if (_helperQuestionsCache.TryGetValue(cacheKey, out var cached))
+        {
+            result = cached;
+            return true;
+        }
+
+        result = null;
+        return false;
+    }
+
+    public void SetCachedHelperQuestions(string cacheKey, HelperQuestionsResult result)
+    {
+        _helperQuestionsCache[cacheKey] = result;
+    }
+
+    public void ClearHelperQuestionsCache()
+    {
+        _helperQuestionsCache.Clear();
     }
 }

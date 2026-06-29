@@ -62,6 +62,7 @@ builder.Services.Configure<DevNote.Services.AzureOpenAIOptions>(
     builder.Configuration.GetSection(DevNote.Services.AzureOpenAIOptions.SectionName));
 builder.Services.AddScoped<DevNote.Services.ClassificationService>();
 builder.Services.AddScoped<DevNote.Services.HelperQuestionsService>();
+builder.Services.AddScoped<DevNote.Services.HelperQuestionsCoordinator>();
 builder.Services.AddScoped<DevNote.Services.NoteService>();
 
 var port = Environment.GetEnvironmentVariable("PORT");

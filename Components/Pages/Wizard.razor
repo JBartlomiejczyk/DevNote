@@ -1,10 +1,12 @@
 @page "/"
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
 @using Microsoft.AspNetCore.Components.Authorization
+@using DevNote.Models
 @using DevNote.Services
 @rendermode InteractiveServer
 @inject WizardStateService State
 @inject ClassificationService ClassificationService
+@inject HelperQuestionsCoordinator HelperQuestionsCoordinator
 @inject NoteService NoteService
 @inject AuthenticationStateProvider AuthStateProvider
 
@@ -15,42 +17,82 @@
     <WizardSection Title="Problem"
                    Description="Opisz problem biznesowy, który chcesz rozwiązać"
                    @bind-Value="State.Data.Problem"
-                   @bind-IsExpanded="expandedSections[0]" />
+                   @bind-IsExpanded="expandedSections[0]"
+                   HelperQuestions="@helperQuestions[WizardSectionKey.Problem].Questions"
+                   IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.Problem].IsLoading"
+                   HelperQuestionsError="@helperQuestions[WizardSectionKey.Problem].Error"
+                   FirstExpanded="@(() => OnSectionFirstExpanded(WizardSectionKey.Problem))"
+                   RefreshHelperQuestions="@(() => OnSectionRefreshRequested(WizardSectionKey.Problem))" />
 
     <WizardSection Title="Obecny proces"
                    Description="Jak wygląda obecny proces? Kto jest zaangażowany?"
                    @bind-Value="State.Data.Process"
-                   @bind-IsExpanded="expandedSections[1]" />
+                   @bind-IsExpanded="expandedSections[1]"
+                   HelperQuestions="@helperQuestions[WizardSectionKey.Process].Questions"
+                   IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.Process].IsLoading"
+                   HelperQuestionsError="@helperQuestions[WizardSectionKey.Process].Error"
+                   FirstExpanded="@(() => OnSectionFirstExpanded(WizardSectionKey.Process))"
+                   RefreshHelperQuestions="@(() => OnSectionRefreshRequested(WizardSectionKey.Process))" />
 
     <WizardSection Title="Strata czasu"
                    Description="Gdzie tracony jest czas? Jakie są wąskie gardła?"
                    @bind-Value="State.Data.TimeWaste"
-                   @bind-IsExpanded="expandedSections[2]" />
+                   @bind-IsExpanded="expandedSections[2]"
+                   HelperQuestions="@helperQuestions[WizardSectionKey.TimeWaste].Questions"
+                   IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.TimeWaste].IsLoading"
+                   HelperQuestionsError="@helperQuestions[WizardSectionKey.TimeWaste].Error"
+                   FirstExpanded="@(() => OnSectionFirstExpanded(WizardSectionKey.TimeWaste))"
+                   RefreshHelperQuestions="@(() => OnSectionRefreshRequested(WizardSectionKey.TimeWaste))" />
 
     <WizardSection Title="Dane wejściowe"
                    Description="Jakie dane są potrzebne? Skąd pochodzą?"
                    @bind-Value="State.Data.InputData"
-                   @bind-IsExpanded="expandedSections[3]" />
+                   @bind-IsExpanded="expandedSections[3]"
+                   HelperQuestions="@helperQuestions[WizardSectionKey.InputData].Questions"
+                   IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.InputData].IsLoading"
+                   HelperQuestionsError="@helperQuestions[WizardSectionKey.InputData].Error"
+                   FirstExpanded="@(() => OnSectionFirstExpanded(WizardSectionKey.InputData))"
+                   RefreshHelperQuestions="@(() => OnSectionRefreshRequested(WizardSectionKey.InputData))" />
 
     <WizardSection Title="Oczekiwany wynik"
                    Description="Jaki jest pożądany efekt końcowy?"
                    @bind-Value="State.Data.Output"
-                   @bind-IsExpanded="expandedSections[4]" />
+                   @bind-IsExpanded="expandedSections[4]"
+                   HelperQuestions="@helperQuestions[WizardSectionKey.Output].Questions"
+                   IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.Output].IsLoading"
+                   HelperQuestionsError="@helperQuestions[WizardSectionKey.Output].Error"
+                   FirstExpanded="@(() => OnSectionFirstExpanded(WizardSectionKey.Output))"
+                   RefreshHelperQuestions="@(() => OnSectionRefreshRequested(WizardSectionKey.Output))" />
 
     <WizardSection Title="Ryzyka"
                    Description="Jakie są ryzyka? Co może pójść nie tak?"
                    @bind-Value="State.Data.Risks"
-                   @bind-IsExpanded="expandedSections[5]" />
+                   @bind-IsExpanded="expandedSections[5]"
+                   HelperQuestions="@helperQuestions[WizardSectionKey.Risks].Questions"
+                   IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.Risks].IsLoading"
+                   HelperQuestionsError="@helperQuestions[WizardSectionKey.Risks].Error"
+                   FirstExpanded="@(() => OnSectionFirstExpanded(WizardSectionKey.Risks))"
+                   RefreshHelperQuestions="@(() => OnSectionRefreshRequested(WizardSectionKey.Risks))" />
 
     <WizardSection Title="Użytkownicy"
                    Description="Kto będzie korzystał z rozwiązania? Ilu użytkowników?"
                    @bind-Value="State.Data.Users"
-                   @bind-IsExpanded="expandedSections[6]" />
+                   @bind-IsExpanded="expandedSections[6]"
+                   HelperQuestions="@helperQuestions[WizardSectionKey.Users].Questions"
+                   IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.Users].IsLoading"
+                   HelperQuestionsError="@helperQuestions[WizardSectionKey.Users].Error"
+                   FirstExpanded="@(() => OnSectionFirstExpanded(WizardSectionKey.Users))"
+                   RefreshHelperQuestions="@(() => OnSectionRefreshRequested(WizardSectionKey.Users))" />
 
     <WizardSection Title="Skala"
                    Description="Jaka jest skala problemu? Jak często występuje?"
                    @bind-Value="State.Data.Scale"
-                   @bind-IsExpanded="expandedSections[7]" />
+                   @bind-IsExpanded="expandedSections[7]"
+                   HelperQuestions="@helperQuestions[WizardSectionKey.Scale].Questions"
+                   IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.Scale].IsLoading"
+                   HelperQuestionsError="@helperQuestions[WizardSectionKey.Scale].Error"
+                   FirstExpanded="@(() => OnSectionFirstExpanded(WizardSectionKey.Scale))"
+                   RefreshHelperQuestions="@(() => OnSectionRefreshRequested(WizardSectionKey.Scale))" />
 </div>
 
 <div class="wizard-actions">
@@ -89,17 +131,73 @@
 }
 
 @code {
-    private bool[] expandedSections = [true, true, true, true, true, true, true, true];
+    private bool[] expandedSections = [false, false, false, false, false, false, false, false];
     private bool isLoading;
     private bool noteSaved;
     private string? errorMessage;
     private ClassificationResult? result;
+    private readonly Dictionary<WizardSectionKey, HelperQuestionsUiState> helperQuestions = CreateHelperStateMap();
 
     [Inject] private IJSRuntime JS { get; set; } = default!;
 
     protected override void OnInitialized()
     {
         State.Reset();
+        InitializeHelperStates();
+    }
+
+    private async Task OnSectionFirstExpanded(WizardSectionKey sectionKey)
+    {
+        await LoadHelperQuestionsAsync(sectionKey, forceRefresh: false);
+    }
+
+    private async Task OnSectionRefreshRequested(WizardSectionKey sectionKey)
+    {
+        await LoadHelperQuestionsAsync(sectionKey, forceRefresh: true);
+    }
+
+    private void InitializeHelperStates()
+    {
+        helperQuestions.Clear();
+        foreach (var section in Enum.GetValues<WizardSectionKey>())
+        {
+            helperQuestions[section] = new HelperQuestionsUiState();
+        }
+    }
+
+    private static Dictionary<WizardSectionKey, HelperQuestionsUiState> CreateHelperStateMap()
+    {
+        var map = new Dictionary<WizardSectionKey, HelperQuestionsUiState>();
+        foreach (var section in Enum.GetValues<WizardSectionKey>())
+        {
+            map[section] = new HelperQuestionsUiState();
+        }
+
+        return map;
+    }
+
+    private async Task LoadHelperQuestionsAsync(WizardSectionKey sectionKey, bool forceRefresh)
+    {
+        var sectionState = helperQuestions[sectionKey];
+        sectionState.IsLoading = true;
+        sectionState.Error = null;
+        StateHasChanged();
+
+        try
+        {
+            var result = await HelperQuestionsCoordinator.GetForSectionAsync(sectionKey, forceRefresh);
+            sectionState.Questions = result.Questions;
+            sectionState.LastContextHash = result.ContextHash;
+        }
+        catch (Exception)
+        {
+            sectionState.Error = "Nie udało się wygenerować pytań pomocniczych. Spróbuj ponownie.";
+        }
+        finally
+        {
+            sectionState.IsLoading = false;
+            StateHasChanged();
+        }
     }
 
     private async Task OnClassify()

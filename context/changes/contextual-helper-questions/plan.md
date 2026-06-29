@@ -236,27 +236,27 @@ Polish helper-question UI and verify no regressions in existing classification/n
 
 #### Automated
 
-- [x] 1.1 Solution builds successfully: `dotnet build`
-- [x] 1.2 Helper service compiles with strict typed contracts and no additional warnings
+- [x] 1.1 Solution builds successfully: `dotnet build` — 2f0663a
+- [x] 1.2 Helper service compiles with strict typed contracts and no additional warnings — 2f0663a
 
 #### Manual
 
-- [ ] 1.3 N/A (service-only phase)
+- [x] 1.3 N/A (service-only phase) — 2f0663a
 
 ### Phase 2: Wizard/Edit integration with per-section loading, cache, refresh, and error handling
 
 #### Automated
 
-- [ ] 2.1 Solution builds successfully after UI + service integration: `dotnet build`
+- [x] 2.1 Solution builds successfully after UI + service integration: `dotnet build`
 
 #### Manual
 
-- [ ] 2.2 In `/`, first explicit expansion of a section shows loading and then 3-5 helper questions
-- [ ] 2.3 Re-expanding the same section with unchanged context serves cached questions without a visible second generation delay
-- [ ] 2.4 Clicking refresh regenerates helper questions for that section
-- [ ] 2.5 In `/edit/{id}`, behavior matches `/` after existing note content is loaded
-- [ ] 2.6 On helper-generation failure, section shows clear error and retry path, while classification button/flow still works
-- [ ] 2.7 Switching to a different note in `/edit/{id}` does not reuse stale helper-question cache from a previously opened note
+- [x] 2.2 In `/`, first explicit expansion of a section shows loading and then 3-5 helper questions
+- [x] 2.3 Re-expanding the same section with unchanged context serves cached questions without a visible second generation delay
+- [x] 2.4 Clicking refresh regenerates helper questions for that section
+- [x] 2.5 In `/edit/{id}`, behavior matches `/` after existing note content is loaded
+- [x] 2.6 On helper-generation failure, section shows clear error and retry path, while classification button/flow still works
+- [x] 2.7 Switching to a different note in `/edit/{id}` does not reuse stale helper-question cache from a previously opened note
 
 ### Phase 3: Styling, regression validation, and completion hardening
 
