@@ -13,7 +13,8 @@ if (!string.IsNullOrEmpty(databaseUrl))
 {
     var uri = new Uri(databaseUrl);
     var userInfo = uri.UserInfo.Split(':');
-    connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+    var sslMode = builder.Environment.IsDevelopment() ? "Disable" : "Require";
+    connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode={sslMode};Trust Server Certificate=true";
 }
 else
 {
@@ -60,6 +61,7 @@ builder.Services.AddScoped<DevNote.Services.WizardStateService>();
 builder.Services.Configure<DevNote.Services.AzureOpenAIOptions>(
     builder.Configuration.GetSection(DevNote.Services.AzureOpenAIOptions.SectionName));
 builder.Services.AddScoped<DevNote.Services.ClassificationService>();
+builder.Services.AddScoped<DevNote.Services.HelperQuestionsService>();
 builder.Services.AddScoped<DevNote.Services.NoteService>();
 
 var port = Environment.GetEnvironmentVariable("PORT");
@@ -70,8 +72,8 @@ if (!string.IsNullOrEmpty(port) && string.IsNullOrEmpty(Environment.GetEnvironme
 
 var app = builder.Build();
 
-// Auto-apply pending migrations in non-development environments
-if (!app.Environment.IsDevelopment())
+// Auto-apply pending migrations in non-development or when running with DATABASE_URL (e.g., Docker/Railway)
+if (!app.Environment.IsDevelopment() || !string.IsNullOrEmpty(databaseUrl))
 {
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();

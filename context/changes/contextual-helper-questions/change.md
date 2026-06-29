@@ -1,8 +1,8 @@
 ---
-change_id: note-management
-title: Note management
-status: impl_reviewed
-created: 2026-06-11
+change_id: contextual-helper-questions
+title: Contextual helper questions
+status: implementing
+created: 2026-06-29
 updated: 2026-06-29
 archived_at: null
 ---

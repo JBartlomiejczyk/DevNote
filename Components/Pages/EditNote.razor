@@ -134,9 +134,9 @@
             result = await ClassificationService.ClassifyAsync(State.Data);
             await NoteService.UpdateNoteAsync(NoteId, userId, State.Data, result);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            errorMessage = ex.Message;
+            errorMessage = "Wystąpił błąd podczas klasyfikacji. Spróbuj ponownie za chwilę.";
         }
         finally
         {
@@ -145,7 +145,7 @@
 
             if (result is not null)
             {
-                await JS.InvokeVoidAsync("eval", "document.getElementById('result-anchor')?.scrollIntoView({behavior:'smooth'})");
+                await JS.InvokeVoidAsync("devNote.scrollToResultAnchor", "result-anchor");
             }
         }
     }
