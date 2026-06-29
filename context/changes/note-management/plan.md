@@ -311,8 +311,8 @@ Wire up header navigation to `/notes`, add "Nowa notatka" link on the notes page
 
 #### Automated
 
-- [x] 2.1 `dotnet build` compiles without errors
-- [x] 2.2 Page is routable at `/notes`
+- [x] 2.1 `dotnet build` compiles without errors — 7d79547
+- [x] 2.2 Page is routable at `/notes` — 7d79547
 
 #### Manual
 
@@ -325,8 +325,8 @@ Wire up header navigation to `/notes`, add "Nowa notatka" link on the notes page
 
 #### Automated
 
-- [ ] 3.1 `dotnet build` compiles without errors
-- [ ] 3.2 `/edit/{guid}` route resolves
+- [x] 3.1 `dotnet build` compiles without errors
+- [x] 3.2 `/edit/{guid}` route resolves
 
 #### Manual
 

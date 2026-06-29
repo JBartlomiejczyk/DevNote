@@ -1,14 +1,16 @@
-@page "/"
+@page "/edit/{NoteId:guid}"
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
 @using Microsoft.AspNetCore.Components.Authorization
 @using DevNote.Services
+@using DevNote.Models
 @rendermode InteractiveServer
 @inject WizardStateService State
 @inject ClassificationService ClassificationService
 @inject NoteService NoteService
 @inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager Nav
 
-<h2>Notatka z rozmowy</h2>
+<h2>Edytuj notatkę</h2>
 <p class="wizard-intro">Wypełnij poniższe sekcje, aby ustrukturyzować rozmowę z interesariuszem biznesowym.</p>
 
 <div class="wizard-accordion">
@@ -79,48 +81,58 @@
 @if (result is not null)
 {
     <div id="result-anchor">
-        @if (noteSaved)
-        {
-            <div class="auth-success"><p>Zapisano notatkę.</p></div>
-        }
+        <div class="auth-success"><p>Notatka zaktualizowana.</p></div>
         <Result ClassificationResult="result" />
         <a href="/notes" class="notes-back-link">Przejdź do notatek →</a>
     </div>
 }
 
 @code {
+    [Parameter] public Guid NoteId { get; set; }
+
     private bool[] expandedSections = [true, true, true, true, true, true, true, true];
     private bool isLoading;
-    private bool noteSaved;
     private string? errorMessage;
     private ClassificationResult? result;
+    private string? userId;
 
     [Inject] private IJSRuntime JS { get; set; } = default!;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        State.Reset();
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        userId = authState.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+        if (userId is null)
+        {
+            Nav.NavigateTo("/notes");
+            return;
+        }
+
+        var note = await NoteService.GetNoteAsync(NoteId, userId);
+        if (note is null)
+        {
+            Nav.NavigateTo("/notes");
+            return;
+        }
+
+        await NoteService.RevertToDraftAsync(NoteId, userId);
+        State.LoadFromNote(note);
     }
 
     private async Task OnClassify()
     {
+        if (userId is null) return;
+
         isLoading = true;
         errorMessage = null;
         result = null;
-        noteSaved = false;
         StateHasChanged();
 
         try
         {
             result = await ClassificationService.ClassifyAsync(State.Data);
-
-            var authState = await AuthStateProvider.GetAuthenticationStateAsync();
-            var userId = authState.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            if (userId is not null)
-            {
-                await NoteService.CreateNoteAsync(userId, State.Data, result);
-                noteSaved = true;
-            }
+            await NoteService.UpdateNoteAsync(NoteId, userId, State.Data, result);
         }
         catch (Exception ex)
         {
