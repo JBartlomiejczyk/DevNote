@@ -300,19 +300,19 @@ Wire up header navigation to `/notes`, add "Nowa notatka" link on the notes page
 
 #### Automated
 
-- [x] 1.1 `dotnet build` compiles without errors
-- [x] 1.2 All four new methods exist and are callable
+- [x] 1.1 `dotnet build` compiles without errors — 44d10c3
+- [x] 1.2 All four new methods exist and are callable — 44d10c3
 
 #### Manual
 
-- [x] 1.3 Verify note status changes via `/admin/db-check`
+- [x] 1.3 Verify note status changes via `/admin/db-check` — 44d10c3
 
 ### Phase 2: Notes List Page
 
 #### Automated
 
-- [ ] 2.1 `dotnet build` compiles without errors
-- [ ] 2.2 Page is routable at `/notes`
+- [x] 2.1 `dotnet build` compiles without errors
+- [x] 2.2 Page is routable at `/notes`
 
 #### Manual
 

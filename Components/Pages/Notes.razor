@@ -1,0 +1,73 @@
+@page "/notes"
+@using static Microsoft.AspNetCore.Components.Web.RenderMode
+@using Microsoft.AspNetCore.Components.Authorization
+@using DevNote.Services
+@using DevNote.Models
+@rendermode InteractiveServer
+@inject NoteService NoteService
+@inject AuthenticationStateProvider AuthStateProvider
+
+<h2>Moje notatki</h2>
+
+<div class="notes-header">
+    <a href="/" class="btn-new-note">Nowa notatka</a>
+</div>
+
+@if (notes is null)
+{
+    <p>Ładowanie...</p>
+}
+else if (notes.Count == 0)
+{
+    <div class="notes-empty">
+        <p>Nie masz jeszcze żadnych notatek.</p>
+        <a href="/">Utwórz pierwszą notatkę →</a>
+    </div>
+}
+else
+{
+    <ul class="notes-list">
+        @foreach (var note in notes)
+        {
+            <li class="notes-item">
+                <a href="/edit/@note.Id" class="notes-item-link">
+                    <span class="notes-title">@note.Title</span>
+                    <span class="notes-meta">
+                        <span class="notes-date">@note.CreatedAt.LocalDateTime.ToString("dd.MM.yyyy")</span>
+                        <span class="notes-status @(note.Status == NoteStatus.Completed ? "notes-status--completed" : "notes-status--draft")">
+                            @(note.Status == NoteStatus.Completed ? "Ukończona" : "Szkic")
+                        </span>
+                        @if (note.Classification.HasValue)
+                        {
+                            <span class="notes-classification badge-@note.Classification.Value.ToString().ToLower()">
+                                @note.Classification.Value
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="notes-classification notes-classification--none">—</span>
+                        }
+                    </span>
+                </a>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<ConversationNote>? notes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var userId = authState.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (userId is not null)
+        {
+            notes = await NoteService.GetNotesForUserAsync(userId);
+        }
+        else
+        {
+            notes = [];
+        }
+    }
+}

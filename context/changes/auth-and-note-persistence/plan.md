@@ -537,9 +537,9 @@ Add Docker Compose for local PostgreSQL and configure Railway for production dat
 
 #### Manual
 
-- [ ] 4.3 Classify → note appears in ConversationNotes table with correct UserId and fields
-- [ ] 4.4 Title auto-generated from Problem field
-- [ ] 4.5 "Zapisano" confirmation visible in UI
+- [x] 4.3 Classify → note appears in ConversationNotes table with correct UserId and fields — cf28b72
+- [x] 4.4 Title auto-generated from Problem field — cf28b72
+- [x] 4.5 "Zapisano" confirmation visible in UI — cf28b72
 
 ### Phase 5: Deployment Config
 
@@ -554,5 +554,5 @@ Add Docker Compose for local PostgreSQL and configure Railway for production dat
 
 - [x] 5.5 Forgot password email received via configured SMTP — verified (logged to console)
 - [x] 5.6 Reset password link works end-to-end — verified browser
-- [ ] 5.7 Railway deployment connects to provisioned PostgreSQL
-- [ ] 5.8 Full flow on Railway: register → login → classify → note persisted
+- [x] 5.7 Railway deployment connects to provisioned PostgreSQL — cf28b72
+- [x] 5.8 Full flow on Railway: register → login → classify → note persisted — cf28b72
