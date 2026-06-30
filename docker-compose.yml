@@ -1,32 +1,14 @@
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "5276:8080"
-    environment:
-      DATABASE_URL: postgresql://devnote:devnote@postgres:5432/devnote
-      ASPNETCORE_ENVIRONMENT: Development
-    depends_on:
-      postgres:
-        condition: service_healthy
-
   postgres:
     image: postgres:16-alpine
     ports:
-      - "5433:5432"
+      - "5432:5432"
     environment:
       POSTGRES_DB: devnote
       POSTGRES_USER: devnote
       POSTGRES_PASSWORD: devnote
     volumes:
       - pgdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U devnote -d devnote"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
 
 volumes:
   pgdata:

@@ -136,7 +136,7 @@
     private string? errorMessage;
     private ClassificationResult? result;
     private string? userId;
-    private readonly Dictionary<WizardSectionKey, HelperQuestionsUiState> helperQuestions = CreateHelperStateMap();
+    private readonly Dictionary<WizardSectionKey, HelperQuestionsUiState> helperQuestions = [];
 
     [Inject] private IJSRuntime JS { get; set; } = default!;
 
@@ -177,46 +177,15 @@
 
     private void InitializeHelperStates()
     {
-        helperQuestions.Clear();
-        foreach (var section in Enum.GetValues<WizardSectionKey>())
-        {
-            helperQuestions[section] = new HelperQuestionsUiState();
-        }
-    }
-
-    private static Dictionary<WizardSectionKey, HelperQuestionsUiState> CreateHelperStateMap()
-    {
-        var map = new Dictionary<WizardSectionKey, HelperQuestionsUiState>();
-        foreach (var section in Enum.GetValues<WizardSectionKey>())
-        {
-            map[section] = new HelperQuestionsUiState();
-        }
-
-        return map;
+        HelperQuestionsCoordinator.ResetUiStateMap(helperQuestions);
     }
 
     private async Task LoadHelperQuestionsAsync(WizardSectionKey sectionKey, bool forceRefresh)
     {
-        var sectionState = helperQuestions[sectionKey];
-        sectionState.IsLoading = true;
-        sectionState.Error = null;
         StateHasChanged();
 
-        try
-        {
-            var generated = await HelperQuestionsCoordinator.GetForSectionAsync(sectionKey, forceRefresh);
-            sectionState.Questions = generated.Questions;
-            sectionState.LastContextHash = generated.ContextHash;
-        }
-        catch (Exception)
-        {
-            sectionState.Error = "Nie udało się wygenerować pytań pomocniczych. Spróbuj ponownie.";
-        }
-        finally
-        {
-            sectionState.IsLoading = false;
-            StateHasChanged();
-        }
+        await HelperQuestionsCoordinator.LoadSectionUiStateAsync(helperQuestions, sectionKey, forceRefresh);
+        StateHasChanged();
     }
 
     private async Task OnClassify()

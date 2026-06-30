@@ -316,10 +316,10 @@ Wire up header navigation to `/notes`, add "Nowa notatka" link on the notes page
 
 #### Manual
 
-- [x] 2.3 Navigate to `/notes` while logged in â€” see list of existing notes ï¿½ 617663b
-- [x] 2.4 Verify title, date, status badge, classification badge render correctly ï¿½ 617663b
-- [x] 2.5 Empty state shows when user has no notes ï¿½ 617663b
-- [x] 2.6 Clicking a note navigates to `/edit/{id}` ï¿½ 617663b
+- [x] 2.3 Navigate to `/notes` while logged in â€” see list of existing notes — 617663b
+- [x] 2.4 Verify title, date, status badge, classification badge render correctly — 617663b
+- [x] 2.5 Empty state shows when user has no notes — 617663b
+- [x] 2.6 Clicking a note navigates to `/edit/{id}` — 617663b
 
 ### Phase 3: Wizard Edit Mode
 
@@ -330,41 +330,30 @@ Wire up header navigation to `/notes`, add "Nowa notatka" link on the notes page
 
 #### Manual
 
-- [x] 3.3 Wizard pre-fills with note data on edit page ï¿½ 617663b
-- [x] 3.4 Note status reverts to Draft on edit load ï¿½ 617663b
-- [x] 3.5 Re-classify updates existing note (no duplicates) ï¿½ 617663b
-- [x] 3.6 Classification result and summary display inline after re-classify ï¿½ 617663b
-- [x] 3.7 "PrzejdÅº do notatek" link navigates to `/notes` ï¿½ 617663b
-- [x] 3.8 Creating a new note via `/` shows result inline with link to /notes ï¿½ 617663b
-- [x] 3.9 Editing a note that doesn't belong to user (or bad GUID) redirects to `/notes` ï¿½ 617663b
-- [x] 3.10 Unauthenticated access to `/notes` or `/edit/{id}` redirects to login with return-url ï¿½ 617663b
+- [x] 3.3 Wizard pre-fills with note data on edit page — 617663b
+- [x] 3.4 Note status reverts to Draft on edit load — 617663b
+- [x] 3.5 Re-classify updates existing note (no duplicates) — 617663b
+- [x] 3.6 Classification result and summary display inline after re-classify — 617663b
+- [x] 3.7 "PrzejdÅº do notatek" link navigates to `/notes` — 617663b
+- [x] 3.8 Creating a new note via `/` shows result inline with link to /notes — 617663b
+- [x] 3.9 Editing a note that doesn't belong to user (or bad GUID) redirects to `/notes` — 617663b
+- [x] 3.10 Unauthenticated access to `/notes` or `/edit/{id}` redirects to login with return-url — 617663b
 
 ### Phase 4: Navigation & Styling
 
 #### Automated
 
-- [x] 4.1 `dotnet build` compiles without errors ï¿½ 617663b
-- [x] 4.2 CSS has no syntax errors ï¿½ 617663b
+- [x] 4.1 `dotnet build` compiles without errors — 617663b
+- [x] 4.2 CSS has no syntax errors — 617663b
 
 #### Manual
 
-- [x] 4.3 Header "Moje notatki" link visible and works ï¿½ 617663b
-- [x] 4.4 Notes list styled with cards and colored badges ï¿½ 617663b
-- [x] 4.5 "Nowa notatka" button navigates to wizard ï¿½ 617663b
-- [x] 4.6 Hover effects on note cards work ï¿½ 617663b
-- [x] 4.7 Mobile responsive (cards stack vertically) ï¿½ 617663b
+- [x] 4.3 Header "Moje notatki" link visible and works — 617663b
+- [x] 4.4 Notes list styled with cards and colored badges — 617663b
+- [x] 4.5 "Nowa notatka" button navigates to wizard — 617663b
+- [x] 4.6 Hover effects on note cards work — 617663b
+- [x] 4.7 Mobile responsive (cards stack vertically) — 617663b
 
 
 
 
-
-## Manual Verification Evidence
-
-- 2026-06-29 â€” testy wykonane na branchu `note-management`, potwierdzone commitami `617663b` (P2-P4 manual) i `44d10c3` (P1 manual).
-- `/notes`: lista, empty-state, badge, nawigacja do `/edit/{id}` â€” OK.
-- `/edit/{id}`: prefill, status Draft po wejÅ›ciu, re-classify aktualizuje ten sam rekord (bez duplikatu), wynik inline + link do `/notes` â€” OK.
-- Granice auth: brak dostÄ™pu bez logowania + redirect z return-url; obce/bÅ‚Ä™dne ID przekierowuje do `/notes` â€” OK.
-
-## Review Addendum (2026-06-29)
-
-- `Services/WizardStateService.cs` zostaÅ‚o celowo rozszerzone o `Reset()` i `LoadFromNote(...)`, aby utrzymaÄ‡ spÃ³jnÄ… hydracjÄ™/reset stanu kreatora miÄ™dzy trasami `/` i `/edit/{id}`.

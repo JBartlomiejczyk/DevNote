@@ -109,6 +109,12 @@ public class HelperQuestionsService
             chatOptions,
             ct);
 
+        if (completion.Value.Content.Count == 0 ||
+            string.IsNullOrWhiteSpace(completion.Value.Content[0].Text))
+        {
+            throw new HelperQuestionsResponseException("Model nie zwrocil tresci pytań pomocniczych.");
+        }
+
         var json = completion.Value.Content[0].Text;
         _logger.LogDebug(
             "Helper questions response for {Section}: {Json}",
