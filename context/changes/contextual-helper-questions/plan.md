@@ -262,10 +262,10 @@ Polish helper-question UI and verify no regressions in existing classification/n
 
 #### Automated
 
-- [x] 3.1 Solution builds successfully: `dotnet build`
+- [x] 3.1 Solution builds successfully: `dotnet build` — fbe0932
 
 #### Manual
 
-- [x] 3.2 Helper-question list is readable and visually aligned in both flows
-- [x] 3.3 Existing classification result rendering still works in `/` and `/edit/{id}`
-- [x] 3.4 No regressions in note save/update success messages and navigation
+- [x] 3.2 Helper-question list is readable and visually aligned in both flows — fbe0932
+- [x] 3.3 Existing classification result rendering still works in `/` and `/edit/{id}` — fbe0932
+- [x] 3.4 No regressions in note save/update success messages and navigation — fbe0932
