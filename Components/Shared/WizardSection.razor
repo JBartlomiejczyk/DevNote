@@ -77,13 +77,13 @@
     private async Task Toggle()
     {
         IsExpanded = !IsExpanded;
+        await IsExpandedChanged.InvokeAsync(IsExpanded);
+
         if (IsExpanded && !_firstExpandTriggered)
         {
             _firstExpandTriggered = true;
             await FirstExpanded.InvokeAsync();
         }
-
-        await IsExpandedChanged.InvokeAsync(IsExpanded);
     }
 
     private async Task OnRefreshRequested()
