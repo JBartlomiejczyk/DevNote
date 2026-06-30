@@ -124,6 +124,70 @@ h2 {
     color: #aaa;
 }
 
+.wizard-helper-questions {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background-color: #f8fafc;
+}
+
+.wizard-helper-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.wizard-helper-header h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.btn-helper-refresh {
+    border: 1px solid #4a6cf7;
+    background-color: #fff;
+    color: #4a6cf7;
+    border-radius: 6px;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-helper-refresh:disabled {
+    border-color: #cbd5e1;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.wizard-helper-loading,
+.wizard-helper-empty {
+    margin: 0;
+    color: #475569;
+    font-size: 0.875rem;
+}
+
+.wizard-helper-error {
+    margin: 0;
+    color: #b91c1c;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.wizard-helper-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    color: #1f2937;
+    font-size: 0.9rem;
+}
+
 .wizard-actions {
     margin-top: 2rem;
     display: flex;
@@ -560,4 +624,3 @@ h2 {
         justify-content: flex-start;
     }
 }
-

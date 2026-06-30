@@ -247,25 +247,25 @@ Polish helper-question UI and verify no regressions in existing classification/n
 
 #### Automated
 
-- [x] 2.1 Solution builds successfully after UI + service integration: `dotnet build`
+- [x] 2.1 Solution builds successfully after UI + service integration: `dotnet build` — 9616f9d
 
 #### Manual
 
-- [x] 2.2 In `/`, first explicit expansion of a section shows loading and then 3-5 helper questions
-- [x] 2.3 Re-expanding the same section with unchanged context serves cached questions without a visible second generation delay
-- [x] 2.4 Clicking refresh regenerates helper questions for that section
-- [x] 2.5 In `/edit/{id}`, behavior matches `/` after existing note content is loaded
-- [x] 2.6 On helper-generation failure, section shows clear error and retry path, while classification button/flow still works
-- [x] 2.7 Switching to a different note in `/edit/{id}` does not reuse stale helper-question cache from a previously opened note
+- [x] 2.2 In `/`, first explicit expansion of a section shows loading and then 3-5 helper questions — 9616f9d
+- [x] 2.3 Re-expanding the same section with unchanged context serves cached questions without a visible second generation delay — 9616f9d
+- [x] 2.4 Clicking refresh regenerates helper questions for that section — 9616f9d
+- [x] 2.5 In `/edit/{id}`, behavior matches `/` after existing note content is loaded — 9616f9d
+- [x] 2.6 On helper-generation failure, section shows clear error and retry path, while classification button/flow still works — 9616f9d
+- [x] 2.7 Switching to a different note in `/edit/{id}` does not reuse stale helper-question cache from a previously opened note — 9616f9d
 
 ### Phase 3: Styling, regression validation, and completion hardening
 
 #### Automated
 
-- [ ] 3.1 Solution builds successfully: `dotnet build`
+- [x] 3.1 Solution builds successfully: `dotnet build`
 
 #### Manual
 
-- [ ] 3.2 Helper-question list is readable and visually aligned in both flows
-- [ ] 3.3 Existing classification result rendering still works in `/` and `/edit/{id}`
-- [ ] 3.4 No regressions in note save/update success messages and navigation
+- [x] 3.2 Helper-question list is readable and visually aligned in both flows
+- [x] 3.3 Existing classification result rendering still works in `/` and `/edit/{id}`
+- [x] 3.4 No regressions in note save/update success messages and navigation
