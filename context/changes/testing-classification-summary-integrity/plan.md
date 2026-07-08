@@ -232,21 +232,21 @@ No database schema migration is required. This change is behavioral (validation 
 
 #### Automated
 
-- [x] 2.1 Unit tests pass for required integrity scenarios via `dotnet test`
-- [x] 2.2 Build passes via `dotnet build`
-- [x] 2.3 Unknown classification no longer has silent fallback behavior
+- [x] 2.1 Unit tests pass for required integrity scenarios via `dotnet test` — ed87032
+- [x] 2.2 Build passes via `dotnet build` — ed87032
+- [x] 2.3 Unknown classification no longer has silent fallback behavior — ed87032
 
 #### Manual
 
-- [x] 2.4 Invalid response path shows error banner and does not render blank-but-valid summary
+- [x] 2.4 Invalid response path shows error banner and does not render blank-but-valid summary — ed87032
 
 ### Phase 3: Activate CI quality gate for Phase 1
 
 #### Automated
 
-- [ ] 3.1 CI workflow executes `dotnet test` successfully on current branch
-- [ ] 3.2 Local command parity (`dotnet restore`, `dotnet build`, `dotnet test`) passes
+- [x] 3.1 CI workflow executes `dotnet test` successfully on current branch
+- [x] 3.2 Local command parity (`dotnet restore`, `dotnet build`, `dotnet test`) passes
 
 #### Manual
 
-- [ ] 3.3 Failing tests block pipeline in GitHub Actions as expected
+- [x] 3.3 Failing tests block pipeline in GitHub Actions as expected
