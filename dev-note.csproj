@@ -17,4 +17,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="DevNote.Tests\\**\\*.cs" />
+    <EmbeddedResource Remove="DevNote.Tests\\**\\*" />
+    <None Remove="DevNote.Tests\\**\\*" />
+  </ItemGroup>
+
 </Project>

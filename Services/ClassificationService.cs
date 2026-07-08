@@ -1,5 +1,4 @@
 using System.ClientModel;
-using System.Text.Json;
 using Azure.AI.OpenAI;
 using DevNote.Models;
 using Microsoft.Extensions.Options;
@@ -11,6 +10,7 @@ public class ClassificationService
 {
     private readonly AzureOpenAIOptions _options;
     private readonly ILogger<ClassificationService> _logger;
+    private readonly ClassificationResponseValidator _responseValidator;
 
     private static readonly string SystemPrompt = """
         Jesteś ekspertem od klasyfikacji problemów biznesowych. Na podstawie opisu problemu dokonaj klasyfikacji według poniższych kategorii:
@@ -92,10 +92,14 @@ public class ClassificationService
         }
         """u8.ToArray());
 
-    public ClassificationService(IOptions<AzureOpenAIOptions> options, ILogger<ClassificationService> logger)
+    public ClassificationService(
+        IOptions<AzureOpenAIOptions> options,
+        ILogger<ClassificationService> logger,
+        ClassificationResponseValidator responseValidator)
     {
         _options = options.Value;
         _logger = logger;
+        _responseValidator = responseValidator;
     }
 
     public async Task<ClassificationResult> ClassifyAsync(WizardData data, CancellationToken ct = default)
@@ -156,39 +160,7 @@ public class ClassificationService
         var json = completion.Value.Content[0].Text;
         _logger.LogDebug("Classification response: {Json}", json);
 
-        var result = ParseResponse(json);
+        var result = _responseValidator.ParseAndValidate(json);
         return result;
-    }
-
-    private static ClassificationResult ParseResponse(string json)
-    {
-        using var doc = JsonDocument.Parse(json);
-        var root = doc.RootElement;
-
-        var classStr = root.GetProperty("classification").GetString();
-        var classification = classStr switch
-        {
-            "A" => Classification.A,
-            "B" => Classification.B,
-            "C" => Classification.C,
-            _ => Classification.B
-        };
-
-        return new ClassificationResult
-        {
-            Classification = classification,
-            Justification = root.GetProperty("justification").GetString() ?? string.Empty,
-            Problem = root.GetProperty("problem").GetString() ?? string.Empty,
-            Users = root.GetProperty("users").GetString() ?? string.Empty,
-            CurrentProcess = root.GetProperty("currentProcess").GetString() ?? string.Empty,
-            TimeWaste = root.GetProperty("timeWaste").GetString() ?? string.Empty,
-            InputData = root.GetProperty("inputData").GetString() ?? string.Empty,
-            ExpectedOutput = root.GetProperty("expectedOutput").GetString() ?? string.Empty,
-            RecommendedPath = root.GetProperty("recommendedPath").GetString() ?? string.Empty,
-            MvpScope = root.GetProperty("mvpScope").GetString() ?? string.Empty,
-            OutOfScope = root.GetProperty("outOfScope").GetString() ?? string.Empty,
-            AcceptanceCriteria = root.GetProperty("acceptanceCriteria").GetString() ?? string.Empty,
-            NextStep = root.GetProperty("nextStep").GetString() ?? string.Empty
-        };
     }
 }
