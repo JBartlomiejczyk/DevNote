@@ -220,25 +220,25 @@ No database schema migration is required. This change is behavioral (validation 
 
 #### Automated
 
-- [x] 1.1 `dotnet restore` succeeds with new test project dependencies
-- [x] 1.2 `dotnet build` succeeds for app + tests
-- [x] 1.3 `dotnet test` executes and discovers test project
+- [x] 1.1 `dotnet restore` succeeds with new test project dependencies — 6c1c5c6
+- [x] 1.2 `dotnet build` succeeds for app + tests — 6c1c5c6
+- [x] 1.3 `dotnet test` executes and discovers test project — 6c1c5c6
 
 #### Manual
 
-- [x] 1.4 Repository structure includes `DevNote.Tests` and tests run locally with one command
+- [x] 1.4 Repository structure includes `DevNote.Tests` and tests run locally with one command — 6c1c5c6
 
 ### Phase 2: Enforce integrity policy and cover Risk #1 with unit tests
 
 #### Automated
 
-- [ ] 2.1 Unit tests pass for required integrity scenarios via `dotnet test`
-- [ ] 2.2 Build passes via `dotnet build`
-- [ ] 2.3 Unknown classification no longer has silent fallback behavior
+- [x] 2.1 Unit tests pass for required integrity scenarios via `dotnet test`
+- [x] 2.2 Build passes via `dotnet build`
+- [x] 2.3 Unknown classification no longer has silent fallback behavior
 
 #### Manual
 
-- [ ] 2.4 Invalid response path shows error banner and does not render blank-but-valid summary
+- [x] 2.4 Invalid response path shows error banner and does not render blank-but-valid summary
 
 ### Phase 3: Activate CI quality gate for Phase 1
 

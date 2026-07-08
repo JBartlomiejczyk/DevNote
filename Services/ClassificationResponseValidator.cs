@@ -12,30 +12,23 @@ public sealed class ClassificationResponseValidator
             using var doc = JsonDocument.Parse(json);
             var root = doc.RootElement;
 
-            var classStr = root.GetProperty("classification").GetString();
-            var classification = classStr switch
-            {
-                "A" => Classification.A,
-                "B" => Classification.B,
-                "C" => Classification.C,
-                _ => Classification.B
-            };
+            var classification = ParseClassification(root);
 
             return new ClassificationResult
             {
                 Classification = classification,
-                Justification = root.GetProperty("justification").GetString() ?? string.Empty,
-                Problem = root.GetProperty("problem").GetString() ?? string.Empty,
-                Users = root.GetProperty("users").GetString() ?? string.Empty,
-                CurrentProcess = root.GetProperty("currentProcess").GetString() ?? string.Empty,
-                TimeWaste = root.GetProperty("timeWaste").GetString() ?? string.Empty,
-                InputData = root.GetProperty("inputData").GetString() ?? string.Empty,
-                ExpectedOutput = root.GetProperty("expectedOutput").GetString() ?? string.Empty,
-                RecommendedPath = root.GetProperty("recommendedPath").GetString() ?? string.Empty,
-                MvpScope = root.GetProperty("mvpScope").GetString() ?? string.Empty,
-                OutOfScope = root.GetProperty("outOfScope").GetString() ?? string.Empty,
-                AcceptanceCriteria = root.GetProperty("acceptanceCriteria").GetString() ?? string.Empty,
-                NextStep = root.GetProperty("nextStep").GetString() ?? string.Empty
+                Justification = ReadRequiredText(root, "justification"),
+                Problem = ReadRequiredText(root, "problem"),
+                Users = ReadRequiredText(root, "users"),
+                CurrentProcess = ReadRequiredText(root, "currentProcess"),
+                TimeWaste = ReadRequiredText(root, "timeWaste"),
+                InputData = ReadRequiredText(root, "inputData"),
+                ExpectedOutput = ReadRequiredText(root, "expectedOutput"),
+                RecommendedPath = ReadRequiredText(root, "recommendedPath"),
+                MvpScope = ReadRequiredText(root, "mvpScope"),
+                OutOfScope = ReadRequiredText(root, "outOfScope"),
+                AcceptanceCriteria = ReadRequiredText(root, "acceptanceCriteria"),
+                NextStep = ReadRequiredText(root, "nextStep")
             };
         }
         catch (JsonException ex)
@@ -50,5 +43,28 @@ public sealed class ClassificationResponseValidator
         {
             throw new ClassificationResponseValidationException("Odpowiedź klasyfikacji ma nieprawidłowy format pól.", ex);
         }
+    }
+
+    private static Classification ParseClassification(JsonElement root)
+    {
+        var classStr = root.GetProperty("classification").GetString();
+        return classStr switch
+        {
+            "A" => Classification.A,
+            "B" => Classification.B,
+            "C" => Classification.C,
+            _ => throw new ClassificationResponseValidationException("Odpowiedź klasyfikacji zawiera nieobsługiwaną wartość pola classification.")
+        };
+    }
+
+    private static string ReadRequiredText(JsonElement root, string propertyName)
+    {
+        var value = root.GetProperty(propertyName).GetString();
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            throw new ClassificationResponseValidationException($"Odpowiedź klasyfikacji zawiera puste pole wymagane: {propertyName}.");
+        }
+
+        return value.Trim();
     }
 }
