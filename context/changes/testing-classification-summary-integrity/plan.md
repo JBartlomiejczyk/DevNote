@@ -244,9 +244,9 @@ No database schema migration is required. This change is behavioral (validation 
 
 #### Automated
 
-- [x] 3.1 CI workflow executes `dotnet test` successfully on current branch
-- [x] 3.2 Local command parity (`dotnet restore`, `dotnet build`, `dotnet test`) passes
+- [x] 3.1 CI workflow executes `dotnet test` successfully on current branch — 7b07f61
+- [x] 3.2 Local command parity (`dotnet restore`, `dotnet build`, `dotnet test`) passes — 7b07f61
 
 #### Manual
 
-- [x] 3.3 Failing tests block pipeline in GitHub Actions as expected
+- [x] 3.3 Failing tests block pipeline in GitHub Actions as expected — 7b07f61
