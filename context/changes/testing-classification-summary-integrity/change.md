@@ -1,7 +1,7 @@
 ---
 change_id: testing-classification-summary-integrity
 title: Test harness and classification-summary integrity
-status: implemented
+status: impl_reviewed
 created: 2026-07-08
 updated: 2026-07-08
 archived_at: null

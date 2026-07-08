@@ -23,7 +23,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test DevNote.Tests/DevNote.Tests.csproj --configuration Release --no-build
+        run: dotnet test DevNote.Tests/DevNote.Tests.csproj --configuration Release
 
       - name: Install Railway CLI
         run: npm i -g @railway/cli
