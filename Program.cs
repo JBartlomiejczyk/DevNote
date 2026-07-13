@@ -95,13 +95,6 @@ app.UseAuthorization();
 
 app.MapGet("/healthz", () => Results.Ok("Healthy")).AllowAnonymous();
 
-app.MapGet("/admin/db-check", async (ApplicationDbContext db) =>
-{
-    var users = await db.Users.Select(u => new { u.Email }).ToListAsync();
-    var notes = await db.ConversationNotes.Select(n => new { n.Id, n.Title, n.Status, n.UserId, n.CreatedAt }).ToListAsync();
-    return Results.Ok(new { users, notes });
-}).AllowAnonymous();
-
 app.MapPost("/api/auth/logout", async (SignInManager<ApplicationUser> signInManager) =>
 {
     await signInManager.SignOutAsync();
@@ -112,3 +105,5 @@ app.MapRazorComponents<DevNote.Components.App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+
+public partial class Program { }

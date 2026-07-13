@@ -6,7 +6,7 @@
 >
 > Refresh: re-run `/10x-test-plan --refresh` when stale (see §8).
 >
-> Last updated: 2026-07-08 (Phase 1 change opened)
+> Last updated: 2026-07-08 (Phase 2 change opened)
 
 ## 1. Strategy
 
@@ -80,8 +80,8 @@ orchestrator updates Status as artifacts appear on disk.
 
 | # | Phase name | Goal (one line) | Risks covered | Test types | Status | Change folder |
 |---|------------|-----------------|---------------|------------|--------|---------------|
-| 1 | Test harness + classification/summary integrity | Bootstrap the xUnit runner and prove the LLM classify/summary parse cannot silently produce wrong or empty results | #1 | unit | change opened | testing-classification-summary-integrity |
-| 2 | Auth & ownership boundary | Prove anonymous requests cannot reach user data and no user can read another user's note | #3, #4 | integration | not started | — |
+| 1 | Test harness + classification/summary integrity | Bootstrap the xUnit runner and prove the LLM classify/summary parse cannot silently produce wrong or empty results | #1 | unit | complete | testing-classification-summary-integrity |
+| 2 | Auth & ownership boundary | Prove anonymous requests cannot reach user data and no user can read another user's note | #3, #4 | integration | planned | testing-auth-ownership-boundary |
 | 3 | Wizard state, edit-revert & degraded mode | Prove wizard back-navigation preserves data, edit reverts Completed→Draft, and helper-questions failure degrades without blocking | #2, #5, #6 | component (bUnit) + integration/unit | not started | — |
 | 4 | Quality-gates wiring | Lock format + build + unit + integration in CI and enable the local post-edit hook | cross-cutting | gates | not started | — |
 

@@ -1,9 +1,9 @@
 ---
 project: "DevNote"
 version: 1
-status: draft
+status: active
 created: 2026-06-08
-updated: 2026-06-08
+updated: 2026-07-08
 prd_version: 1
 main_goal: market-feedback
 top_blocker: decisions
@@ -30,10 +30,11 @@ Developers who talk to non-technical stakeholders lack a structured way to diagn
 | ID | Change ID | Outcome (user can …) | Prerequisites | PRD refs | Status |
 |---|---|---|---|---|---|
 | F-01 | deploy-skeleton | (foundation) Dockerfile + CI/CD landed; app deploys to Railway on push | — | — | done |
+| F-02 | testing-classification-summary-integrity | (foundation) xUnit harness + classification/summary integrity guardrails and CI unit gate | S-01 | FR-006, FR-007, Success Criteria | done |
 | S-01 | wizard-classification-summary | fill 8-section wizard and receive A/B/C classification + structured summary | — | US-02, US-04, US-05, FR-003, FR-005, FR-006, FR-007 | done |
-| S-02 | auth-and-note-persistence | register, log in, and save conversation notes persistently | S-01 | US-01, FR-001, FR-002 | ready |
-| S-03 | note-management | view past notes, re-enter wizard to edit, re-classify | S-02 | US-06, FR-008, FR-009 | proposed |
-| S-04 | contextual-helper-questions | see contextual AI-generated helper questions during each wizard section | S-01 | US-03, FR-004 | ready |
+| S-02 | auth-and-note-persistence | register, log in, and save conversation notes persistently | S-01 | US-01, FR-001, FR-002 | done |
+| S-03 | note-management | view past notes, re-enter wizard to edit, re-classify | S-02 | US-06, FR-008, FR-009 | done |
+| S-04 | contextual-helper-questions | see contextual AI-generated helper questions during each wizard section | S-01 | US-03, FR-004 | done |
 
 ## Streams
 
@@ -44,18 +45,19 @@ Navigation aid — groups items that share a Prerequisites chain. Canonical orde
 | A | Core validation pipeline | `S-01` → `S-02` → `S-03` | North star first, then persistence for multi-session market-feedback testing. |
 | B | AI-guided exploration | `S-04` | Joins Stream A at `S-01`; validates the second riskiest assumption (guidance quality). |
 | C | Infrastructure | `F-01` | Parallel with all; enables production deployment for real-world validation. |
+| D | Quality foundations | `F-02` | Hardens the north-star output contract and activates automated regression gating. |
 
 ## Baseline
 
-What's already in place in the codebase as of 2026-06-08 (auto-researched + user-confirmed).
+What's already in place in the codebase as of 2026-07-08 (auto-researched + user-confirmed).
 Foundations below assume these are present and do NOT re-scaffold them.
 
-- **Frontend:** absent — no Blazor SDK, no .razor files, no UI framework
-- **Backend / API:** partial — ASP.NET Core 9 minimal API scaffold (`Program.cs`), sample `/weatherforecast` only, no real endpoints or middleware
-- **Data:** absent — no EF Core, no DbContext, no migrations, no connection strings
-- **Auth:** absent — no Identity packages, no auth middleware
-- **Deploy / infra:** absent — no Dockerfile, no CI/CD, no railway.toml
-- **Observability:** absent — built-in host logging only, no structured logging or error tracking
+- **Frontend:** present — Blazor Server app with routed `.razor` pages and shared components (`Components/Pages/*.razor`, `Components/Routes.razor`)
+- **Backend / API:** present — ASP.NET Core app with mapped health/auth/data-check endpoints and Blazor host (`Program.cs`)
+- **Data:** present — EF Core DbContext + migrations (`Data/ApplicationDbContext.cs`, `Data/Migrations/*`)
+- **Auth:** present — ASP.NET Core Identity + auth middleware and account pages (`Program.cs`, `Components/Pages/Account/*.razor`)
+- **Deploy / infra:** present — Dockerfile + GitHub Actions deploy workflow (`Dockerfile`, `.github/workflows/deploy.yml`)
+- **Observability:** partial — built-in logging + `/healthz`; no external tracing/error platform integration
 
 ## Foundations
 
@@ -70,6 +72,19 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Sequenced early because market-feedback goal requires real-world usage; without deploy, validation stays local-only. Low technical risk — Railway + Dockerfile is a known pattern per `infrastructure.md`.
+- **Status:** done
+
+### F-02: Test harness + classification/summary integrity
+
+- **Outcome:** (foundation) xUnit test harness is in place, classification response integrity is validated fail-fast, and CI runs unit tests as a required gate.
+- **Change ID:** testing-classification-summary-integrity
+- **PRD refs:** FR-006, FR-007, Success Criteria
+- **Unlocks:** S-02, S-03, S-04 — reduces regression risk for classification/summary flows used across downstream slices
+- **Prerequisites:** S-01
+- **Parallel with:** S-02, S-03, S-04
+- **Blockers:** —
+- **Unknowns:** —
+- **Risk:** Sequenced after north-star delivery to harden core classification quality before further feature expansion; catches malformed/partial output regressions early.
 - **Status:** done
 
 ## Slices
@@ -97,7 +112,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Standard auth + CRUD pattern (low technical risk), but introduces three new layers at once (Identity, EF Core, PostgreSQL). Sequenced after S-01 because persistence enables multi-session market-feedback measurement (comparing outcomes across real meetings).
-- **Status:** ready
+- **Status:** done
 
 ### S-03: Note management
 
@@ -109,7 +124,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Low — standard list/edit UI on top of existing entities. Sequenced after S-02 because you need saved notes to manage them.
-- **Status:** proposed
+- **Status:** done
 
 ### S-04: Contextual helper questions
 
@@ -122,17 +137,18 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Unknowns:**
   - What rate-limiting or caching strategy is needed for per-section LLM calls (up to 8 per note)? — Owner: user. Block: no (functional without, but cost risk).
 - **Risk:** Validates the second riskiest assumption — that AI-guided exploration during fill produces materially better input than an unguided form. Sequenced parallel with persistence because it's an independent enhancement to the wizard.
-- **Status:** ready
+- **Status:** done
 
 ## Backlog Handoff
 
 | Roadmap ID | Change ID | Suggested issue title | Ready for `/10x-plan` | Notes |
 |---|---|---|---|---|
 | F-01 | deploy-skeleton | Set up Dockerfile + CI/CD for Railway auto-deploy | — | Done (implemented) |
+| F-02 | testing-classification-summary-integrity | Bootstrap xUnit harness and guard classification/summary integrity | — | Done (impl reviewed) |
 | S-01 | wizard-classification-summary | 8-section wizard with A/B/C classification and structured summary | — | Done (implemented) |
-| S-02 | auth-and-note-persistence | User registration, login, and persistent note saving | yes | Run `/10x-plan auth-and-note-persistence` |
-| S-03 | note-management | Past notes list, re-enter wizard, re-classify | no | Depends on S-02 |
-| S-04 | contextual-helper-questions | LLM-generated contextual helper questions per wizard section | yes | Run `/10x-plan contextual-helper-questions` |
+| S-02 | auth-and-note-persistence | User registration, login, and persistent note saving | — | Done (impl reviewed) |
+| S-03 | note-management | Past notes list, re-enter wizard, re-classify | — | Done (implemented) |
+| S-04 | contextual-helper-questions | LLM-generated contextual helper questions per wizard section | — | Done (impl reviewed) |
 
 ## Open Roadmap Questions
 
@@ -160,6 +176,9 @@ Foundations below assume these are present and do NOT re-scaffold them.
 
 ## Done
 
-- **F-01** deploy-skeleton — Dockerfile + GitHub Actions CI/CD, Railway auto-deploy (SHA: 0e94842)
-- **S-01** wizard-classification-summary — 8-section Blazor wizard + Azure OpenAI A/B/C classification + 11-field summary (SHAs: 1c6dda7, 0894a28, ef407ad)
-
+- **F-01** deploy-skeleton — Dockerfile + GitHub Actions CI/CD, Railway auto-deploy (SHA: 06d4642)
+- **F-02** testing-classification-summary-integrity — xUnit harness + strict classification/summary validation + CI test gate (SHAs: 6c1c5c6, ed87032, 7b07f61, bffe921, 10845e6)
+- **S-01** wizard-classification-summary — 8-section Blazor wizard + Azure OpenAI A/B/C classification + 11-field summary (SHA: e99837a)
+- **S-02** auth-and-note-persistence — Registration/login + persistent notes with PostgreSQL/Identity integration (SHA: e83e31c)
+- **S-03** note-management — Notes list + edit/reclassify flow with completed-to-draft revert (SHA: 22867d6)
+- **S-04** contextual-helper-questions — Context-aware helper questions with cache/error handling in wizard sections (SHA: 60997c6)
