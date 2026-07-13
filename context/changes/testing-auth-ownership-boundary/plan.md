@@ -182,7 +182,7 @@ Tests to implement:
 | `GetNotesPage_Anonymous_RedirectsToLogin` | GET `/notes` | 302 | `/login` |
 | `GetEditNotePage_Anonymous_RedirectsToLogin` | GET `/edit/00000000-0000-0000-0000-000000000001` | 302 | `/login` |
 | `GetHealthz_Anonymous_Returns200` | GET `/healthz` | 200 | — |
-| `GetAdminDbCheck_AfterRemoval_Returns404` | GET `/admin/db-check` | 404 | — |
+| `GetAdminDbCheck_AfterRemoval_RedirectsToLogin` | GET `/admin/db-check` | 302 | `/login` |
 
 **Anti-pattern to avoid**: Do not assert only that `/login` is reachable anonymously. The tests must enumerate protected routes specifically.
 
@@ -300,22 +300,22 @@ Phase 1 removes `GET /admin/db-check` from `Program.cs`. This is a breaking chan
 
 #### Automated
 
-- [x] 2.1 `dotnet test` exits 0 with the factory smoke test passing
+- [x] 2.1 `dotnet test` exits 0 with the factory smoke test passing — 2f788aa
 
 #### Manual
 
-- [x] 2.2 Smoke test passes with no warnings about missing configuration
+- [x] 2.2 Smoke test passes with no warnings about missing configuration — 2f788aa
 
 ### Phase 3: Risk #4 — Anonymous-access integration tests
 
 #### Automated
 
-- [ ] 3.1 `dotnet test` exits 0 with all 5 new anonymous-access tests passing
-- [ ] 3.2 `dotnet test --filter "FullyQualifiedName~AnonymousAccessTests"` passes in isolation
+- [x] 3.1 `dotnet test` exits 0 with all 5 new anonymous-access tests passing
+- [x] 3.2 `dotnet test --filter "FullyQualifiedName~AnonymousAccessTests"` passes in isolation
 
 #### Manual
 
-- [ ] 3.3 Test output shows 5 passing tests under `DevNote.Tests.Integration`
+- [x] 3.3 Test output shows 5 passing tests under `DevNote.Tests.Integration`
 
 ### Phase 4: Risk #3 — IDOR service tests
 
