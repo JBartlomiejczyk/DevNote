@@ -288,23 +288,23 @@ Phase 1 removes `GET /admin/db-check` from `Program.cs`. This is a breaking chan
 
 #### Automated
 
-- [x] 1.1 `dotnet restore` exits 0 with all three new packages resolved
-- [x] 1.2 `dotnet build` exits 0 for both `dev-note` and `DevNote.Tests` projects
-- [x] 1.3 `dotnet test` exits 0 (existing 5 tests still pass)
+- [x] 1.1 `dotnet restore` exits 0 with all three new packages resolved — 7519b43
+- [x] 1.2 `dotnet build` exits 0 for both `dev-note` and `DevNote.Tests` projects — 7519b43
+- [x] 1.3 `dotnet test` exits 0 (existing 5 tests still pass) — 7519b43
 
 #### Manual
 
-- [x] 1.4 GET `/admin/db-check` returns 404 when the app is running locally
+- [x] 1.4 GET `/admin/db-check` returns 404 when the app is running locally — 7519b43
 
 ### Phase 2: WebApplicationFactory test host
 
 #### Automated
 
-- [ ] 2.1 `dotnet test` exits 0 with the factory smoke test passing
+- [x] 2.1 `dotnet test` exits 0 with the factory smoke test passing
 
 #### Manual
 
-- [ ] 2.2 Smoke test passes with no warnings about missing configuration
+- [x] 2.2 Smoke test passes with no warnings about missing configuration
 
 ### Phase 3: Risk #4 — Anonymous-access integration tests
 
