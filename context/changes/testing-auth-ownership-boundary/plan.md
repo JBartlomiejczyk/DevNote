@@ -310,20 +310,20 @@ Phase 1 removes `GET /admin/db-check` from `Program.cs`. This is a breaking chan
 
 #### Automated
 
-- [x] 3.1 `dotnet test` exits 0 with all 5 new anonymous-access tests passing
-- [x] 3.2 `dotnet test --filter "FullyQualifiedName~AnonymousAccessTests"` passes in isolation
+- [x] 3.1 `dotnet test` exits 0 with all 5 new anonymous-access tests passing — b2e0d58
+- [x] 3.2 `dotnet test --filter "FullyQualifiedName~AnonymousAccessTests"` passes in isolation — b2e0d58
 
 #### Manual
 
-- [x] 3.3 Test output shows 5 passing tests under `DevNote.Tests.Integration`
+- [x] 3.3 Test output shows 5 passing tests under `DevNote.Tests.Integration` — b2e0d58
 
 ### Phase 4: Risk #3 — IDOR service tests
 
 #### Automated
 
-- [ ] 4.1 `dotnet test` exits 0 with all 4 new IDOR tests passing (14 total)
-- [ ] 4.2 `dotnet test --filter "FullyQualifiedName~NoteServiceTests"` passes in isolation
+- [x] 4.1 `dotnet test` exits 0 with all 4 new IDOR tests passing (14 total)
+- [x] 4.2 `dotnet test --filter "FullyQualifiedName~NoteServiceTests"` passes in isolation
 
 #### Manual
 
-- [ ] 4.3 Test output shows 4 passing tests under `DevNote.Tests.Services` with wrong-owner assertions confirmed
+- [x] 4.3 Test output shows 4 passing tests under `DevNote.Tests.Services` with wrong-owner assertions confirmed
