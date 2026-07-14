@@ -1,9 +1,9 @@
 ---
 change_id: testing-auth-ownership-boundary
 title: Auth and ownership boundary rollout phase 2
-status: implemented
+status: impl_reviewed
 created: 2026-07-08
-updated: 2026-07-13
+updated: 2026-07-14
 archived_at: null
 ---
 
