@@ -1,7 +1,7 @@
 ---
 change_id: testing-wizard-state-edit-degraded-mode
 title: Test wizard state, edit reversion, and degraded helper mode
-status: implementing
+status: complete
 created: 2026-07-14
 updated: 2026-07-15
 archived_at: null

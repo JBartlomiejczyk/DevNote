@@ -439,14 +439,14 @@ reversal.
 
 #### Automated
 
-- [x] 3.1 bUnit and classification interface support deterministic page tests
-- [x] 3.2 WizardSection tests prove navigation, binding, and helper presentation
-- [x] 3.3 Wizard and EditNote tests prove non-blocking degradation and edit lifecycle
-- [x] 3.4 Test-plan guidance and cookbook reflect the shipped patterns
-- [x] 3.5 Format, component tests, full suite, and build pass
+- [x] 3.1 bUnit and classification interface support deterministic page tests — 8d84a6b
+- [x] 3.2 WizardSection tests prove navigation, binding, and helper presentation — 8d84a6b
+- [x] 3.3 Wizard and EditNote tests prove non-blocking degradation and edit lifecycle — 8d84a6b
+- [x] 3.4 Test-plan guidance and cookbook reflect the shipped patterns — 8d84a6b
+- [x] 3.5 Format, component tests, full suite, and build pass — 8d84a6b
 
 #### Manual
 
-- [x] 3.6 Wizard answers survive accordion navigation
-- [x] 3.7 Helper failure leaves text entry and classification available
-- [x] 3.8 Edit reversion and reclassification show only current output
+- [x] 3.6 Wizard answers survive accordion navigation — 8d84a6b
+- [x] 3.7 Helper failure leaves text entry and classification available — 8d84a6b
+- [x] 3.8 Edit reversion and reclassification show only current output — 8d84a6b
