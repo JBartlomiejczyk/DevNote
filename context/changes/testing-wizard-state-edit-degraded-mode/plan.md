@@ -431,22 +431,22 @@ reversal.
 
 #### Automated
 
-- [x] 2.1 Helper service interface is wired without runtime behavior change
-- [x] 2.2 Coordinator tests prove sequential cache, refresh, context miss, and degraded state
-- [x] 2.3 Phase-focused tests, full suite, and build pass
+- [x] 2.1 Helper service interface is wired without runtime behavior change — e1a55c8
+- [x] 2.2 Coordinator tests prove sequential cache, refresh, context miss, and degraded state — e1a55c8
+- [x] 2.3 Phase-focused tests, full suite, and build pass — e1a55c8
 
 ### Phase 3: Blazor Component Coverage and Rollout Cookbook
 
 #### Automated
 
-- [ ] 3.1 bUnit and classification interface support deterministic page tests
-- [ ] 3.2 WizardSection tests prove navigation, binding, and helper presentation
-- [ ] 3.3 Wizard and EditNote tests prove non-blocking degradation and edit lifecycle
-- [ ] 3.4 Test-plan guidance and cookbook reflect the shipped patterns
-- [ ] 3.5 Format, component tests, full suite, and build pass
+- [x] 3.1 bUnit and classification interface support deterministic page tests
+- [x] 3.2 WizardSection tests prove navigation, binding, and helper presentation
+- [x] 3.3 Wizard and EditNote tests prove non-blocking degradation and edit lifecycle
+- [x] 3.4 Test-plan guidance and cookbook reflect the shipped patterns
+- [x] 3.5 Format, component tests, full suite, and build pass
 
 #### Manual
 
-- [ ] 3.6 Wizard answers survive accordion navigation
-- [ ] 3.7 Helper failure leaves text entry and classification available
-- [ ] 3.8 Edit reversion and reclassification show only current output
+- [x] 3.6 Wizard answers survive accordion navigation
+- [x] 3.7 Helper failure leaves text entry and classification available
+- [x] 3.8 Edit reversion and reclassification show only current output

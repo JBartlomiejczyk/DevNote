@@ -61,7 +61,7 @@ builder.Services.AddScoped<DevNote.Services.WizardStateService>();
 builder.Services.Configure<DevNote.Services.AzureOpenAIOptions>(
     builder.Configuration.GetSection(DevNote.Services.AzureOpenAIOptions.SectionName));
 builder.Services.AddScoped<DevNote.Services.ClassificationResponseValidator>();
-builder.Services.AddScoped<DevNote.Services.ClassificationService>();
+builder.Services.AddScoped<DevNote.Services.IClassificationService, DevNote.Services.ClassificationService>();
 builder.Services.AddScoped<DevNote.Services.IHelperQuestionsService, DevNote.Services.HelperQuestionsService>();
 builder.Services.AddScoped<DevNote.Services.HelperQuestionsCoordinator>();
 builder.Services.AddScoped<DevNote.Services.NoteService>();

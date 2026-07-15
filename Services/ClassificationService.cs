@@ -6,7 +6,7 @@ using OpenAI.Chat;
 
 namespace DevNote.Services;
 
-public class ClassificationService
+public class ClassificationService : IClassificationService
 {
     private readonly AzureOpenAIOptions _options;
     private readonly ILogger<ClassificationService> _logger;

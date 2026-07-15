@@ -63,11 +63,11 @@ test — noted here rather than padding the map.
 | Risk | What would prove protection | Must challenge | Context `/10x-research` must ground | Likely cheapest layer | Anti-pattern to avoid |
 |------|-----------------------------|----------------|--------------------------------------|-----------------------|-----------------------|
 | #1 | Given a valid completed wizard, the parsed result carries a defined classification and all summary fields the PRD requires; a malformed/partial model response is rejected or surfaced, never silently rendered as a blank-but-valid summary | "Strict JSON schema guarantees valid output" — the endpoint can error, the schema can drift, and an unknown classification value can silently default to a valid-looking one | The classification/summary parse boundary, the required-field contract (11 summary fields), and the fallback behavior when a field or the whole response is missing | unit | Oracle problem — copying the expected value from the parser's own defaulting logic instead of from the PRD field contract |
-| #2 | After entering data in later sections and navigating back then forward, every previously entered section value is still present and unchanged | "Blazor Server persists state automatically" — wizard state is held in a scoped/in-memory service tied to the circuit; a reconnect or reload can reset it | Where wizard answers live between sections, the lifetime/scope of that state, and what happens on circuit reconnect and on load-from-note | component (bUnit) + service unit | Happy-path forward-only navigation test that never exercises back navigation or a re-render |
+| #2 | After entering data and collapsing/re-expanding wizard sections (accordion navigation) within the same Blazor Server circuit, every previously entered section value is still present and unchanged; a re-render/state-restoration boundary does not drop values. Leaving the page or landing on a new circuit is accepted negative space (see §7), not a covered guarantee | "Blazor Server persists state automatically" — wizard state is held in a scoped/in-memory service tied to the circuit; a reconnect or reload can reset it | Where wizard answers live between sections, the lifetime/scope of that state, and what happens on circuit reconnect and on load-from-note | component (bUnit) + service unit | Happy-path forward-only navigation test that never exercises back navigation or a re-render |
 | #3 | A user requesting a note id they do not own receives not-found/forbidden, not the other user's content | "Being authenticated is enough" — ownership must be enforced per request, not just authentication; every route/page that accepts a note id must filter by the current user | The note-fetch path for each id-bearing route, how the current user id is resolved, and whether ownership is enforced server-side | integration (WebApplicationFactory) | Testing only that the owner can read their own note; never asserting a non-owner is denied |
 | #4 | Anonymous requests to any data-returning route are redirected/denied; no diagnostic or admin route returns user emails or notes without authorization | "The global FallbackPolicy protects everything" — endpoints can opt out with `AllowAnonymous`, and diagnostic routes can leak data | The set of anonymous-allowed endpoints, what each returns, and whether any exposes user or note data | integration (WebApplicationFactory) | Asserting only that the login page is anonymously reachable; never enumerating the routes that must stay protected |
-| #5 | Editing a Completed note moves it to Draft and, once re-submitted, its classification and summary reflect the edited answers (no stale carry-over) | "Saving an edit always re-runs classification" — revert-to-Draft is conditional on current status, and re-classification is a separate step that can be skipped | The status-transition rules on edit, when re-classification runs, and how stale summary fields are cleared or replaced | unit + integration | Asserting only the final Completed state; never checking the intermediate Draft revert |
-| #6 | When the LLM call fails, the section still lets the developer proceed (degraded, empty questions, clear message); identical section+context requests are served from cache, not re-called | "An error just shows a message" — must verify the wizard is not hard-blocked, and that the context-hash cache actually prevents duplicate calls | The failure path in the helper-questions coordinator, the cache key/lifetime, and what the UI does on error vs. success | unit (coordinator) | Mocking the LLM to always succeed, so the failure/degraded path and the cache-hit path are never exercised |
+| #5 | Editing a Completed note moves it to Draft and, on load, that reversion clears all generated output (classification, justification, and the 11 summary fields) before any re-classification; once re-submitted, its classification and summary reflect the edited answers (no stale carry-over) | "Saving an edit always re-runs classification" — revert-to-Draft is conditional on current status, and re-classification is a separate step that can be skipped | The status-transition rules on edit, when re-classification runs, and how stale summary fields are cleared or replaced | unit + integration | Asserting only the final Completed state; never checking the intermediate Draft revert |
+| #6 | When the LLM call fails, the section still lets the developer proceed (degraded, empty questions, clear message) and classification stays available; identical section+context requests are served from the context-hash cache, not re-called. Scope is sequential cache hits only — concurrent in-flight deduplication is out of scope (see §7) | "An error just shows a message" — must verify the wizard is not hard-blocked, and that the context-hash cache actually prevents duplicate *sequential* calls | The failure path in the helper-questions coordinator, the cache key/lifetime, and what the UI does on error vs. success | unit (coordinator) + component | Mocking the LLM to always succeed, so the failure/degraded path and the cache-hit path are never exercised |
 
 Every top risk has a response row, none cite file anchors, and each names
 the behavior to prove, the assumption to challenge, and one anti-pattern.
@@ -154,15 +154,57 @@ relevant rollout phase ships; before that, it reads "TBD — see §3 Phase N."
 
 ### 6.3 Adding a Blazor component / wizard-state test
 
-- TBD — see §3 Phase 3 (bUnit; back-navigation state-preservation pattern).
+- **Location**: `DevNote.Tests/Components/`. Reference tests:
+  `WizardSectionTests.cs` (isolated component: collapse→re-expand value
+  restoration, `FirstExpanded` once-only, mutually-exclusive helper states),
+  `WizardTests.cs` and `EditNoteTests.cs` (page-level behavior).
+- **Framework**: bUnit 2.7.2. Derive the test class from `BunitContext`; render
+  with `Render<TComponent>(...)`; use `.Bind(p => p.Value, ...)` for two-way
+  parameters; drive UI through rendered controls (`Find("button...").Click()`,
+  `Find("textarea").Change(...)`), never private fields. `@rendermode
+  InteractiveServer` is ignored by the bUnit renderer.
+- **Auth + JS**: `AddAuthorization().SetAuthorized("user-1")` plus
+  `SetClaims(new Claim(ClaimTypes.NameIdentifier, "user-1"))`; set
+  `JSInterop.Mode = JSRuntimeMode.Loose` so scroll/interop calls are no-ops.
+- **Services**: register the real `WizardStateService`,
+  `HelperQuestionsCoordinator`, and `NoteService`; substitute only
+  `IClassificationService` and `IHelperQuestionsService`. Give each EF-backed
+  test its own InMemory database via `ComponentTestDb.Create()`.
+- **Risk #2 scope**: assert same-circuit accordion collapse/re-expand
+  preservation only; page-leave/new-circuit loss is accepted negative space (§7).
+- **Run**: `dotnet test DevNote.Tests\DevNote.Tests.csproj --filter "FullyQualifiedName~DevNote.Tests.Components"`.
 
 ### 6.4 Adding a test for a new AI/LLM service call
 
-- TBD — see §3 Phase 1 / Phase 3 (fake the Azure OpenAI edge; assert structure + degraded-mode + cache behavior, never exact Polish wording).
+- **Boundary**: depend on an interface (`IClassificationService`,
+  `IHelperQuestionsService`), never the concrete Azure-calling class. Substitute
+  it with NSubstitute; return a structured result for success and use
+  `.ThrowsAsync(...)` for the failure/degraded path.
+- **Reference tests**: `DevNote.Tests/Services/HelperQuestionsCoordinatorTests.cs`
+  (sequential cache-hit served once, changed-context cache miss, `forceRefresh`
+  bypass, failure → empty questions + error + `IsLoading` false).
+- **Assert**: result structure, UI/coordinator state, and invocation count
+  (`Received(1)`/`Received(2)`). Never assert exact Polish wording or pinned hash
+  literals (see §7). Risk #6 covers *sequential* cache hits, not concurrent
+  in-flight deduplication.
+- **Run**: `dotnet test DevNote.Tests\DevNote.Tests.csproj --filter "FullyQualifiedName~HelperQuestionsCoordinatorTests"`.
 
 ### 6.5 Adding a test for a note state transition
 
-- TBD — see §3 Phase 3 (edit → revert-to-Draft → re-classify transition; assert the intermediate Draft state).
+- **Location / reference tests**: service level in
+  `DevNote.Tests/Services/NoteServiceTests.cs`
+  (`RevertToDraftAsync_CompletedNote_ClearsGeneratedOutput`,
+  `EditLifecycle_ReclassificationReplacesGeneratedOutputOnSameNote`); page level
+  in `DevNote.Tests/Components/EditNoteTests.cs` (load reverts to clean Draft,
+  success updates the original row, failure leaves a clean Draft).
+- **Pattern**: seed a Completed note with *distinct* stale generated values, then
+  assert the intermediate Draft revert clears classification + all 11 summary
+  fields *before* re-classification — do not assert only the final Completed
+  state. Use independent old/new values so mapping assertions are not
+  tautological.
+- **Data isolation**: one InMemory database per test
+  (`TestDb_{Guid.NewGuid()}` / `ComponentTestDb.Create()`).
+- **Run**: `dotnet test DevNote.Tests\DevNote.Tests.csproj --filter "FullyQualifiedName~NoteServiceTests"`.
 
 ### 6.6 Per-rollout-phase notes
 
@@ -177,6 +219,8 @@ contributors should respect these unless the underlying assumption changes.
 - **Exact Polish wording of LLM output** (classification justification text, generated helper questions) — the strict JSON schema already enforces structure and field presence; test structure, field contract, and count, not literal text. Re-evaluate if the output contract stops being schema-enforced. (Source: Phase 2 interview Q5.)
 - **.NET Identity framework internals** (registration/login/token plumbing we did not author) — trust the framework; test *our* authorization wiring and per-user note filtering instead (see Risks #3, #4). Re-evaluate if we customize Identity's core flows. (Source: Phase 2 interview Q5, reasonable corollary.)
 - **EF Core migration auto-apply on startup as a unit/integration target** — High-impact but Low-likelihood; covered by a deploy smoke / health check, not the test suite (see §2 exclusion note).
+- **Cross-circuit / page-leave wizard-state preservation (Risk #2 boundary)** — state lives in a circuit-scoped `WizardStateService`; only same-circuit accordion navigation and re-render/state-restoration are guaranteed and tested. Leaving the page or landing on a fresh circuit intentionally starts clean. Re-evaluate if wizard state is moved to durable per-user storage. (Source: Phase 3 scope decision.)
+- **Concurrent in-flight helper-question deduplication (Risk #6 boundary)** — the context-hash cache prevents duplicate *sequential* identical calls; two simultaneous in-flight requests for the same section are not deduplicated. Re-evaluate if helper generation becomes a measured cost hot-spot. (Source: Phase 3 scope decision.)
 
 ## 8. Freshness Ledger
 
