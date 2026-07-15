@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="258fb884-534d-4203-a09c-7de2b417efcf" name="jbartlomiejczyk@5QKXX24 2026-07-13 14:55:06" runUser="AD\jbartlomiejczyk" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-07-13T14:55:06.2792768+02:00" queuing="2026-07-13T14:55:06.2792770+02:00" start="2026-07-13T14:55:05.6123151+02:00" finish="2026-07-13T14:55:06.5613041+02:00" />
+  <TestSettings name="default" id="838b22b1-00ee-4617-8063-5d4114decc51">
+    <Deployment runDeploymentRoot="jbartlomiejczyk_5QKXX24_2026-07-13_14_55_06" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ea1ffb83-4e5a-429d-8cc8-6d77b79d61dd" testId="ae5b82a9-d2ca-63c5-70ef-0c3983b373bf" testName="DevNote.Tests.Services.ClassificationResponseValidatorTests.ParseAndValidate_ValidPayload_MapsToClassificationResult" computerName="5QKXX24" duration="00:00:00.0024438" startTime="2026-07-13T14:55:06.0108250+02:00" endTime="2026-07-13T14:55:06.0108252+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ea1ffb83-4e5a-429d-8cc8-6d77b79d61dd" />
+    <UnitTestResult executionId="aa3d34e3-87d5-4d3b-b6d0-9feccff8bb96" testId="1493113a-f06a-dd6e-9964-cbae55d2ab1e" testName="DevNote.Tests.Services.ClassificationResponseValidatorTests.ParseAndValidate_InvalidJson_ThrowsValidationException" computerName="5QKXX24" duration="00:00:00.0063448" startTime="2026-07-13T14:55:06.0080500+02:00" endTime="2026-07-13T14:55:06.0080711+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa3d34e3-87d5-4d3b-b6d0-9feccff8bb96" />
+    <UnitTestResult executionId="5d6ea32e-fb41-4619-a840-9d6479b402a5" testId="3a5d925f-570b-1364-8740-9c43ffa66919" testName="DevNote.Tests.Services.NoteServiceTests.UpdateNoteAsync_WrongOwner_ThrowsInvalidOperation" computerName="5QKXX24" duration="00:00:00.0014311" startTime="2026-07-13T14:55:06.5166249+02:00" endTime="2026-07-13T14:55:06.5166250+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5d6ea32e-fb41-4619-a840-9d6479b402a5" />
+    <UnitTestResult executionId="e8181477-ea7f-493f-b97a-2b266e1c4d0f" testId="5a857b33-935a-3260-379e-fac608c710d4" testName="DevNote.Tests.Integration.AnonymousAccessTests.GetEditNotePage_Anonymous_RedirectsToLogin" computerName="5QKXX24" duration="00:00:00.0032707" startTime="2026-07-13T14:55:06.2615354+02:00" endTime="2026-07-13T14:55:06.2615354+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e8181477-ea7f-493f-b97a-2b266e1c4d0f" />
+    <UnitTestResult executionId="372fe27a-e340-44be-83ce-a2c6d796b259" testId="4343c6b3-4846-d29a-871a-ddf4a08bc5c8" testName="DevNote.Tests.Integration.AnonymousAccessTests.GetHealthz_Anonymous_Returns200" computerName="5QKXX24" duration="00:00:00.2283414" startTime="2026-07-13T14:55:06.2285513+02:00" endTime="2026-07-13T14:55:06.2285513+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="372fe27a-e340-44be-83ce-a2c6d796b259" />
+    <UnitTestResult executionId="c0b52555-ae7a-4f96-bf97-0257442c378e" testId="d1b78429-90e3-f9e1-0e74-a674b55fa744" testName="DevNote.Tests.Integration.AnonymousAccessTests.GetAdminDbCheck_AfterRemoval_RedirectsToLogin" computerName="5QKXX24" duration="00:00:00.0150604" startTime="2026-07-13T14:55:06.2447699+02:00" endTime="2026-07-13T14:55:06.2447703+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c0b52555-ae7a-4f96-bf97-0257442c378e" />
+    <UnitTestResult executionId="d1821b9e-f130-4261-81e0-4a9d0bd69aff" testId="265fadca-c7ed-c770-323b-4b693ca1e14e" testName="DevNote.Tests.Services.ClassificationResponseValidatorTests.ParseAndValidate_UnknownClassification_ThrowsValidationException" computerName="5QKXX24" duration="00:00:00.0009745" startTime="2026-07-13T14:55:06.0099018+02:00" endTime="2026-07-13T14:55:06.0099019+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d1821b9e-f130-4261-81e0-4a9d0bd69aff" />
+    <UnitTestResult executionId="4815e23c-40f7-45c2-95a5-981d7fc62b05" testId="38683fbc-1c41-2266-c7a0-ce8da249dd84" testName="DevNote.Tests.Infrastructure.DevNoteWebApplicationFactoryTests.Factory_Starts_And_HealthzReturns200" computerName="5QKXX24" duration="00:00:00.2269116" startTime="2026-07-13T14:55:06.2285154+02:00" endTime="2026-07-13T14:55:06.2285157+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4815e23c-40f7-45c2-95a5-981d7fc62b05" />
+    <UnitTestResult executionId="4d9d571b-bc05-4ea7-ad0c-3a18de1de277" testId="dcb7d785-489b-5e75-2184-04a8ffddcbc1" testName="DevNote.Tests.Services.ClassificationResponseValidatorTests.ParseAndValidate_MissingRequiredField_ThrowsValidationException" computerName="5QKXX24" duration="00:00:00.0001374" startTime="2026-07-13T14:55:06.0110948+02:00" endTime="2026-07-13T14:55:06.0110949+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4d9d571b-bc05-4ea7-ad0c-3a18de1de277" />
+    <UnitTestResult executionId="ec466d13-f3a6-4eca-8842-c1222d4f1803" testId="fac5612c-6feb-8a26-5949-744b84cfeff2" testName="DevNote.Tests.Services.NoteServiceTests.RevertToDraftAsync_WrongOwner_ThrowsInvalidOperation" computerName="5QKXX24" duration="00:00:00.0347225" startTime="2026-07-13T14:55:06.5059856+02:00" endTime="2026-07-13T14:55:06.5059859+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ec466d13-f3a6-4eca-8842-c1222d4f1803" />
+    <UnitTestResult executionId="81881263-eba2-4029-97d3-159c7181e442" testId="b78b634a-baf6-f618-af9b-1a8457cf9aac" testName="DevNote.Tests.Integration.AnonymousAccessTests.GetNotesPage_Anonymous_RedirectsToLogin" computerName="5QKXX24" duration="00:00:00.0017966" startTime="2026-07-13T14:55:06.2616493+02:00" endTime="2026-07-13T14:55:06.2616494+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="81881263-eba2-4029-97d3-159c7181e442" />
+    <UnitTestResult executionId="ed811be8-fa99-474a-a269-bc5f5812df8b" testId="d222c60e-a31d-b010-cde5-1e9a65b6627d" testName="DevNote.Tests.Integration.AnonymousAccessTests.GetRootPage_Anonymous_RedirectsToLogin" computerName="5QKXX24" duration="00:00:00.0018253" startTime="2026-07-13T14:55:06.2616717+02:00" endTime="2026-07-13T14:55:06.2616718+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ed811be8-fa99-474a-a269-bc5f5812df8b" />
+    <UnitTestResult executionId="0eaf413a-b0fd-4625-83ae-b8a658c00fc0" testId="053d082b-037d-5e6f-08cb-ab66389a1169" testName="DevNote.Tests.Services.NoteServiceTests.GetNoteAsync_WrongOwner_ReturnsNull" computerName="5QKXX24" duration="00:00:00.0090180" startTime="2026-07-13T14:55:06.5151452+02:00" endTime="2026-07-13T14:55:06.5151454+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0eaf413a-b0fd-4625-83ae-b8a658c00fc0" />
+    <UnitTestResult executionId="1e0ab5ad-f519-4a4f-af0b-08199448cedc" testId="96a8aa74-c7c6-69a2-e6d7-a09f482326a2" testName="DevNote.Tests.Services.NoteServiceTests.GetNoteAsync_CorrectOwner_ReturnsNote" computerName="5QKXX24" duration="00:00:00.4712995" startTime="2026-07-13T14:55:06.4711480+02:00" endTime="2026-07-13T14:55:06.4711484+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1e0ab5ad-f519-4a4f-af0b-08199448cedc" />
+    <UnitTestResult executionId="803afc95-ed66-4ffd-b9ab-6408f0fc4eb1" testId="b845248e-4a83-0d07-dd58-01c8fcf9e3b1" testName="DevNote.Tests.Services.ClassificationResponseValidatorTests.ParseAndValidate_EmptyRequiredField_ThrowsValidationException" computerName="5QKXX24" duration="00:00:00.0001362" startTime="2026-07-13T14:55:06.0110091+02:00" endTime="2026-07-13T14:55:06.0110092+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="803afc95-ed66-4ffd-b9ab-6408f0fc4eb1" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="DevNote.Tests.Infrastructure.DevNoteWebApplicationFactoryTests.Factory_Starts_And_HealthzReturns200" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="38683fbc-1c41-2266-c7a0-ce8da249dd84">
+      <Execution id="4815e23c-40f7-45c2-95a5-981d7fc62b05" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Infrastructure.DevNoteWebApplicationFactoryTests" name="Factory_Starts_And_HealthzReturns200" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Services.NoteServiceTests.GetNoteAsync_WrongOwner_ReturnsNull" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="053d082b-037d-5e6f-08cb-ab66389a1169">
+      <Execution id="0eaf413a-b0fd-4625-83ae-b8a658c00fc0" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Services.NoteServiceTests" name="GetNoteAsync_WrongOwner_ReturnsNull" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Services.ClassificationResponseValidatorTests.ParseAndValidate_ValidPayload_MapsToClassificationResult" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="ae5b82a9-d2ca-63c5-70ef-0c3983b373bf">
+      <Execution id="ea1ffb83-4e5a-429d-8cc8-6d77b79d61dd" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Services.ClassificationResponseValidatorTests" name="ParseAndValidate_ValidPayload_MapsToClassificationResult" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Integration.AnonymousAccessTests.GetRootPage_Anonymous_RedirectsToLogin" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="d222c60e-a31d-b010-cde5-1e9a65b6627d">
+      <Execution id="ed811be8-fa99-474a-a269-bc5f5812df8b" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Integration.AnonymousAccessTests" name="GetRootPage_Anonymous_RedirectsToLogin" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Services.NoteServiceTests.GetNoteAsync_CorrectOwner_ReturnsNote" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="96a8aa74-c7c6-69a2-e6d7-a09f482326a2">
+      <Execution id="1e0ab5ad-f519-4a4f-af0b-08199448cedc" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Services.NoteServiceTests" name="GetNoteAsync_CorrectOwner_ReturnsNote" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Services.ClassificationResponseValidatorTests.ParseAndValidate_UnknownClassification_ThrowsValidationException" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="265fadca-c7ed-c770-323b-4b693ca1e14e">
+      <Execution id="d1821b9e-f130-4261-81e0-4a9d0bd69aff" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Services.ClassificationResponseValidatorTests" name="ParseAndValidate_UnknownClassification_ThrowsValidationException" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Services.ClassificationResponseValidatorTests.ParseAndValidate_EmptyRequiredField_ThrowsValidationException" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="b845248e-4a83-0d07-dd58-01c8fcf9e3b1">
+      <Execution id="803afc95-ed66-4ffd-b9ab-6408f0fc4eb1" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Services.ClassificationResponseValidatorTests" name="ParseAndValidate_EmptyRequiredField_ThrowsValidationException" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Services.NoteServiceTests.RevertToDraftAsync_WrongOwner_ThrowsInvalidOperation" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="fac5612c-6feb-8a26-5949-744b84cfeff2">
+      <Execution id="ec466d13-f3a6-4eca-8842-c1222d4f1803" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Services.NoteServiceTests" name="RevertToDraftAsync_WrongOwner_ThrowsInvalidOperation" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Services.NoteServiceTests.UpdateNoteAsync_WrongOwner_ThrowsInvalidOperation" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="3a5d925f-570b-1364-8740-9c43ffa66919">
+      <Execution id="5d6ea32e-fb41-4619-a840-9d6479b402a5" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Services.NoteServiceTests" name="UpdateNoteAsync_WrongOwner_ThrowsInvalidOperation" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Integration.AnonymousAccessTests.GetHealthz_Anonymous_Returns200" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="4343c6b3-4846-d29a-871a-ddf4a08bc5c8">
+      <Execution id="372fe27a-e340-44be-83ce-a2c6d796b259" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Integration.AnonymousAccessTests" name="GetHealthz_Anonymous_Returns200" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Integration.AnonymousAccessTests.GetAdminDbCheck_AfterRemoval_RedirectsToLogin" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="d1b78429-90e3-f9e1-0e74-a674b55fa744">
+      <Execution id="c0b52555-ae7a-4f96-bf97-0257442c378e" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Integration.AnonymousAccessTests" name="GetAdminDbCheck_AfterRemoval_RedirectsToLogin" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Integration.AnonymousAccessTests.GetNotesPage_Anonymous_RedirectsToLogin" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="b78b634a-baf6-f618-af9b-1a8457cf9aac">
+      <Execution id="81881263-eba2-4029-97d3-159c7181e442" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Integration.AnonymousAccessTests" name="GetNotesPage_Anonymous_RedirectsToLogin" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Services.ClassificationResponseValidatorTests.ParseAndValidate_InvalidJson_ThrowsValidationException" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="1493113a-f06a-dd6e-9964-cbae55d2ab1e">
+      <Execution id="aa3d34e3-87d5-4d3b-b6d0-9feccff8bb96" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Services.ClassificationResponseValidatorTests" name="ParseAndValidate_InvalidJson_ThrowsValidationException" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Services.ClassificationResponseValidatorTests.ParseAndValidate_MissingRequiredField_ThrowsValidationException" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="dcb7d785-489b-5e75-2184-04a8ffddcbc1">
+      <Execution id="4d9d571b-bc05-4ea7-ad0c-3a18de1de277" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Services.ClassificationResponseValidatorTests" name="ParseAndValidate_MissingRequiredField_ThrowsValidationException" />
+    </UnitTest>
+    <UnitTest name="DevNote.Tests.Integration.AnonymousAccessTests.GetEditNotePage_Anonymous_RedirectsToLogin" storage="c:\gitrepos\devnote\devnote.tests\bin\debug\net9.0\devnote.tests.dll" id="5a857b33-935a-3260-379e-fac608c710d4">
+      <Execution id="e8181477-ea7f-493f-b97a-2b266e1c4d0f" />
+      <TestMethod codeBase="C:\GitRepos\DevNote\DevNote.Tests\bin\Debug\net9.0\DevNote.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DevNote.Tests.Integration.AnonymousAccessTests" name="GetEditNotePage_Anonymous_RedirectsToLogin" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="ae5b82a9-d2ca-63c5-70ef-0c3983b373bf" executionId="ea1ffb83-4e5a-429d-8cc8-6d77b79d61dd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1493113a-f06a-dd6e-9964-cbae55d2ab1e" executionId="aa3d34e3-87d5-4d3b-b6d0-9feccff8bb96" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a5d925f-570b-1364-8740-9c43ffa66919" executionId="5d6ea32e-fb41-4619-a840-9d6479b402a5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5a857b33-935a-3260-379e-fac608c710d4" executionId="e8181477-ea7f-493f-b97a-2b266e1c4d0f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4343c6b3-4846-d29a-871a-ddf4a08bc5c8" executionId="372fe27a-e340-44be-83ce-a2c6d796b259" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d1b78429-90e3-f9e1-0e74-a674b55fa744" executionId="c0b52555-ae7a-4f96-bf97-0257442c378e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="265fadca-c7ed-c770-323b-4b693ca1e14e" executionId="d1821b9e-f130-4261-81e0-4a9d0bd69aff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="38683fbc-1c41-2266-c7a0-ce8da249dd84" executionId="4815e23c-40f7-45c2-95a5-981d7fc62b05" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dcb7d785-489b-5e75-2184-04a8ffddcbc1" executionId="4d9d571b-bc05-4ea7-ad0c-3a18de1de277" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fac5612c-6feb-8a26-5949-744b84cfeff2" executionId="ec466d13-f3a6-4eca-8842-c1222d4f1803" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b78b634a-baf6-f618-af9b-1a8457cf9aac" executionId="81881263-eba2-4029-97d3-159c7181e442" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d222c60e-a31d-b010-cde5-1e9a65b6627d" executionId="ed811be8-fa99-474a-a269-bc5f5812df8b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="053d082b-037d-5e6f-08cb-ab66389a1169" executionId="0eaf413a-b0fd-4625-83ae-b8a658c00fc0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="96a8aa74-c7c6-69a2-e6d7-a09f482326a2" executionId="1e0ab5ad-f519-4a4f-af0b-08199448cedc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b845248e-4a83-0d07-dd58-01c8fcf9e3b1" executionId="803afc95-ed66-4ffd-b9ab-6408f0fc4eb1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Wyniki, których nie ma na liście" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Wszystkie załadowane wyniki" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="15" executed="15" passed="15" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 9.0.0)&#xD;
+[xUnit.net 00:00:00.05]   Discovering: DevNote.Tests&#xD;
+[xUnit.net 00:00:00.07]   Discovered:  DevNote.Tests&#xD;
+[xUnit.net 00:00:00.08]   Starting:    DevNote.Tests&#xD;
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]&#xD;
+      Failed to determine the https port for redirect.&#xD;
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]&#xD;
+      Failed to determine the https port for redirect.&#xD;
+[xUnit.net 00:00:00.62]   Finished:    DevNote.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

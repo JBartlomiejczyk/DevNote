@@ -112,9 +112,38 @@ public class NoteService
             .FirstOrDefaultAsync(n => n.Id == noteId && n.UserId == userId)
             ?? throw new InvalidOperationException($"Note {noteId} not found for user.");
 
-        if (note.Status == NoteStatus.Completed)
+        var requiresUpdate =
+            note.Status != NoteStatus.Draft ||
+            note.Classification is not null ||
+            !string.IsNullOrEmpty(note.Justification) ||
+            !string.IsNullOrEmpty(note.SummaryProblem) ||
+            !string.IsNullOrEmpty(note.SummaryUsers) ||
+            !string.IsNullOrEmpty(note.CurrentProcess) ||
+            !string.IsNullOrEmpty(note.SummaryTimeWaste) ||
+            !string.IsNullOrEmpty(note.SummaryInputData) ||
+            !string.IsNullOrEmpty(note.ExpectedOutput) ||
+            !string.IsNullOrEmpty(note.RecommendedPath) ||
+            !string.IsNullOrEmpty(note.MvpScope) ||
+            !string.IsNullOrEmpty(note.OutOfScope) ||
+            !string.IsNullOrEmpty(note.AcceptanceCriteria) ||
+            !string.IsNullOrEmpty(note.NextStep);
+
+        if (requiresUpdate)
         {
             note.Status = NoteStatus.Draft;
+            note.Classification = null;
+            note.Justification = string.Empty;
+            note.SummaryProblem = string.Empty;
+            note.SummaryUsers = string.Empty;
+            note.CurrentProcess = string.Empty;
+            note.SummaryTimeWaste = string.Empty;
+            note.SummaryInputData = string.Empty;
+            note.ExpectedOutput = string.Empty;
+            note.RecommendedPath = string.Empty;
+            note.MvpScope = string.Empty;
+            note.OutOfScope = string.Empty;
+            note.AcceptanceCriteria = string.Empty;
+            note.NextStep = string.Empty;
             note.UpdatedAt = DateTimeOffset.UtcNow;
             await _db.SaveChangesAsync();
         }
