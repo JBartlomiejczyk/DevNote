@@ -32,7 +32,7 @@ public sealed class HelperQuestionsResponseException : Exception
     }
 }
 
-public class HelperQuestionsService
+public class HelperQuestionsService : IHelperQuestionsService
 {
     private readonly AzureOpenAIOptions _options;
     private readonly ILogger<HelperQuestionsService> _logger;

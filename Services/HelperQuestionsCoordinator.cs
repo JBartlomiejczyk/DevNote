@@ -5,11 +5,11 @@ namespace DevNote.Services;
 public class HelperQuestionsCoordinator
 {
     private readonly WizardStateService _wizardState;
-    private readonly HelperQuestionsService _helperQuestionsService;
+    private readonly IHelperQuestionsService _helperQuestionsService;
 
     public HelperQuestionsCoordinator(
         WizardStateService wizardState,
-        HelperQuestionsService helperQuestionsService)
+        IHelperQuestionsService helperQuestionsService)
     {
         _wizardState = wizardState;
         _helperQuestionsService = helperQuestionsService;

@@ -419,21 +419,21 @@ reversal.
 
 #### Automated
 
-- [x] 1.1 Note lifecycle tests prove clean Draft reversion and fresh same-row reclassification
-- [x] 1.2 Wizard state tests prove reset, load mapping, and cache invalidation
-- [x] 1.3 Phase-focused tests, full suite, and build pass
+- [x] 1.1 Note lifecycle tests prove clean Draft reversion and fresh same-row reclassification — c0e9c3f
+- [x] 1.2 Wizard state tests prove reset, load mapping, and cache invalidation — c0e9c3f
+- [x] 1.3 Phase-focused tests, full suite, and build pass — c0e9c3f
 
 #### Manual
 
-- [x] 1.4 Abandoned edit appears as Draft without an A/B/C badge
+- [x] 1.4 Abandoned edit appears as Draft without an A/B/C badge — c0e9c3f
 
 ### Phase 2: Helper Orchestration Boundary
 
 #### Automated
 
-- [ ] 2.1 Helper service interface is wired without runtime behavior change
-- [ ] 2.2 Coordinator tests prove sequential cache, refresh, context miss, and degraded state
-- [ ] 2.3 Phase-focused tests, full suite, and build pass
+- [x] 2.1 Helper service interface is wired without runtime behavior change
+- [x] 2.2 Coordinator tests prove sequential cache, refresh, context miss, and degraded state
+- [x] 2.3 Phase-focused tests, full suite, and build pass
 
 ### Phase 3: Blazor Component Coverage and Rollout Cookbook
 
