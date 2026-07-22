@@ -384,12 +384,12 @@ coverage layer. Verification is gate-level: the gates must fire and pass/fail co
 
 #### Automated
 
-- [x] 3.1 `AGENTS.md` no longer contains "test project not yet created"
-- [x] 3.2 `AGENTS.md` no longer contains "Blazor UI is not scaffolded yet"
-- [x] 3.3 `AGENTS.md` contains "Quality Gates" heading
-- [x] 3.4 `AGENTS.md` contains `dotnet test DevNote.Tests/DevNote.Tests.csproj`
+- [x] 3.1 `AGENTS.md` no longer contains "test project not yet created" — 91779e0
+- [x] 3.2 `AGENTS.md` no longer contains "Blazor UI is not scaffolded yet" — 91779e0
+- [x] 3.3 `AGENTS.md` contains "Quality Gates" heading — 91779e0
+- [x] 3.4 `AGENTS.md` contains `dotnet test DevNote.Tests/DevNote.Tests.csproj` — 91779e0
 
 #### Manual
 
-- [x] 3.5 Full read of `AGENTS.md` — all sections describe current state accurately
-- [x] 3.6 Quality Gates table matches what exists in `.github/hooks/` and `.github/workflows/`
+- [x] 3.5 Full read of `AGENTS.md` — all sections describe current state accurately — 91779e0
+- [x] 3.6 Quality Gates table matches what exists in `.github/hooks/` and `.github/workflows/` — 91779e0

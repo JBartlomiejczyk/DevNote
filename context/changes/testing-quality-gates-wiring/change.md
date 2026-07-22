@@ -1,7 +1,7 @@
 ---
 change_id: testing-quality-gates-wiring
 title: Wire quality gates for CI and local pre-commit enforcement
-status: implementing
+status: implemented
 created: 2026-07-22
 updated: 2026-07-22
 archived_at: null
