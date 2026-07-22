@@ -371,25 +371,25 @@ coverage layer. Verification is gate-level: the gates must fire and pass/fail co
 
 #### Automated
 
-- [x] 2.1 `post-edit-dotnet-test.ps1` exists at `.github/hooks/post-edit-dotnet-test.ps1`
-- [x] 2.2 `post-edit-dotnet-format.json` contains three entries in `PostToolUse`
-- [x] 2.3 `dotnet test DevNote.Tests/DevNote.Tests.csproj --no-restore --verbosity minimal` exits 0 (37 tests pass)
+- [x] 2.1 `post-edit-dotnet-test.ps1` exists at `.github/hooks/post-edit-dotnet-test.ps1` — 71e843e
+- [x] 2.2 `post-edit-dotnet-format.json` contains three entries in `PostToolUse` — 71e843e
+- [x] 2.3 `dotnet test DevNote.Tests/DevNote.Tests.csproj --no-restore --verbosity minimal` exits 0 (37 tests pass) — 71e843e
 
 #### Manual
 
-- [x] 2.4 Make a trivial edit to a `.cs` file — agent console shows hook chain output ending with `37 passed`
-- [x] 2.5 Hook output order confirmed: format first, build second, test third
+- [x] 2.4 Make a trivial edit to a `.cs` file — agent console shows hook chain output ending with `37 passed` — 71e843e
+- [x] 2.5 Hook output order confirmed: format first, build second, test third — 71e843e
 
 ### Phase 3: AGENTS.md comprehensive update
 
 #### Automated
 
-- [ ] 3.1 `AGENTS.md` no longer contains "test project not yet created"
-- [ ] 3.2 `AGENTS.md` no longer contains "Blazor UI is not scaffolded yet"
-- [ ] 3.3 `AGENTS.md` contains "Quality Gates" heading
-- [ ] 3.4 `AGENTS.md` contains `dotnet test DevNote.Tests/DevNote.Tests.csproj`
+- [x] 3.1 `AGENTS.md` no longer contains "test project not yet created"
+- [x] 3.2 `AGENTS.md` no longer contains "Blazor UI is not scaffolded yet"
+- [x] 3.3 `AGENTS.md` contains "Quality Gates" heading
+- [x] 3.4 `AGENTS.md` contains `dotnet test DevNote.Tests/DevNote.Tests.csproj`
 
 #### Manual
 
-- [ ] 3.5 Full read of `AGENTS.md` — all sections describe current state accurately
-- [ ] 3.6 Quality Gates table matches what exists in `.github/hooks/` and `.github/workflows/`
+- [x] 3.5 Full read of `AGENTS.md` — all sections describe current state accurately
+- [x] 3.6 Quality Gates table matches what exists in `.github/hooks/` and `.github/workflows/`
