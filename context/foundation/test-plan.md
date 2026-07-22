@@ -6,7 +6,7 @@
 >
 > Refresh: re-run `/10x-test-plan --refresh` when stale (see §8).
 >
-> Last updated: 2026-07-22 (Phase 4 complete — all phases complete)
+> Last updated: 2026-07-22 (Phase 5 added — E2E critical flows)
 
 ## 1. Strategy
 
@@ -84,6 +84,7 @@ orchestrator updates Status as artifacts appear on disk.
 | 2 | Auth & ownership boundary | Prove anonymous requests cannot reach user data and no user can read another user's note | #3, #4 | integration | complete | testing-auth-ownership-boundary |
 | 3 | Wizard state, edit-revert & degraded mode | Prove wizard back-navigation preserves data, edit reverts Completed→Draft, and helper-questions failure degrades without blocking | #2, #5, #6 | component (bUnit) + integration/unit | complete | testing-wizard-state-edit-degraded-mode |
 | 4 | Quality-gates wiring | Lock format + build + unit + integration in CI and enable the local post-edit hook | cross-cutting | gates | complete | testing-quality-gates-wiring |
+| 5 | E2E critical flows | Prove the full Blazor Server user journey works in a real browser — login/register, wizard completion end-to-end, back-navigation preserving data, and edit→revert→reclassify | #2, #3, #4, #5 (browser layer) | e2e (Playwright for .NET) | change opened | testing-e2e-critical-flows |
 
 **Status vocabulary** (fixed — parser literals): `not started` → `change opened` → `researched` → `planned` → `implementing` → `complete`.
 
@@ -106,7 +107,7 @@ actually exposed in the current session.
 | test doubles | NSubstitute or Moq | latest | fake the Azure OpenAI edge and `ILogger`/`IOptions`; never mock internal services |
 | Blazor component | bUnit | latest | wizard / section back-navigation state; added in §3 Phase 3 |
 | integration host | Microsoft.AspNetCore.Mvc.Testing (`WebApplicationFactory`) | .NET 9 | auth/ownership boundary; pair with EF Core InMemory or a Postgres Testcontainer; added in §3 Phase 2 |
-| e2e | Playwright for .NET | n/a | none yet — deferred; not justified for MVP top risks (Playwright MCP not available this session) |
+| e2e | Playwright for .NET | n/a | none yet — planned in §3 Phase 5; intercept LLM calls via `RouteAsync` (no real Azure OpenAI in CI) |
 | accessibility | none yet | n/a | deferred — no top risk points here |
 | (optional) AI-native | post-edit hook (`dotnet build` + `dotnet test`) | n/a | recommended local, wired in §3 Phase 4; when NOT to use: not a CI substitute |
 
@@ -133,7 +134,7 @@ phase lands; before that, the gate is `planned`.
 | integration (auth/ownership) | CI on PR | required after §3 Phase 2 | broken auth boundary, cross-user access, PII exposure |
 | component (bUnit) | local + CI | required after §3 Phase 3 | wizard state / back-navigation regressions |
 | post-edit hook (`dotnet build` + `dotnet test`) | local (agent loop) | recommended after §3 Phase 4 | regressions at edit time |
-| e2e on critical flows | CI on PR | optional (deferred) | full deployed-shape failures |
+| e2e on critical flows | CI on PR | optional (§3 Phase 5) | full deployed-shape failures — routing, real circuit, auth redirect |
 | pre-prod smoke (health + migration) | between merge + prod | optional | environment-specific / migration failures |
 
 Every row corresponds to a gate that is wired or will be wired by a named
