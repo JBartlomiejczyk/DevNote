@@ -21,6 +21,9 @@
     <Compile Remove="DevNote.Tests\\**\\*.cs" />
     <EmbeddedResource Remove="DevNote.Tests\\**\\*" />
     <None Remove="DevNote.Tests\\**\\*" />
+    <Compile Remove="DevNote.E2eTests\\**\\*.cs" />
+    <EmbeddedResource Remove="DevNote.E2eTests\\**\\*" />
+    <None Remove="DevNote.E2eTests\\**\\*" />
   </ItemGroup>
 
 </Project>
