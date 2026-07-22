@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  ci:
+    name: Format, Build, Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Format check
+        run: dotnet format --verify-no-changes --no-restore --verbosity minimal
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test DevNote.Tests/DevNote.Tests.csproj --configuration Release --no-restore
