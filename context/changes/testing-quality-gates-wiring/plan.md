@@ -357,28 +357,28 @@ coverage layer. Verification is gate-level: the gates must fire and pass/fail co
 
 #### Automated
 
-- [x] 1.1 `dotnet format --verify-no-changes --no-restore --verbosity minimal` exits 0 locally
-- [x] 1.2 `ci.yml` file exists at `.github/workflows/ci.yml`
-- [x] 1.3 `dotnet build --configuration Release --no-restore` exits 0 locally
-- [x] 1.4 `dotnet test DevNote.Tests/DevNote.Tests.csproj --configuration Release --no-restore` exits 0 locally (37 tests pass)
+- [x] 1.1 `dotnet format --verify-no-changes --no-restore --verbosity minimal` exits 0 locally — f8a67b1
+- [x] 1.2 `ci.yml` file exists at `.github/workflows/ci.yml` — f8a67b1
+- [x] 1.3 `dotnet build --configuration Release --no-restore` exits 0 locally — f8a67b1
+- [x] 1.4 `dotnet test DevNote.Tests/DevNote.Tests.csproj --configuration Release --no-restore` exits 0 locally (37 tests pass) — f8a67b1
 
 #### Manual
 
-- [x] 1.5 Push branch, open PR — GitHub Actions shows `CI / Format, Build, Test` check running
-- [x] 1.6 All three CI steps (Format check, Build, Test) show green in GitHub Actions UI
+- [x] 1.5 Push branch, open PR — GitHub Actions shows `CI / Format, Build, Test` check running — f8a67b1
+- [x] 1.6 All three CI steps (Format check, Build, Test) show green in GitHub Actions UI — f8a67b1
 
 ### Phase 2: Local hook — test step
 
 #### Automated
 
-- [ ] 2.1 `post-edit-dotnet-test.ps1` exists at `.github/hooks/post-edit-dotnet-test.ps1`
-- [ ] 2.2 `post-edit-dotnet-format.json` contains three entries in `PostToolUse`
-- [ ] 2.3 `dotnet test DevNote.Tests/DevNote.Tests.csproj --no-restore --verbosity minimal` exits 0 (37 tests pass)
+- [x] 2.1 `post-edit-dotnet-test.ps1` exists at `.github/hooks/post-edit-dotnet-test.ps1`
+- [x] 2.2 `post-edit-dotnet-format.json` contains three entries in `PostToolUse`
+- [x] 2.3 `dotnet test DevNote.Tests/DevNote.Tests.csproj --no-restore --verbosity minimal` exits 0 (37 tests pass)
 
 #### Manual
 
-- [ ] 2.4 Make a trivial edit to a `.cs` file — agent console shows hook chain output ending with `37 passed`
-- [ ] 2.5 Hook output order confirmed: format first, build second, test third
+- [x] 2.4 Make a trivial edit to a `.cs` file — agent console shows hook chain output ending with `37 passed`
+- [x] 2.5 Hook output order confirmed: format first, build second, test third
 
 ### Phase 3: AGENTS.md comprehensive update
 

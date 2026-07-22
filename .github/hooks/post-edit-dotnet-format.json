@@ -12,6 +12,12 @@
         "matcher": "Write|Edit",
         "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .github\\hooks\\post-edit-dotnet-typecheck.ps1",
         "timeout": 30
+      },
+      {
+        "type": "command",
+        "matcher": "Write|Edit",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .github\\hooks\\post-edit-dotnet-test.ps1",
+        "timeout": 120
       }
     ]
   }
