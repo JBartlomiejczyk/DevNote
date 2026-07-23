@@ -394,21 +394,21 @@ e2e:
 
 #### Automated
 
-- [x] 1.1 `dotnet build DevNote.E2eTests/DevNote.E2eTests.csproj` — zero errors
-- [x] 1.2 `dotnet test DevNote.E2eTests/DevNote.E2eTests.csproj` — 0 tests, no compilation failures
-- [x] 1.3 `pwsh DevNote.E2eTests/bin/Debug/net9.0/playwright.ps1 install chromium` — exits 0
+- [x] 1.1 `dotnet build DevNote.E2eTests/DevNote.E2eTests.csproj` — zero errors — ce0dacf
+- [x] 1.2 `dotnet test DevNote.E2eTests/DevNote.E2eTests.csproj` — 0 tests, no compilation failures — ce0dacf
+- [x] 1.3 `pwsh DevNote.E2eTests/bin/Debug/net9.0/playwright.ps1 install chromium` — exits 0 — ce0dacf
 
 #### Manual
 
-- [x] 1.4 `playwright.ps1` present in output directory
-- [x] 1.5 Sanity test: empty `[Fact]` constructing and disposing the factory passes without `InvalidCastException`
+- [x] 1.4 `playwright.ps1` present in output directory — ce0dacf
+- [x] 1.5 Sanity test: empty `[Fact]` constructing and disposing the factory passes without `InvalidCastException` — ce0dacf
 
 ### Phase 2: Risk #4 + Risk #3 — Auth/ownership browser tests
 
 #### Automated
 
-- [ ] 2.1 `dotnet test ... --filter "FullyQualifiedName~UnauthenticatedRedirectTests"` — 3 tests pass
-- [ ] 2.2 `dotnet test ... --filter "FullyQualifiedName~CrossUserNoteAccessTests"` — 1 test passes
+- [x] 2.1 `dotnet test ... --filter "FullyQualifiedName~UnauthenticatedRedirectTests"` — 3 tests pass
+- [x] 2.2 `dotnet test ... --filter "FullyQualifiedName~CrossUserNoteAccessTests"` — 1 test passes
 
 #### Manual
 

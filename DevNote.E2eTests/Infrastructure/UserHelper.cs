@@ -74,10 +74,29 @@ public static class UserHelper
         string email,
         string password)
     {
-        await page.GotoAsync($"{baseUri}login");
-        await page.GetByLabel("Email").FillAsync(email);
-        await page.GetByLabel("Hasło").FillAsync(password);
-        await page.GetByRole(AriaRole.Button, new() { Name = "Zaloguj się" }).ClickAsync();
-        await page.WaitForURLAsync("**/");
+        _ = password; // unused — backdoor bypasses password check
+
+        // Use the browser context's request API (shares the cookie jar with the browser).
+        // The Set-Cookie header from the server is stored directly in the browser context —
+        // no browser navigation or redirect handling required.
+        var loginUrl = $"{baseUri}api/test/login?email={Uri.EscapeDataString(email)}";
+        var response = await page.Context.APIRequest.GetAsync(loginUrl);
+        if (!response.Ok)
+        {
+            var body = await response.TextAsync();
+            throw new InvalidOperationException(
+                $"Backdoor login for '{email}' returned HTTP {response.Status}: {body}");
+        }
+
+        // Verify auth actually took hold by calling the whoami probe via the same cookie jar
+        var whoamiUrl = $"{baseUri}api/test/whoami";
+        var whoami = await page.Context.APIRequest.GetAsync(whoamiUrl);
+        var identity = await whoami.TextAsync();
+        if (identity.Contains("anonymous"))
+            throw new InvalidOperationException(
+                $"Backdoor login for '{email}' succeeded (HTTP 200) but the cookie wasn't honoured: whoami='{identity}'");
+
+        // Navigate to root so callers have a clean starting page
+        await page.GotoAsync(baseUri.ToString());
     }
 }
