@@ -438,7 +438,7 @@ e2e:
 
 #### Automated
 
-- [x] 4.1 `dotnet test ... --filter "FullyQualifiedName~EditRevertReclassifyTests"` — 1 test passes
+- [x] 4.1 `dotnet test ... --filter "FullyQualifiedName~EditRevertReclassifyTests"` — 1 test passes — b3f99ff
 
 #### Manual
 
@@ -449,8 +449,8 @@ e2e:
 
 #### Automated
 
-- [ ] 5.1 `ci.yml` parses without YAML syntax errors
-- [ ] 5.2 `e2e` job appears in GitHub Actions UI on a test PR
+- [x] 5.1 `ci.yml` parses without YAML syntax errors
+- [x] 5.2 `e2e` job appears in GitHub Actions UI on a test PR
 
 #### Manual
 
