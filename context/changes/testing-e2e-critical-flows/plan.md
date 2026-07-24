@@ -449,10 +449,10 @@ e2e:
 
 #### Automated
 
-- [x] 5.1 `ci.yml` parses without YAML syntax errors
-- [x] 5.2 `e2e` job appears in GitHub Actions UI on a test PR
+- [x] 5.1 `ci.yml` parses without YAML syntax errors — fc3b05a
+- [x] 5.2 `e2e` job appears in GitHub Actions UI on a test PR — fc3b05a
 
 #### Manual
 
-- [ ] 5.3 `ci.yml` inspection confirms `continue-on-error: true` and `needs: [ci]`
-- [ ] 5.4 Existing `ci` job (format/build/test) is unchanged
+- [x] 5.3 `ci.yml` inspection confirms `continue-on-error: true` and `needs: [ci]`
+- [x] 5.4 Existing `ci` job (format/build/test) is unchanged

@@ -1,9 +1,9 @@
 ---
 change_id: testing-e2e-critical-flows
 title: E2E critical flows — Phase 5 Playwright tests for wizard, auth, and note lifecycle
-status: planned
+status: implemented
 created: 2026-07-22
-updated: 2026-07-23
+updated: 2026-07-24
 archived_at: null
 ---
 
