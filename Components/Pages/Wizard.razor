@@ -9,6 +9,7 @@
 @inject HelperQuestionsCoordinator HelperQuestionsCoordinator
 @inject NoteService NoteService
 @inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager Nav
 
 <h2>Notatka z rozmowy</h2>
 <p class="wizard-intro">Wypełnij poniższe sekcje, aby ustrukturyzować rozmowę z interesariuszem biznesowym.</p>
@@ -126,7 +127,7 @@
             <div class="auth-success"><p>Zapisano notatkę.</p></div>
         }
         <Result ClassificationResult="result" />
-        <a href="/notes" class="notes-back-link">Przejdź do notatek →</a>
+        <button class="notes-back-link" @onclick="GoToNotes">Przejdź do notatek →</button>
     </div>
 }
 
@@ -139,6 +140,8 @@
     private readonly Dictionary<WizardSectionKey, HelperQuestionsUiState> helperQuestions = [];
 
     [Inject] private IJSRuntime JS { get; set; } = default!;
+
+    private void GoToNotes() => Nav.NavigateTo("/notes", forceLoad: true);
 
     protected override void OnInitialized()
     {

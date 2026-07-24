@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Support Railway DATABASE_URL format: postgresql://user:pass@host:port/db
+// Support Railway DATABASE_URL format: postgres://user:pass@host:port/db
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 string connectionString;
 if (!string.IsNullOrEmpty(databaseUrl))
@@ -14,12 +14,21 @@ if (!string.IsNullOrEmpty(databaseUrl))
     var uri = new Uri(databaseUrl);
     var userInfo = uri.UserInfo.Split(':');
     var sslMode = builder.Environment.IsDevelopment() ? "Disable" : "Require";
-    connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode={sslMode};Trust Server Certificate=true";
+    connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={Uri.UnescapeDataString(userInfo[1])};SSL Mode={sslMode};Trust Server Certificate=true";
 }
 else
 {
-    connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
+    // DevNote__ConnectionString is the preferred key — it can never be shadowed
+    // by machine-level ConnectionStrings__DefaultConnection from other projects.
+    connectionString =
+        builder.Configuration["DevNote:ConnectionString"]
+        ?? builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new InvalidOperationException(
+            "No connection string configured. Set DevNote__ConnectionString or " +
+            "ConnectionStrings__DefaultConnection.");
 }
+
+Console.WriteLine($"[Startup] DB: {(connectionString.Contains("Host=") ? "PostgreSQL OK" : "WARNING: not PostgreSQL!")}");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
