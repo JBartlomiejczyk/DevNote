@@ -1,8 +1,9 @@
 @namespace DevNote.Components.Shared
+@inject IJSRuntime JS
 
 <details class="wizard-section @(IsExpanded ? "expanded" : "collapsed")" open="@(IsExpanded ? "open" : null)">
     <summary class="wizard-section-header" @onclick="OnToggle">
-        <span class="wizard-section-indicator">@(IsExpanded ? "▼" : "▶")</span>
+        <i data-lucide="@(IsExpanded ? "chevron-down" : "chevron-right")" class="wizard-section-indicator"></i>
         <span class="wizard-section-title">@Title</span>
     </summary>
 
@@ -67,6 +68,11 @@
     [Parameter] public EventCallback FirstExpanded { get; set; }
 
     private bool _firstExpandTriggered;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JS.InvokeVoidAsync("lucide.createIcons");
+    }
 
     private async Task OnInput(ChangeEventArgs e)
     {
