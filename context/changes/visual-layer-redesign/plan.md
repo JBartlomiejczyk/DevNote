@@ -367,8 +367,8 @@ Istniejące testy integracyjne w `DevNote.Tests/` muszą przechodzić — nie do
 
 #### Automated
 
-- [x] 1.1 Build przechodzi: `dotnet build`
-- [x] 1.2 Wszystkie testy przechodzą: `dotnet test DevNote.Tests/DevNote.Tests.csproj`
+- [x] 1.1 Build przechodzi: `dotnet build` — ac045f4
+- [x] 1.2 Wszystkie testy przechodzą: `dotnet test DevNote.Tests/DevNote.Tests.csproj` — ac045f4
 
 #### Manual
 
@@ -380,8 +380,8 @@ Istniejące testy integracyjne w `DevNote.Tests/` muszą przechodzić — nie do
 
 #### Automated
 
-- [ ] 2.1 Build przechodzi: `dotnet build`
-- [ ] 2.2 Wszystkie testy przechodzą: `dotnet test DevNote.Tests/DevNote.Tests.csproj`
+- [x] 2.1 Build przechodzi: `dotnet build`
+- [x] 2.2 Wszystkie testy przechodzą: `dotnet test DevNote.Tests/DevNote.Tests.csproj`
 
 #### Manual
 
