@@ -149,6 +149,18 @@ public class NoteService
         }
     }
 
+    public async Task<bool> DeleteNoteAsync(Guid noteId, string userId)
+    {
+        var note = await _db.ConversationNotes
+            .FirstOrDefaultAsync(n => n.Id == noteId && n.UserId == userId);
+
+        if (note is null) return false;
+
+        _db.ConversationNotes.Remove(note);
+        await _db.SaveChangesAsync();
+        return true;
+    }
+
     private static string BuildTitle(string problem)
     {
         if (string.IsNullOrWhiteSpace(problem)) return "Notatka";
