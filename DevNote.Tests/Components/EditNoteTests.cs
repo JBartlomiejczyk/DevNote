@@ -90,11 +90,11 @@ public class EditNoteTests : BunitContext
     };
 
     [Fact]
-    public void Load_AuthenticatedOwner_PrefillsAllFieldsAndRevertsNoteToCleanDraft()
+    public void Load_CompletedNote_PrefillsFieldsAndShowsSavedClassification()
     {
         var note = SeedCompletedNote();
 
-        Render<EditNote>(ps => ps.Add(p => p.NoteId, note.Id));
+        var cut = Render<EditNote>(ps => ps.Add(p => p.NoteId, note.Id));
 
         var data = Services.GetRequiredService<WizardStateService>().Data;
         Assert.Equal("Stary problem", data.Problem);
@@ -107,10 +107,12 @@ public class EditNoteTests : BunitContext
         Assert.Equal("Stara skala", data.Scale);
 
         var persisted = _db.ConversationNotes.Single(n => n.Id == note.Id);
-        Assert.Equal(NoteStatus.Draft, persisted.Status);
-        Assert.Null(persisted.Classification);
-        Assert.Equal(string.Empty, persisted.SummaryProblem);
-        Assert.Equal(string.Empty, persisted.NextStep);
+        Assert.Equal(NoteStatus.Completed, persisted.Status);
+        Assert.Equal(Classification.C, persisted.Classification);
+        Assert.Equal("Stare podsumowanie problemu", persisted.SummaryProblem);
+
+        Assert.Single(cut.FindAll(".result-panel"));
+        Assert.DoesNotContain("Notatka zaktualizowana", cut.Markup);
     }
 
     [Fact]
@@ -137,7 +139,7 @@ public class EditNoteTests : BunitContext
     }
 
     [Fact]
-    public void Classify_Failure_RendersRetryAndLeavesNoteCleanDraft()
+    public void Classify_Failure_RendersRetryAndLeavesNoteAsDraft()
     {
         var note = SeedCompletedNote();
         _classification.ClassifyAsync(Arg.Any<WizardData>(), Arg.Any<CancellationToken>())
@@ -154,5 +156,52 @@ public class EditNoteTests : BunitContext
         Assert.Equal(NoteStatus.Draft, persisted.Status);
         Assert.Null(persisted.Classification);
         Assert.Equal(string.Empty, persisted.SummaryProblem);
+    }
+
+    [Fact]
+    public void Load_DraftNote_ShowsNoClassificationAndClassifyButton()
+    {
+        var note = new ConversationNote
+        {
+            Id = Guid.NewGuid(),
+            UserId = OwnerId,
+            Title = "Szkic",
+            Status = NoteStatus.Draft,
+            Classification = null,
+            Problem = "Problem szkicu",
+            CreatedAt = DateTimeOffset.UtcNow,
+            UpdatedAt = DateTimeOffset.UtcNow
+        };
+        _db.ConversationNotes.Add(note);
+        _db.SaveChanges();
+
+        var cut = Render<EditNote>(ps => ps.Add(p => p.NoteId, note.Id));
+
+        Assert.Empty(cut.FindAll(".result-panel"));
+        Assert.Contains("Klasyfikuj", cut.Find("button.btn-classify").TextContent);
+        Assert.DoesNotContain("Ponów klasyfikację", cut.Markup);
+
+        var persisted = _db.ConversationNotes.Single(n => n.Id == note.Id);
+        Assert.Equal(NoteStatus.Draft, persisted.Status);
+        Assert.Null(persisted.Classification);
+    }
+
+    [Fact]
+    public void WizardEdit_AfterLoadCompletedNote_HidesResultAndRevertsToDbDraft()
+    {
+        var note = SeedCompletedNote();
+        var cut = Render<EditNote>(ps => ps.Add(p => p.NoteId, note.Id));
+
+        Assert.Single(cut.FindAll(".result-panel"));
+
+        cut.Find("summary.wizard-section-header").Click();
+        cut.Find("textarea.wizard-section-textarea").Change("Zmieniona treść");
+
+        Assert.Empty(cut.FindAll(".result-panel"));
+        Assert.Contains("Klasyfikuj", cut.Find("button.btn-classify").TextContent);
+
+        var persisted = _db.ConversationNotes.Single(n => n.Id == note.Id);
+        Assert.Equal(NoteStatus.Draft, persisted.Status);
+        Assert.Null(persisted.Classification);
     }
 }

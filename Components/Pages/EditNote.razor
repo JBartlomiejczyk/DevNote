@@ -17,7 +17,7 @@
 <div class="wizard-accordion">
     <WizardSection Title="Problem"
                    Description="Opisz problem biznesowy, który chcesz rozwiązać"
-                   @bind-Value="State.Data.Problem"
+                   @bind-Value="State.Data.Problem" @bind-Value:after="OnWizardContentChanged"
                    @bind-IsExpanded="expandedSections[0]"
                    HelperQuestions="@helperQuestions[WizardSectionKey.Problem].Questions"
                    IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.Problem].IsLoading"
@@ -27,7 +27,7 @@
 
     <WizardSection Title="Obecny proces"
                    Description="Jak wygląda obecny proces? Kto jest zaangażowany?"
-                   @bind-Value="State.Data.Process"
+                   @bind-Value="State.Data.Process" @bind-Value:after="OnWizardContentChanged"
                    @bind-IsExpanded="expandedSections[1]"
                    HelperQuestions="@helperQuestions[WizardSectionKey.Process].Questions"
                    IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.Process].IsLoading"
@@ -37,7 +37,7 @@
 
     <WizardSection Title="Strata czasu"
                    Description="Gdzie tracony jest czas? Jakie są wąskie gardła?"
-                   @bind-Value="State.Data.TimeWaste"
+                   @bind-Value="State.Data.TimeWaste" @bind-Value:after="OnWizardContentChanged"
                    @bind-IsExpanded="expandedSections[2]"
                    HelperQuestions="@helperQuestions[WizardSectionKey.TimeWaste].Questions"
                    IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.TimeWaste].IsLoading"
@@ -47,7 +47,7 @@
 
     <WizardSection Title="Dane wejściowe"
                    Description="Jakie dane są potrzebne? Skąd pochodzą?"
-                   @bind-Value="State.Data.InputData"
+                   @bind-Value="State.Data.InputData" @bind-Value:after="OnWizardContentChanged"
                    @bind-IsExpanded="expandedSections[3]"
                    HelperQuestions="@helperQuestions[WizardSectionKey.InputData].Questions"
                    IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.InputData].IsLoading"
@@ -57,7 +57,7 @@
 
     <WizardSection Title="Oczekiwany wynik"
                    Description="Jaki jest pożądany efekt końcowy?"
-                   @bind-Value="State.Data.Output"
+                   @bind-Value="State.Data.Output" @bind-Value:after="OnWizardContentChanged"
                    @bind-IsExpanded="expandedSections[4]"
                    HelperQuestions="@helperQuestions[WizardSectionKey.Output].Questions"
                    IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.Output].IsLoading"
@@ -67,7 +67,7 @@
 
     <WizardSection Title="Ryzyka"
                    Description="Jakie są ryzyka? Co może pójść nie tak?"
-                   @bind-Value="State.Data.Risks"
+                   @bind-Value="State.Data.Risks" @bind-Value:after="OnWizardContentChanged"
                    @bind-IsExpanded="expandedSections[5]"
                    HelperQuestions="@helperQuestions[WizardSectionKey.Risks].Questions"
                    IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.Risks].IsLoading"
@@ -77,7 +77,7 @@
 
     <WizardSection Title="Użytkownicy"
                    Description="Kto będzie korzystał z rozwiązania? Ilu użytkowników?"
-                   @bind-Value="State.Data.Users"
+                   @bind-Value="State.Data.Users" @bind-Value:after="OnWizardContentChanged"
                    @bind-IsExpanded="expandedSections[6]"
                    HelperQuestions="@helperQuestions[WizardSectionKey.Users].Questions"
                    IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.Users].IsLoading"
@@ -87,7 +87,7 @@
 
     <WizardSection Title="Skala"
                    Description="Jaka jest skala problemu? Jak często występuje?"
-                   @bind-Value="State.Data.Scale"
+                   @bind-Value="State.Data.Scale" @bind-Value:after="OnWizardContentChanged"
                    @bind-IsExpanded="expandedSections[7]"
                    HelperQuestions="@helperQuestions[WizardSectionKey.Scale].Questions"
                    IsHelperQuestionsLoading="@helperQuestions[WizardSectionKey.Scale].IsLoading"
@@ -106,7 +106,7 @@
         }
         else
         {
-            <span>Klasyfikuj</span>
+            <span>@(result is not null ? "Ponów klasyfikację" : "Klasyfikuj")</span>
         }
     </button>
 </div>
@@ -122,7 +122,10 @@
 @if (result is not null)
 {
     <div id="result-anchor">
-        <div class="auth-success"><p>Notatka zaktualizowana.</p></div>
+        @if (isNewClassification)
+        {
+            <div class="auth-success"><p>Notatka zaktualizowana.</p></div>
+        }
         <Result ClassificationResult="result" />
         <a href="/notes" class="notes-back-link">Przejdź do notatek →</a>
     </div>
@@ -133,6 +136,8 @@
 
     private bool[] expandedSections = [false, false, false, false, false, false, false, false];
     private bool isLoading;
+    private bool isNewClassification;
+    private bool hasReverted;
     private string? errorMessage;
     private ClassificationResult? result;
     private string? userId;
@@ -160,8 +165,8 @@
             return;
         }
 
-        await NoteService.RevertToDraftAsync(NoteId, userId);
         State.LoadFromNote(note);
+        result = BuildResultFromNote(note);
         InitializeHelperStates();
     }
 
@@ -207,8 +212,16 @@
 
         try
         {
+            if (!hasReverted)
+            {
+                hasReverted = true;
+                await NoteService.RevertToDraftAsync(NoteId, userId);
+            }
+
             result = await ClassificationService.ClassifyAsync(State.Data);
             await NoteService.UpdateNoteAsync(NoteId, userId, State.Data, result);
+            isNewClassification = true;
+            hasReverted = false;
         }
         catch (Exception)
         {
@@ -224,5 +237,42 @@
                 await JS.InvokeVoidAsync("devNote.scrollToResultAnchor", "result-anchor");
             }
         }
+    }
+
+    private async Task OnWizardContentChanged()
+    {
+        if (result is null && hasReverted)
+            return;
+
+        result = null;
+        isNewClassification = false;
+
+        if (!hasReverted)
+        {
+            hasReverted = true;
+            await NoteService.RevertToDraftAsync(NoteId, userId!);
+        }
+    }
+
+    private static ClassificationResult? BuildResultFromNote(ConversationNote note)
+    {
+        if (note.Status != NoteStatus.Completed || note.Classification is null)
+            return null;
+        return new ClassificationResult
+        {
+            Classification = note.Classification.Value,
+            Justification = note.Justification,
+            Problem = note.SummaryProblem,
+            Users = note.SummaryUsers,
+            CurrentProcess = note.CurrentProcess,
+            TimeWaste = note.SummaryTimeWaste,
+            InputData = note.SummaryInputData,
+            ExpectedOutput = note.ExpectedOutput,
+            RecommendedPath = note.RecommendedPath,
+            MvpScope = note.MvpScope,
+            OutOfScope = note.OutOfScope,
+            AcceptanceCriteria = note.AcceptanceCriteria,
+            NextStep = note.NextStep
+        };
     }
 }
