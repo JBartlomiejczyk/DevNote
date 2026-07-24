@@ -1,7 +1,7 @@
 ---
 change_id: visual-layer-redesign
 title: Visual redesign — developer notebook aesthetic
-status: implementing
+status: implemented
 created: 2026-07-24
 updated: 2026-07-24
 archived_at: null
