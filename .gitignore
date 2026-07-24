@@ -14,6 +14,9 @@ secrets.json
 ## Development settings with secrets
 appsettings.Development.json
 
+## Sensitive documents
+*.docx
+
 ## IDE
 .vs/
 .idea/
