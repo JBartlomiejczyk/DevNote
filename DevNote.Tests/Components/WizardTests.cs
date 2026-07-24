@@ -41,7 +41,7 @@ public class WizardTests : BunitContext
 
         Assert.True(cut.Find("button.btn-classify").HasAttribute("disabled"));
 
-        cut.Find("button.wizard-section-header").Click();
+        cut.Find("summary.wizard-section-header").Click();
         cut.Find("textarea.wizard-section-textarea").Change("Realny problem biznesowy");
 
         Assert.False(cut.Find("button.btn-classify").HasAttribute("disabled"));
@@ -54,7 +54,7 @@ public class WizardTests : BunitContext
             .ThrowsAsync(new HelperQuestionsResponseException("boom"));
         var cut = Render<Wizard>();
 
-        cut.Find("button.wizard-section-header").Click();
+        cut.Find("summary.wizard-section-header").Click();
 
         Assert.Single(cut.FindAll(".wizard-helper-error"));
 

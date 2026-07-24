@@ -65,6 +65,36 @@ The project is in early scaffold state. The target architecture:- **API layer**:
 
 See @context/foundation/prd.md § Functional Requirements for the full feature list and priorities.
 
+## E2E Testing Rules (Playwright for .NET — DevNote.E2eTests)
+
+These rules govern every test in `DevNote.E2eTests/`. Read them before generating or reviewing any E2E spec.
+
+```
+# E2E Testing Rules — Playwright for .NET / xUnit
+
+- Use GetByRole, GetByLabel, GetByText as primary locators.
+  Fall back to GetByTestId only when accessibility attributes are ambiguous.
+- Never use CSS selectors, XPath, or DOM structure to locate elements.
+- Each test must be independently runnable: own setup, action, assertion.
+  No shared state between tests.
+- Never use Task.Delay() or Thread.Sleep(). Wait for specific conditions:
+  Expect(locator).ToBeVisibleAsync(), page.WaitForURLAsync(), page.WaitForResponseAsync().
+- Assert the business outcome, not implementation details.
+- Use timestamp suffix (DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()) in test data
+  identifiers (e.g. email addresses, content strings) to avoid collisions in parallel runs.
+- Authenticate via UserHelper.LoginAsync at test setup.
+  Each test gets its own IBrowserContext (fresh cookie jar). Never log in mid-test
+  as part of testing something unrelated to auth.
+- Name tests after the risk they protect: Method_Scenario_ExpectedOutcome.
+```
+
+**Real vs mocked boundaries:**
+- Real: auth (cookie), ASP.NET Core routing, EF Core InMemory DB, Blazor Server circuit
+- Mocked in DI: `IClassificationService` → `FakeClassificationService`, `IHelperQuestionsService` → `FakeHelperQuestionsService`
+  (server-side Azure OpenAI calls — NOT interceptable via `page.RouteAsync`)
+
+**Seed test:** `DevNote.E2eTests/SeedTests.cs` — the C# exemplar all generated tests model.
+
 ## Project-Specific Traps
 
 1. The starter template includes a sample `/weatherforecast` endpoint in `Program.cs` — remove it when adding real endpoints.

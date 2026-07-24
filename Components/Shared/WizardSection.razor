@@ -1,10 +1,10 @@
 @namespace DevNote.Components.Shared
 
-<div class="wizard-section @(IsExpanded ? "expanded" : "collapsed")">
-    <button type="button" class="wizard-section-header" @onclick="Toggle">
+<details class="wizard-section @(IsExpanded ? "expanded" : "collapsed")" open="@(IsExpanded ? "open" : null)">
+    <summary class="wizard-section-header" @onclick="OnToggle">
         <span class="wizard-section-indicator">@(IsExpanded ? "▼" : "▶")</span>
         <span class="wizard-section-title">@Title</span>
-    </button>
+    </summary>
 
     @if (IsExpanded)
     {
@@ -51,7 +51,7 @@
             </div>
         </div>
     }
-</div>
+</details>
 
 @code {
     [Parameter] public string Title { get; set; } = string.Empty;
@@ -74,7 +74,7 @@
         await ValueChanged.InvokeAsync(Value);
     }
 
-    private async Task Toggle()
+    private async Task OnToggle()
     {
         IsExpanded = !IsExpanded;
         await IsExpandedChanged.InvokeAsync(IsExpanded);

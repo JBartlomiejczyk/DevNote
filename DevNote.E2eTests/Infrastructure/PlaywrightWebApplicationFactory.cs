@@ -3,6 +3,7 @@ using DevNote.Models;
 using DevNote.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -39,6 +40,7 @@ public class PlaywrightWebApplicationFactory : IAsyncLifetime
             EnvironmentName = "Development",    // enables UseStaticWebAssets() → blazor.web.js served
             Args = Array.Empty<string>()
         });
+        builder.WebHost.UseStaticWebAssets();
 
         // InMemory DB instead of Postgres.
         // Keep one stable DB name per factory instance so seeding and HTTP requests

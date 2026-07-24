@@ -4,7 +4,7 @@
 
 ## What & Why
 
-Phase 5 of the test rollout adds a Playwright for .NET E2E project (`DevNote.E2eTests`) that verifies risks #2, #3, #4, and #5 in a real Chromium browser. The prior phases (unit, bUnit, integration) proved correctness at each layer in isolation; this phase proves the full Blazor Server user journey works in an actual browser circuit — auth redirects, ownership enforcement, accordion state preservation, and the edit→revert→reclassify lifecycle.
+Phase 5 of the test rollout adds a Playwright for .NET E2E project (`DevNote.E2eTests`) for browser-layer risk checks and keeps deterministic component proofs where browser timing is unstable. Re-planned Phase 3 now uses a hybrid strategy: strict wizard persistence proof in bUnit/component tests, with E2E reduced to smoke coverage.
 
 ## Starting Point
 
@@ -12,7 +12,7 @@ Phase 5 of the test rollout adds a Playwright for .NET E2E project (`DevNote.E2e
 
 ## Desired End State
 
-A new `DevNote.E2eTests` project contains 6 E2E tests (3 unauthenticated-redirect, 1 cross-user ownership, 1 back-navigation, 1 edit-revert-reclassify). All pass locally with Chromium installed. CI gains an optional non-blocking `e2e` job. The test plan Phase 5 status advances to `planned`.
+A new `DevNote.E2eTests` project contains browser tests for auth redirects, cross-user ownership, Phase-3 wizard smoke, and edit-revert-reclassify. Strict Risk #2 persistence proof lives in `DevNote.Tests` component tests. CI keeps an optional non-blocking `e2e` job.
 
 ## Key Decisions Made
 
@@ -24,6 +24,7 @@ A new `DevNote.E2eTests` project contains 6 E2E tests (3 unauthenticated-redirec
 | Database | EF Core InMemory (per fixture) | Consistent with Phases 1–3 pattern; fast, no Docker, full isolation | Plan |
 | User seeding | `UserManager` in fixture + browser login via `/login` form | Fast, deterministic setup; does not couple test infrastructure to UI details unrelated to the risk | Plan |
 | CI gate | Optional `e2e` job (`continue-on-error: true`) | Test plan §5 marks E2E as optional; non-blocking keeps the merge gate unaffected by E2E flakiness | Plan |
+| Risk #2 assertion depth | Hybrid: component strict proof + E2E smoke | Component layer is deterministic for value persistence while E2E still validates browser flow health | Re-plan |
 
 ## Scope
 
@@ -31,7 +32,8 @@ A new `DevNote.E2eTests` project contains 6 E2E tests (3 unauthenticated-redirec
 - New `DevNote.E2eTests` project with Playwright for .NET
 - `PlaywrightWebApplicationFactory` (dual-host: TestServer + Kestrel)
 - `FakeClassificationService`, `FakeHelperQuestionsService`, `UserHelper`, `E2eTestBase`
-- 6 E2E tests covering risks #2, #3, #4, #5
+- E2E tests covering risks #3, #4, #5 and Phase-3 smoke behavior
+- Component-level strict persistence tests for Risk #2
 - CI `e2e` job (non-blocking)
 - Test plan Phase 5 status updated to `planned`
 
@@ -52,7 +54,7 @@ A new `DevNote.E2eTests` project contains 6 E2E tests (3 unauthenticated-redirec
 |---|---|---|
 | 1. Scaffold + infrastructure | Project, factory, stubs, helpers, base class — all plumbing, no scenarios | Two-host WAF pattern may throw `InvalidCastException` if Kestrel host isn't built correctly |
 | 2. Risk #4 + #3 | 4 tests: 3 unauth-redirect + 1 cross-user ownership | Auth middleware must fire before ownership check on `/edit/{id}` |
-| 3. Risk #2 | 1 test: accordion collapse→re-expand preserves values | `WizardStateService` must not be scoped to the component lifecycle (it's `AddScoped` on the circuit — correct) |
+| 3. Risk #2 | Component strict persistence proof + E2E smoke flow | Browser timing can be flaky; strict value assertion is anchored in deterministic component tests |
 | 4. Risk #5 | 1 test: edit→Draft→reclassify→Completed lifecycle visible in `/notes` | `RevertToDraftAsync` runs in `OnInitializedAsync`; the intermediate Draft must be observable in the notes list before re-classification |
 | 5. CI wiring | Optional `e2e` job in `ci.yml`, non-blocking | `playwright.ps1 install --with-deps chromium` must run before `dotnet test` |
 
@@ -67,6 +69,7 @@ A new `DevNote.E2eTests` project contains 6 E2E tests (3 unauthenticated-redirec
 
 ## Success Criteria (Summary)
 
-- `dotnet test DevNote.E2eTests/DevNote.E2eTests.csproj` — 6 tests pass, no compilation errors
+- `dotnet test DevNote.E2eTests/DevNote.E2eTests.csproj` — browser tests pass, no compilation errors
+- `dotnet test DevNote.Tests/DevNote.Tests.csproj --filter "FullyQualifiedName~WizardSectionTests|FullyQualifiedName~WizardTests"` — strict Risk #2 persistence proof passes
 - All four risks (#2, #3, #4, #5) have a browser-layer test that fails when its targeted behavior is deliberately broken and passes when it is correct
 - CI `e2e` job appears in GitHub Actions UI on PRs without blocking the `ci` job

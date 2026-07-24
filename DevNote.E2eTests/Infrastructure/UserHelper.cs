@@ -76,25 +76,20 @@ public static class UserHelper
     {
         _ = password; // unused — backdoor bypasses password check
 
-        // Use the browser context's request API (shares the cookie jar with the browser).
-        // The Set-Cookie header from the server is stored directly in the browser context —
-        // no browser navigation or redirect handling required.
         var loginUrl = $"{baseUri}api/test/login?email={Uri.EscapeDataString(email)}";
-        var response = await page.Context.APIRequest.GetAsync(loginUrl);
-        if (!response.Ok)
-        {
-            var body = await response.TextAsync();
+        var response = await page.GotoAsync(loginUrl);
+        if (response is null || !response.Ok)
             throw new InvalidOperationException(
-                $"Backdoor login for '{email}' returned HTTP {response.Status}: {body}");
-        }
+                $"Backdoor login for '{email}' failed while navigating to {loginUrl}. " +
+                $"HTTP status: {response?.Status}");
 
-        // Verify auth actually took hold by calling the whoami probe via the same cookie jar
+        // Verify auth actually took hold through browser navigation.
         var whoamiUrl = $"{baseUri}api/test/whoami";
-        var whoami = await page.Context.APIRequest.GetAsync(whoamiUrl);
-        var identity = await whoami.TextAsync();
+        await page.GotoAsync(whoamiUrl);
+        var identity = await page.InnerTextAsync("body");
         if (identity.Contains("anonymous"))
             throw new InvalidOperationException(
-                $"Backdoor login for '{email}' succeeded (HTTP 200) but the cookie wasn't honoured: whoami='{identity}'");
+                $"Backdoor login for '{email}' succeeded but cookie wasn't honoured in browser context: whoami='{identity}'");
 
         // Navigate to root so callers have a clean starting page
         await page.GotoAsync(baseUri.ToString());

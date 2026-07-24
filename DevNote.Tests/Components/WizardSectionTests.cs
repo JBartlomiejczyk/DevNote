@@ -20,11 +20,11 @@ public class WizardSectionTests : BunitContext
         cut.Find("textarea.wizard-section-textarea").Change("Zapisana odpowiedź");
         Assert.Equal("Zapisana odpowiedź", value);
 
-        cut.Find("button.wizard-section-header").Click();
+        cut.Find("summary.wizard-section-header").Click();
         Assert.False(expanded);
         Assert.Empty(cut.FindAll("textarea.wizard-section-textarea"));
 
-        cut.Find("button.wizard-section-header").Click();
+        cut.Find("summary.wizard-section-header").Click();
         Assert.True(expanded);
         Assert.Equal("Zapisana odpowiedź", cut.Find("textarea.wizard-section-textarea").GetAttribute("value"));
     }
@@ -39,9 +39,9 @@ public class WizardSectionTests : BunitContext
             .Bind(p => p.IsExpanded, expanded, v => expanded = v)
             .Add(p => p.FirstExpanded, () => firstExpandedCount++));
 
-        cut.Find("button.wizard-section-header").Click();
-        cut.Find("button.wizard-section-header").Click();
-        cut.Find("button.wizard-section-header").Click();
+        cut.Find("summary.wizard-section-header").Click();
+        cut.Find("summary.wizard-section-header").Click();
+        cut.Find("summary.wizard-section-header").Click();
 
         Assert.Equal(1, firstExpandedCount);
     }

@@ -19,9 +19,11 @@
 
   <ItemGroup>
     <Compile Remove="DevNote.Tests\\**\\*.cs" />
+    <Content Remove="DevNote.Tests\\**\\*" />
     <EmbeddedResource Remove="DevNote.Tests\\**\\*" />
     <None Remove="DevNote.Tests\\**\\*" />
     <Compile Remove="DevNote.E2eTests\\**\\*.cs" />
+    <Content Remove="DevNote.E2eTests\\**\\*" />
     <EmbeddedResource Remove="DevNote.E2eTests\\**\\*" />
     <None Remove="DevNote.E2eTests\\**\\*" />
   </ItemGroup>
