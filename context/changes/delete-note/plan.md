@@ -173,14 +173,14 @@ No new unit tests required — the ownership logic in `DeleteNoteAsync` follows 
 
 #### Automated
 
-- [x] 2.1 Build passes
-- [x] 2.2 All tests pass
+- [x] 2.1 Build passes — bf3de73
+- [x] 2.2 All tests pass — bf3de73
 
 #### Manual
 
-- [x] 2.3 Trash icon appears on hover
-- [x] 2.4 Icon hidden when not hovering
-- [x] 2.5 Confirm dialog appears with Polish text
-- [x] 2.6 Cancel — note stays in list
-- [x] 2.7 Confirm — note disappears immediately
-- [x] 2.8 Refresh — deleted note gone permanently
+- [x] 2.3 Trash icon appears on hover — bf3de73
+- [x] 2.4 Icon hidden when not hovering — bf3de73
+- [x] 2.5 Confirm dialog appears with Polish text — bf3de73
+- [x] 2.6 Cancel — note stays in list — bf3de73
+- [x] 2.7 Confirm — note disappears immediately — bf3de73
+- [x] 2.8 Refresh — deleted note gone permanently — bf3de73
