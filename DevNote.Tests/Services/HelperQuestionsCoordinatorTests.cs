@@ -23,7 +23,7 @@ public class HelperQuestionsCoordinatorTests
         var service = Substitute.For<IHelperQuestionsService>();
         service.GenerateAsync(Arg.Any<HelperQuestionsRequest>(), Arg.Any<CancellationToken>())
             .Returns(Result("Cached question"));
-        var sut = new HelperQuestionsCoordinator(state, service);
+        var sut = new HelperQuestionsCoordinator(state, service, Microsoft.Extensions.Logging.Abstractions.NullLogger<DevNote.Services.HelperQuestionsCoordinator>.Instance);
 
         var first = await sut.GetForSectionAsync(WizardSectionKey.Process);
         var second = await sut.GetForSectionAsync(WizardSectionKey.Process);
@@ -41,7 +41,7 @@ public class HelperQuestionsCoordinatorTests
         var service = Substitute.For<IHelperQuestionsService>();
         service.GenerateAsync(Arg.Any<HelperQuestionsRequest>(), Arg.Any<CancellationToken>())
             .Returns(Result());
-        var sut = new HelperQuestionsCoordinator(state, service);
+        var sut = new HelperQuestionsCoordinator(state, service, Microsoft.Extensions.Logging.Abstractions.NullLogger<DevNote.Services.HelperQuestionsCoordinator>.Instance);
 
         await sut.GetForSectionAsync(WizardSectionKey.Process);
         state.Data.Problem = "Different problem";
@@ -59,7 +59,7 @@ public class HelperQuestionsCoordinatorTests
         var service = Substitute.For<IHelperQuestionsService>();
         service.GenerateAsync(Arg.Any<HelperQuestionsRequest>(), Arg.Any<CancellationToken>())
             .Returns(Result());
-        var sut = new HelperQuestionsCoordinator(state, service);
+        var sut = new HelperQuestionsCoordinator(state, service, Microsoft.Extensions.Logging.Abstractions.NullLogger<DevNote.Services.HelperQuestionsCoordinator>.Instance);
 
         await sut.GetForSectionAsync(WizardSectionKey.Process);
         await sut.GetForSectionAsync(WizardSectionKey.Process, forceRefresh: true);
@@ -75,7 +75,7 @@ public class HelperQuestionsCoordinatorTests
         var service = Substitute.For<IHelperQuestionsService>();
         service.GenerateAsync(Arg.Any<HelperQuestionsRequest>(), Arg.Any<CancellationToken>())
             .ThrowsAsync(new HelperQuestionsResponseException("boom"));
-        var sut = new HelperQuestionsCoordinator(state, service);
+        var sut = new HelperQuestionsCoordinator(state, service, Microsoft.Extensions.Logging.Abstractions.NullLogger<DevNote.Services.HelperQuestionsCoordinator>.Instance);
         var states = sut.CreateUiStateMap();
 
         await sut.LoadSectionUiStateAsync(states, WizardSectionKey.Problem, forceRefresh: false);
@@ -93,7 +93,7 @@ public class HelperQuestionsCoordinatorTests
         var service = Substitute.For<IHelperQuestionsService>();
         service.GenerateAsync(Arg.Any<HelperQuestionsRequest>(), Arg.Any<CancellationToken>())
             .Returns(Result("First", "Second", "Third"));
-        var sut = new HelperQuestionsCoordinator(state, service);
+        var sut = new HelperQuestionsCoordinator(state, service, Microsoft.Extensions.Logging.Abstractions.NullLogger<DevNote.Services.HelperQuestionsCoordinator>.Instance);
         var states = sut.CreateUiStateMap();
 
         await sut.LoadSectionUiStateAsync(states, WizardSectionKey.Problem, forceRefresh: false);

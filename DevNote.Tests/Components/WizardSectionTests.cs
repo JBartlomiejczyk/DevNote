@@ -6,6 +6,11 @@ namespace DevNote.Tests.Components;
 
 public class WizardSectionTests : BunitContext
 {
+    public WizardSectionTests()
+    {
+        JSInterop.SetupVoid("lucide.createIcons");
+    }
+
     [Fact]
     public void CollapseAndReexpand_RestoresEnteredValue()
     {
