@@ -165,6 +165,14 @@
         InitializeHelperStates();
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("document.body.setAttribute", "data-blazor-ready", "true");
+        }
+    }
+
     private async Task OnSectionFirstExpanded(WizardSectionKey sectionKey)
     {
         await LoadHelperQuestionsAsync(sectionKey, forceRefresh: false);

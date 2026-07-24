@@ -426,8 +426,8 @@ e2e:
 
 #### Automated
 
-- [x] 3.1 `dotnet test ...DevNote.Tests... --filter "FullyQualifiedName~WizardSectionTests|FullyQualifiedName~WizardTests"` — component persistence proof passes
-- [x] 3.2 `dotnet test ... --filter "FullyQualifiedName~WizardBackNavigationTests"` — E2E smoke passes
+- [x] 3.1 `dotnet test ...DevNote.Tests... --filter "FullyQualifiedName~WizardSectionTests|FullyQualifiedName~WizardTests"` — component persistence proof passes — 21dc091
+- [x] 3.2 `dotnet test ... --filter "FullyQualifiedName~WizardBackNavigationTests"` — E2E smoke passes — 21dc091
 
 #### Manual
 
@@ -438,7 +438,7 @@ e2e:
 
 #### Automated
 
-- [ ] 4.1 `dotnet test ... --filter "FullyQualifiedName~EditRevertReclassifyTests"` — 1 test passes
+- [x] 4.1 `dotnet test ... --filter "FullyQualifiedName~EditRevertReclassifyTests"` — 1 test passes
 
 #### Manual
 
