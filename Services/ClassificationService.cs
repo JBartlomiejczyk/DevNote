@@ -1,5 +1,3 @@
-using System.ClientModel;
-using Azure.AI.OpenAI;
 using DevNote.Models;
 using Microsoft.Extensions.Options;
 using OpenAI.Chat;
@@ -104,10 +102,7 @@ public class ClassificationService : IClassificationService
 
     public async Task<ClassificationResult> ClassifyAsync(WizardData data, CancellationToken ct = default)
     {
-        if (string.IsNullOrWhiteSpace(_options.Endpoint) || string.IsNullOrWhiteSpace(_options.ApiKey))
-        {
-            throw new InvalidOperationException("Azure OpenAI nie jest skonfigurowane. Ustaw Endpoint i ApiKey w konfiguracji.");
-        }
+        LlmChatClientFactory.ValidateConfiguration(_options, nameof(ClassificationService));
 
         var userMessage = $"""
             ## Problem
@@ -135,11 +130,7 @@ public class ClassificationService : IClassificationService
             {data.Scale}
             """;
 
-        var azureClient = new AzureOpenAIClient(
-            new Uri(_options.Endpoint),
-            new ApiKeyCredential(_options.ApiKey));
-
-        var client = azureClient.GetChatClient(_options.DeploymentName);
+        var client = LlmChatClientFactory.Create(_options);
 
         var chatOptions = new ChatCompletionOptions
         {

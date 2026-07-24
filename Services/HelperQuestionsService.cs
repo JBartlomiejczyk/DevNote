@@ -1,8 +1,6 @@
-using System.ClientModel;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using Azure.AI.OpenAI;
 using DevNote.Models;
 using Microsoft.Extensions.Options;
 using OpenAI.Chat;
@@ -88,11 +86,7 @@ public class HelperQuestionsService : IHelperQuestionsService
 
         var userMessage = BuildUserMessage(request, contextSnapshots);
 
-        var azureClient = new AzureOpenAIClient(
-            new Uri(_options.Endpoint),
-            new ApiKeyCredential(_options.ApiKey));
-
-        var client = azureClient.GetChatClient(_options.DeploymentName);
+        var client = LlmChatClientFactory.Create(_options);
         var chatOptions = new ChatCompletionOptions
         {
             ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
@@ -133,10 +127,13 @@ public class HelperQuestionsService : IHelperQuestionsService
 
     private void ValidateConfiguration()
     {
-        if (string.IsNullOrWhiteSpace(_options.Endpoint) || string.IsNullOrWhiteSpace(_options.ApiKey))
+        try
         {
-            throw new HelperQuestionsConfigurationException(
-                "Azure OpenAI nie jest skonfigurowane dla helper questions. Ustaw Endpoint i ApiKey.");
+            LlmChatClientFactory.ValidateConfiguration(_options, nameof(HelperQuestionsService));
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new HelperQuestionsConfigurationException(ex.Message);
         }
     }
 
