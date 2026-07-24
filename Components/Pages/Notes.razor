@@ -6,6 +6,7 @@
 @rendermode InteractiveServer
 @inject NoteService NoteService
 @inject AuthenticationStateProvider AuthStateProvider
+@inject IJSRuntime JS
 
 <h2>Moje notatki</h2>
 
@@ -49,6 +50,12 @@ else
                         }
                     </span>
                 </a>
+                <button class="notes-item-delete"
+                        title="Usuń notatkę"
+                        @onclick="() => DeleteNote(note)"
+                        @onclick:stopPropagation="true">
+                    <i data-lucide="trash-2"></i>
+                </button>
             </li>
         }
     </ul>
@@ -56,18 +63,35 @@ else
 
 @code {
     private List<ConversationNote>? notes;
+    private string? _userId;
 
     protected override async Task OnInitializedAsync()
     {
         var authState = await AuthStateProvider.GetAuthenticationStateAsync();
-        var userId = authState.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-        if (userId is not null)
-        {
-            notes = await NoteService.GetNotesForUserAsync(userId);
-        }
+        _userId = authState.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (_userId is not null)
+            notes = await NoteService.GetNotesForUserAsync(_userId);
         else
-        {
             notes = [];
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JS.InvokeVoidAsync("lucide.createIcons");
+    }
+
+    private async Task DeleteNote(ConversationNote note)
+    {
+        if (_userId is null) return;
+
+        var confirmed = await JS.InvokeAsync<bool>("confirm", "Czy na pewno chcesz usunąć notatkę?");
+        if (!confirmed) return;
+
+        var deleted = await NoteService.DeleteNoteAsync(note.Id, _userId);
+        if (deleted)
+        {
+            notes?.Remove(note);
+            StateHasChanged();
         }
     }
 }

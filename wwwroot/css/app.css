@@ -727,6 +727,9 @@ h2 {
 }
 
 .notes-item {
+    position: relative;
+    display: flex;
+    align-items: center;
     background: var(--color-bg-raised);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -741,8 +744,30 @@ h2 {
     box-shadow: var(--shadow-md);
 }
 
+.notes-item-delete {
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity var(--transition-fast), color var(--transition-fast);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    padding: 0.75rem 1rem;
+    line-height: 0;
+}
+
+.notes-item:hover .notes-item-delete {
+    opacity: 1;
+}
+
+.notes-item-delete:hover {
+    color: var(--ctp-red);
+}
+
 .notes-item-link {
     display: flex;
+    flex: 1;
+    min-width: 0;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
