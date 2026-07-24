@@ -6,3 +6,9 @@ window.devNote = {
         }
     }
 };
+
+function initLucide() {
+    if (window.lucide) window.lucide.createIcons();
+}
+document.addEventListener('DOMContentLoaded', initLucide);
+document.addEventListener('blazor:navigated', initLucide);

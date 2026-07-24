@@ -1,3 +1,62 @@
+:root {
+    /* Catppuccin Mocha base palette */
+    --ctp-base: #1e1e2e;
+    --ctp-mantle: #181825;
+    --ctp-crust: #11111b;
+    --ctp-surface0: #313244;
+    --ctp-surface1: #45475a;
+    --ctp-surface2: #585b70;
+    --ctp-overlay0: #6c7086;
+    --ctp-subtext0: #a6adc8;
+    --ctp-subtext1: #bac2de;
+    --ctp-text: #cdd6f4;
+    --ctp-mauve: #cba6f7;
+    --ctp-lavender: #b4befe;
+    --ctp-blue: #89b4fa;
+    --ctp-green: #a6e3a1;
+    --ctp-yellow: #f9e2af;
+    --ctp-red: #f38ba8;
+    --ctp-peach: #fab387;
+
+    /* Semantic color tokens */
+    --color-bg: var(--ctp-base);
+    --color-bg-raised: var(--ctp-surface0);
+    --color-bg-subtle: var(--ctp-mantle);
+    --color-bg-interactive: var(--ctp-surface1);
+    --color-border: var(--ctp-surface1);
+    --color-border-focus: var(--ctp-mauve);
+    --color-text: var(--ctp-text);
+    --color-text-muted: var(--ctp-subtext0);
+    --color-text-subtle: var(--ctp-overlay0);
+    --color-accent: var(--ctp-mauve);
+    --color-accent-hover: var(--ctp-lavender);
+    --color-link: var(--ctp-blue);
+    --color-success: var(--ctp-green);
+    --color-warning: var(--ctp-yellow);
+    --color-error: var(--ctp-red);
+
+    /* Typography */
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    /* Layout */
+    --sidebar-width: 220px;
+
+    /* Border radius */
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-glow-accent: 0 0 0 3px rgba(203, 166, 247, 0.25);
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 200ms ease;
+}
+
 *,
 *::before,
 *::after {
@@ -10,10 +69,10 @@ html {
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: var(--font-body);
     line-height: 1.6;
-    color: #1a1a2e;
-    background-color: #f8f9fa;
+    color: var(--color-text);
+    background-color: var(--color-bg);
 }
 
 .app-header {
