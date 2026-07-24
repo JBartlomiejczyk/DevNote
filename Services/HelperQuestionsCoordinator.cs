@@ -6,13 +6,16 @@ public class HelperQuestionsCoordinator
 {
     private readonly WizardStateService _wizardState;
     private readonly IHelperQuestionsService _helperQuestionsService;
+    private readonly ILogger<HelperQuestionsCoordinator> _logger;
 
     public HelperQuestionsCoordinator(
         WizardStateService wizardState,
-        IHelperQuestionsService helperQuestionsService)
+        IHelperQuestionsService helperQuestionsService,
+        ILogger<HelperQuestionsCoordinator> logger)
     {
         _wizardState = wizardState;
         _helperQuestionsService = helperQuestionsService;
+        _logger = logger;
     }
 
     public async Task<HelperQuestionsResult> GetForSectionAsync(
@@ -81,8 +84,9 @@ public class HelperQuestionsCoordinator
             sectionState.Questions = generated.Questions;
             sectionState.LastContextHash = generated.ContextHash;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to generate helper questions for section {Section}", sectionKey);
             sectionState.Error = "Nie udało się wygenerować pytań pomocniczych. Spróbuj ponownie.";
             sectionState.Questions = Array.Empty<string>();
         }
